@@ -1,6 +1,8 @@
 .section {
   position: relative;
+  z-index: 3;
   min-height: 100svh;
+  margin-top: -3px;
   overflow: clip;
   padding: 22svh max(1.25rem, env(safe-area-inset-left)) 0;
   background: #f8f7f4;
