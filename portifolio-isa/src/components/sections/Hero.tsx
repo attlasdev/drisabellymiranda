@@ -5,6 +5,7 @@ import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 
 import { primaryNavigation } from "@/content/navigation";
+import heroPortrait from "../../../public/images/hero/isabely-hero-original.jpg";
 
 import styles from "./hero.module.css";
 
@@ -75,12 +76,13 @@ export function Hero() {
     >
       <Image
         className={styles.portrait}
-        src="/images/hero/isabely-hero-original.jpg"
+        src={heroPortrait}
         alt="Isabely Miranda sorrindo"
-        width={4024}
-        height={6048}
         sizes="(max-width: 767px) 105vw, (max-width: 1023px) 82vw, 60vw"
-        priority
+        placeholder="blur"
+        preload
+        decoding="sync"
+        fetchPriority="high"
       />
 
       <header className={styles.header}>

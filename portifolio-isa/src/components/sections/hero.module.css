@@ -25,8 +25,11 @@
   width: auto;
   max-width: none;
   height: 82svh;
+  backface-visibility: hidden;
   object-fit: contain;
+  transform: translateZ(0);
   user-select: none;
+  will-change: transform;
 }
 
 .header {
