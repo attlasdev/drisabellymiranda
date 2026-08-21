@@ -49,13 +49,13 @@ export function Hero() {
               descriptionRef.current,
               { autoAlpha: 0, y: 20 },
               { autoAlpha: 1, y: 0, duration: 0.65 },
-              1.18,
+              1.04,
             )
             .fromTo(
               ctaRef.current,
               { autoAlpha: 0, y: 16 },
               { autoAlpha: 1, y: 0, duration: 0.6 },
-              1.48,
+              1.34,
             );
         }, heroRef);
 
