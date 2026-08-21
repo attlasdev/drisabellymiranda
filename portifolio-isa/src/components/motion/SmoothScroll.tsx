@@ -38,6 +38,67 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
           effects: false,
         });
 
+        const anchorLinks = Array.from(
+          content.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'),
+        );
+
+        const scrollToHash = (hash: string, smooth = true) => {
+          const targetId = decodeURIComponent(hash.slice(1));
+          const target = targetId ? document.getElementById(targetId) : null;
+
+          if (!target || !content.contains(target)) {
+            return false;
+          }
+
+          smoother.scrollTo(targetId === "inicio" ? 0 : target, smooth, "top top");
+          return true;
+        };
+
+        const handleAnchorClick = (event: MouseEvent) => {
+          if (
+            event.defaultPrevented ||
+            event.button !== 0 ||
+            event.metaKey ||
+            event.ctrlKey ||
+            event.shiftKey ||
+            event.altKey
+          ) {
+            return;
+          }
+
+          const link = event.currentTarget as HTMLAnchorElement;
+          const hash = link.getAttribute("href");
+
+          if (!hash || !scrollToHash(hash)) {
+            return;
+          }
+
+          event.preventDefault();
+          window.history.pushState(null, "", hash);
+        };
+
+        const handleHistoryNavigation = () => {
+          if (window.location.hash) {
+            scrollToHash(window.location.hash);
+          } else {
+            smoother.scrollTo(0, true);
+          }
+        };
+
+        const previousScrollRestoration = window.history.scrollRestoration;
+        window.history.scrollRestoration = "manual";
+
+        const initialHashFrame = window.requestAnimationFrame(() => {
+          if (window.location.hash) {
+            scrollToHash(window.location.hash, false);
+          }
+        });
+
+        anchorLinks.forEach((link) => {
+          link.addEventListener("click", handleAnchorClick);
+        });
+        window.addEventListener("popstate", handleHistoryNavigation);
+
         const hero = content.querySelector<HTMLElement>("#inicio");
         const statement = content.querySelector<HTMLElement>("#essencia");
         const statementHeading = statement?.querySelector<HTMLElement>("h2");
@@ -87,6 +148,12 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
         }
 
         return () => {
+          anchorLinks.forEach((link) => {
+            link.removeEventListener("click", handleAnchorClick);
+          });
+          window.removeEventListener("popstate", handleHistoryNavigation);
+          window.cancelAnimationFrame(initialHashFrame);
+          window.history.scrollRestoration = previousScrollRestoration;
           statementReveal?.scrollTrigger?.kill();
           statementReveal?.kill();
           split?.revert();
