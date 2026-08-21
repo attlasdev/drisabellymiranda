@@ -6,11 +6,11 @@ import styles from "./treatments-intro-section.module.css";
 export function TreatmentsIntroSection() {
   return (
     <section className={styles.section} id="tratamentos" aria-labelledby="tratamentos-title">
-      <h2 className={styles.title} id="tratamentos-title">
+      <h2 className={styles.title} id="tratamentos-title" data-treatment-title>
         Tratamentos
       </h2>
 
-      <p className={styles.subtitle}>
+      <p className={styles.subtitle} data-treatment-subtitle>
         Abordagens <em>pensadas</em> a partir das necessidades e características de cada rosto.
       </p>
 

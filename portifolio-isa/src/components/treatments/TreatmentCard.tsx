@@ -17,6 +17,8 @@ export function TreatmentCard({ alignment, description, image, imageAlt, title }
     <article
       className={`${styles.card} ${alignment === "right" ? styles.right : styles.left}`}
       data-image-state="ready"
+      data-treatment-card
+      data-treatment-alignment={alignment}
     >
       <div className={styles.media}>
         <Image className={styles.image} src={image} alt={imageAlt} fill sizes="(max-width: 1023px) 100vw, 55vw" />

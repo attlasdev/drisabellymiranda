@@ -95,6 +95,85 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       },
     );
 
+    media.add(
+      {
+        motion: "(prefers-reduced-motion: no-preference)",
+        desktop: "(min-width: 64rem)",
+      },
+      (context) => {
+        if (!context.conditions?.motion) {
+          return;
+        }
+
+        const treatments = content.querySelector<HTMLElement>("#tratamentos");
+
+        if (!treatments) {
+          return;
+        }
+
+        const isDesktop = context.conditions.desktop;
+        const title = treatments.querySelector<HTMLElement>("[data-treatment-title]");
+        const subtitle = treatments.querySelector<HTMLElement>(
+          "[data-treatment-subtitle]",
+        );
+        const cards = treatments.querySelectorAll<HTMLElement>("[data-treatment-card]");
+
+        const treatmentsContext = gsap.context(() => {
+          if (title && subtitle) {
+            gsap
+              .timeline({
+                scrollTrigger: {
+                  trigger: title,
+                  start: isDesktop ? "top 86%" : "top 90%",
+                  once: true,
+                  invalidateOnRefresh: true,
+                },
+              })
+              .fromTo(
+                title,
+                { autoAlpha: 0, y: isDesktop ? 26 : 20 },
+                { autoAlpha: 1, y: 0, duration: 0.75, ease: "power3.out" },
+              )
+              .fromTo(
+                subtitle,
+                { autoAlpha: 0, y: isDesktop ? 18 : 14 },
+                { autoAlpha: 1, y: 0, duration: 0.65, ease: "power3.out" },
+                "-=0.38",
+              );
+          }
+
+          cards.forEach((card) => {
+            const direction = card.dataset.treatmentAlignment === "right" ? 1 : -1;
+
+            gsap.fromTo(
+              card,
+              {
+                autoAlpha: 0,
+                scale: 0.985,
+                x: direction * (isDesktop ? 120 : 42),
+              },
+              {
+                autoAlpha: 1,
+                scale: 1,
+                x: 0,
+                duration: isDesktop ? 1.15 : 0.9,
+                ease: "power4.out",
+                clearProps: "transform,opacity,visibility",
+                scrollTrigger: {
+                  trigger: card,
+                  start: isDesktop ? "top 82%" : "top 88%",
+                  once: true,
+                  invalidateOnRefresh: true,
+                },
+              },
+            );
+          });
+        }, treatments);
+
+        return () => treatmentsContext.revert();
+      },
+    );
+
     return () => media.revert();
   }, []);
 
