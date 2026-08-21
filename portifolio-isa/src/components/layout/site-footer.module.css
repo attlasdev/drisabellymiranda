@@ -1,0 +1,344 @@
+.footer {
+  padding: 5rem max(1.25rem, env(safe-area-inset-right))
+    max(1.5rem, env(safe-area-inset-bottom)) max(1.25rem, env(safe-area-inset-left));
+  overflow: clip;
+  background: #f8f7f4;
+  color: #535353;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 92.5rem;
+  margin: 0 auto;
+}
+
+.top {
+  display: grid;
+  gap: 3.75rem;
+}
+
+.brandColumn {
+  width: fit-content;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  min-height: 3rem;
+  touch-action: manipulation;
+}
+
+.monogram {
+  width: 100%;
+  height: auto;
+  filter: brightness(0);
+  opacity: 0.66;
+}
+
+.credentials {
+  margin-top: 1.5rem;
+  color: rgb(83 83 83 / 68%);
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.45455;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.credentials p,
+.label,
+.appointmentsText,
+.signature {
+  margin: 0;
+}
+
+.credentials p + p {
+  margin-top: 0.25rem;
+}
+
+.label {
+  color: rgb(83 83 83 / 68%);
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.navigationList {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navigationLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  color: #535353;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1rem;
+  letter-spacing: 0.04em;
+  touch-action: manipulation;
+}
+
+.appointments {
+  max-width: 33rem;
+}
+
+.appointmentsText {
+  margin-top: 1.25rem;
+  color: #535353;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.locationButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: min(14rem, 100%);
+  min-height: 3.25rem;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #535353;
+  border-radius: 999px;
+  background: transparent;
+  color: #535353;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.locationButton:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.locationArrow {
+  flex: 0 0 auto;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.social {
+  min-width: 0;
+}
+
+.instagramLink {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 3.5rem;
+  margin-top: 0.75rem;
+  color: #535353;
+  font-family: var(--font-inter), Arial, sans-serif;
+  touch-action: manipulation;
+}
+
+.instagramName {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+}
+
+.instagramArrow {
+  flex: 0 0 auto;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.instagramHandle {
+  margin-top: 0.25rem;
+  color: rgb(83 83 83 / 62%);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  overflow-wrap: anywhere;
+}
+
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-top: 4rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgb(83 83 83 / 28%);
+  color: rgb(83 83 83 / 68%);
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.backToTop {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+  color: #535353;
+  font-family: var(--font-inter), Arial, sans-serif;
+  touch-action: manipulation;
+}
+
+.backToTopIcon {
+  display: grid;
+  flex: 0 0 auto;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 1px solid rgb(83 83 83 / 48%);
+  border-radius: 50%;
+}
+
+.backToTopArrow {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.brand:focus-visible,
+.navigationLink:focus-visible,
+.locationButton:focus-visible,
+.instagramLink:focus-visible,
+.backToTop:focus-visible {
+  outline: 2px solid #535353;
+  outline-offset: 0.25rem;
+}
+
+.signature {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5rem;
+  color: #535353;
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-size: clamp(4.75rem, 22.5vw, 6rem);
+  font-weight: 500;
+  line-height: 0.82;
+  letter-spacing: -0.055em;
+  padding-bottom: 0.1em;
+}
+
+.firstName {
+  color: #99a1a4;
+  font-style: italic;
+}
+
+.lastName {
+  align-self: flex-end;
+}
+
+@media (max-width: 47.999rem) {
+  .top {
+    grid-template-columns: minmax(0, 3fr) minmax(7rem, 2fr);
+    column-gap: 1.5rem;
+  }
+
+  .appointments,
+  .social {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .brand,
+  .navigationLink,
+  .instagramLink,
+  .backToTop {
+    transition: color 180ms ease, opacity 180ms ease;
+  }
+
+  .brand:hover {
+    opacity: 0.9;
+  }
+
+  .navigationLink:hover,
+  .instagramLink:hover,
+  .backToTop:hover {
+    color: #252525;
+  }
+
+  .backToTop:hover .backToTopIcon {
+    border-color: #252525;
+  }
+
+  a.locationButton:hover {
+    border-color: #252525;
+    background: #252525;
+    color: #f8f7f4;
+  }
+}
+
+@media (min-width: 48rem) {
+  .top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 5rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .footer {
+    padding: 6rem 11.4583vw 3rem;
+  }
+
+  .top {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.8fr) minmax(0, 1.8fr)
+      minmax(0, 1fr);
+    column-gap: clamp(2rem, 3vw, 5rem);
+  }
+
+  .legal {
+    margin-top: 3.5rem;
+  }
+
+  .signature {
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.04em;
+    margin-top: 4rem;
+    padding-bottom: 0.12em;
+    font-size: clamp(10rem, 11.9vw, 14.25rem);
+    line-height: 0.8;
+    white-space: nowrap;
+  }
+
+  .lastName {
+    align-self: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand,
+  .navigationLink,
+  .locationButton,
+  .instagramLink,
+  .backToTop {
+    transition: none;
+  }
+}

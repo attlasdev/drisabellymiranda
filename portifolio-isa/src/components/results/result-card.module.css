@@ -1,0 +1,133 @@
+.card {
+  width: 100%;
+  max-width: 29.5rem;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: #d9d9d9;
+  color: #535353;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+  background: #d9d9d9;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.content {
+  box-sizing: border-box;
+  min-height: 16.5rem;
+  padding: 1.5rem 1.75rem 2.8125rem;
+}
+
+.title,
+.testimonial p,
+.testimonial footer {
+  margin: 0;
+}
+
+.title {
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.metadata {
+  display: flex;
+  align-items: center;
+  min-height: 1.1875rem;
+  margin-top: 1.5625rem;
+  color: #535353;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.caseCount {
+  width: 3.4375rem;
+  color: rgb(83 83 83 / 70%);
+}
+
+.separator {
+  width: 1px;
+  height: 1rem;
+  margin-right: 0.6875rem;
+  margin-left: 0.75rem;
+  background: #535353;
+}
+
+.resultsLabel {
+  color: #535353;
+}
+
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.75rem;
+  font-size: 1.875rem;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0;
+  transform: translateY(-0.125rem);
+}
+
+.testimonial {
+  display: grid;
+  grid-template-columns: 2.625rem minmax(0, 1fr);
+  min-height: 7rem;
+  box-sizing: border-box;
+  margin: 0.5625rem 0 0;
+  padding: 1.8125rem 1.5rem 1.75rem;
+  border-radius: 0.5rem;
+  background: #f1efeb;
+}
+
+.quoteMark {
+  color: #99a1a4;
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-size: 3rem;
+  font-weight: 500;
+  line-height: 0.9;
+}
+
+.testimonial p,
+.testimonial footer {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.testimonial p {
+  color: #535353;
+  font-size: 0.8125rem;
+  line-height: 1rem;
+}
+
+.testimonial footer {
+  margin-top: 0.5625rem;
+  color: rgb(83 83 83 / 65%);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 0.875rem;
+}
+
+@media (min-width: 64rem) {
+  .card {
+    height: 31.25rem;
+  }
+
+  .media {
+    height: 14.75rem;
+    aspect-ratio: auto;
+  }
+}

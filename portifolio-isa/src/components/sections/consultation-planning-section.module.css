@@ -1,0 +1,168 @@
+.section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  min-height: 100svh;
+  padding: 4rem max(1.25rem, env(safe-area-inset-left));
+  overflow: clip;
+  background: #535353;
+  color: #fffefe;
+}
+
+.profile {
+  width: 100%;
+  max-width: 35rem;
+  margin: 0;
+}
+
+.photoFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 7 / 9;
+  overflow: hidden;
+  border-radius: 0.75rem;
+}
+
+.photo {
+  object-fit: cover;
+  object-position: center bottom;
+  transform: scale(1.1);
+  transform-origin: center bottom;
+}
+
+.caption {
+  margin-top: 1.25rem;
+}
+
+.name,
+.credentials,
+.description p,
+.trajectory {
+  margin: 0;
+}
+
+.name {
+  color: #ffffff;
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.credentials {
+  margin-top: 0.5rem;
+  color: rgb(255 255 255 / 65%);
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.38462;
+  letter-spacing: 0.03em;
+}
+
+.registration {
+  display: block;
+}
+
+.registrationSeparator {
+  display: none;
+}
+
+.content {
+  width: 100%;
+  max-width: 35rem;
+}
+
+.title {
+  margin: 0;
+  color: #fffefe;
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-size: clamp(2.75rem, 12vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.10715;
+  letter-spacing: 0;
+}
+
+.description {
+  max-width: 30.125rem;
+  margin-top: 2.375rem;
+  color: #fffefe;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.description p + p {
+  margin-top: 1.5rem;
+}
+
+.trajectory {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.125rem;
+  width: fit-content;
+  color: rgb(255 255 255 / 85%);
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.trajectory span:first-child {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.arrow {
+  flex: 0 0 auto;
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+@media (min-width: 64rem) {
+  .section {
+    display: block;
+    height: max(100svh, 67.5rem);
+    min-height: 67.5rem;
+    padding: 0;
+  }
+
+  .profile {
+    position: absolute;
+    top: max(14.8148svh, 10rem);
+    left: 11.4583vw;
+    width: 29.1667vw;
+    max-width: none;
+  }
+
+  .registration,
+  .registrationSeparator {
+    display: inline;
+  }
+
+  .photo {
+    transform: translate(-5%, 25%) scale(1.5);
+  }
+
+  .content {
+    position: absolute;
+    top: max(27.7778svh, 18.75rem);
+    left: 51.0417vw;
+    width: 29.1667vw;
+    max-width: none;
+  }
+
+  .title {
+    font-size: clamp(3rem, 2.9167vw, 3.5rem);
+    line-height: 1.10715;
+  }
+
+  .trajectory {
+    position: absolute;
+    top: max(76.0185svh, 51.3125rem);
+    left: 51.0417vw;
+    width: 20.4167vw;
+    min-height: 2.375rem;
+  }
+}

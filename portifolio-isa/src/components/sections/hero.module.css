@@ -1,0 +1,456 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  height: 100svh;
+  min-height: 38rem;
+  overflow: hidden;
+  background: var(--hero-background);
+}
+
+.hero::after {
+  position: absolute;
+  z-index: 1;
+  inset: 48% 0 0;
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, rgb(85 90 93 / 8%) 55%, rgb(85 90 93 / 18%));
+}
+
+.portrait {
+  position: fixed;
+  z-index: 0;
+  top: 42svh;
+  right: -28vw;
+  width: auto;
+  max-width: none;
+  height: 82svh;
+  object-fit: contain;
+  user-select: none;
+}
+
+.header {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 5rem;
+  padding: max(1.25rem, env(safe-area-inset-top)) 1.5rem 0;
+}
+
+.monogram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  min-width: 3rem;
+  min-height: 2.75rem;
+}
+
+.monogramViewport {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1074.226 / 822.263;
+  overflow: hidden;
+}
+
+.monogramAsset {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  user-select: none;
+}
+
+.navigation {
+  display: none;
+}
+
+.mobileMenu {
+  display: none;
+}
+
+.content {
+  position: absolute;
+  z-index: 3;
+  inset: 0 1.5rem;
+}
+
+.title {
+  position: absolute;
+  top: clamp(8.75rem, 22.5svh, 11.5rem);
+  right: 0;
+  left: 0;
+  max-width: 100%;
+  margin: 0;
+  color: var(--hero-foreground);
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-size: clamp(2rem, 8.6vw, 2.35rem);
+  font-weight: 500;
+  line-height: 0.99;
+  letter-spacing: 0;
+}
+
+.mobileTitle,
+.mobileTitle > span,
+.desktopTitle > span {
+  display: block;
+}
+
+.desktopTitle {
+  display: none;
+}
+
+.title em {
+  font-weight: 500;
+}
+
+.description {
+  position: absolute;
+  top: 50svh;
+  left: 0;
+  width: 60%;
+  max-width: 14rem;
+  margin: 0;
+  color: var(--hero-foreground);
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: clamp(0.625rem, 2.65vw, 0.72rem);
+  font-weight: 200;
+  line-height: 1.3;
+}
+
+.desktopBreak {
+  display: none;
+}
+
+.mobileDescriptionBreak {
+  display: none;
+}
+
+.cta {
+  position: absolute;
+  bottom: max(2.25rem, env(safe-area-inset-bottom));
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(15.5rem, 75vw);
+  min-height: 2.75rem;
+  margin: 0;
+  border: 1.5px solid var(--hero-muted);
+  border-radius: 1.75rem;
+  color: var(--hero-muted);
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1rem;
+  letter-spacing: 0.04em;
+  transform: translateX(-50%);
+  transition: color 180ms ease, background-color 180ms ease;
+}
+
+.cta:focus-visible,
+.navigationLink:focus-visible,
+.monogram:focus-visible {
+  outline: 2px solid var(--hero-foreground);
+  outline-offset: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cta:hover {
+    color: var(--hero-background);
+    background: var(--hero-muted);
+  }
+}
+
+@media (max-width: 47.999rem) {
+  .hero {
+    height: 100vh;
+    height: 100svh;
+    min-height: 0;
+  }
+
+  .hero::after {
+    display: none;
+  }
+
+  .portrait {
+    position: absolute;
+    z-index: 0;
+    top: clamp(224px, 39.4549svh, 333px);
+    right: auto;
+    left: 34.359vw;
+    display: block;
+    width: 104.1026vw;
+    max-width: none;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .header {
+    position: absolute;
+    inset: 0;
+    display: block;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .monogram {
+    position: absolute;
+    top: clamp(40px, 7.5svh, 64px);
+    left: clamp(32px, 10.5128vw, 41px);
+    width: clamp(34px, 10.0513vw, 39.2px);
+    min-width: 0;
+    height: clamp(26px, 7.6923vw, 30px);
+    min-height: 0;
+  }
+
+  .monogramViewport {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .mobileMenu {
+    position: absolute;
+    top: calc(clamp(40px, 7.5svh, 64px) - 7px);
+    right: calc(clamp(32px, 10.5128vw, 41px) - 8px);
+    display: block;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    color: inherit;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .mobileMenuIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: clamp(26px, 7.1795vw, 28px);
+    max-width: none;
+    height: clamp(13.4px, 3.6923vw, 14.4px);
+    transform: translate(-50%, -50%);
+  }
+
+  .content {
+    inset: 0;
+    padding-top: clamp(145px, 22svh, 186px);
+    padding-left: clamp(32px, 10.5128vw, 41px);
+  }
+
+  .title {
+    position: static;
+    width: clamp(242px, 75.8013vw, 295.625px);
+    max-width: none;
+    height: auto;
+    font-size: clamp(35px, 10.4008vw, 40.563px);
+    font-weight: 400;
+    line-height: clamp(38px, 11.2821vw, 44px);
+  }
+
+  .title em {
+    color: var(--hero-muted);
+    font-weight: 500;
+  }
+
+  .description {
+    position: static;
+    width: clamp(196px, 56.9231vw, 222px);
+    max-width: none;
+    height: auto;
+    margin-top: clamp(16px, 2.25svh, 20px);
+    font-size: clamp(12.75px, 3.689vw, 14.387px);
+    font-weight: 300;
+    line-height: clamp(16.5px, 4.7138vw, 18.384px);
+  }
+
+  .mobileDescriptionBreak {
+    display: initial;
+  }
+
+  .cta {
+    top: auto;
+    bottom: max(24px, calc(6.5166svh + env(safe-area-inset-bottom)));
+    left: 50%;
+    width: clamp(252px, 76.7215vw, 299.214px);
+    max-width: none;
+    height: clamp(52px, 15.1282vw, 59px);
+    min-height: 0;
+    border-width: clamp(1.3px, 0.4051vw, 1.58px);
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgb(85 90 93 / 12%);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    font-size: clamp(13.5px, 4.0523vw, 15.804px);
+    line-height: clamp(15px, 4.3223vw, 16.857px);
+    letter-spacing: clamp(0.54px, 0.1621vw, 0.6321px);
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 48rem) {
+  .hero::after {
+    display: none;
+  }
+
+  .portrait {
+    position: absolute;
+    top: -4%;
+    right: -9%;
+    height: 139%;
+  }
+
+  .header {
+    padding-inline: 5.9375vw;
+  }
+
+  .navigation {
+    display: flex;
+    align-items: center;
+  }
+
+  .navigationLink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(6.75rem, 8.1771vw, 9.8125rem);
+    min-height: 2.75rem;
+    color: var(--hero-foreground);
+    font-family: var(--font-inter), Arial, sans-serif;
+    font-size: clamp(0.6875rem, 0.6771vw, 0.8125rem);
+    font-weight: 500;
+    line-height: 1rem;
+    letter-spacing: 0.04em;
+  }
+
+  .navigationLink + .navigationLink {
+    margin-left: clamp(-0.9375rem, -0.78125vw, -0.625rem);
+  }
+
+  .content {
+    inset: auto;
+    right: auto;
+    bottom: auto;
+    left: 5.9375vw;
+    top: 24.4444svh;
+    width: 43.8542vw;
+  }
+
+  .title {
+    position: static;
+    max-width: none;
+    font-size: clamp(3.25rem, 3.75vw, 4.5rem);
+    line-height: 1.083333;
+  }
+
+  .mobileTitle {
+    display: none;
+  }
+
+  .desktopTitle {
+    display: block;
+  }
+
+  .description {
+    position: static;
+    width: 31.25vw;
+    max-width: 37.5rem;
+    margin-top: 3.8889svh;
+    font-size: clamp(0.9375rem, 1.0417vw, 1.25rem);
+    line-height: 1.5;
+  }
+
+  .desktopBreak {
+    display: initial;
+  }
+
+  .cta {
+    position: static;
+    width: 14.7917vw;
+    max-width: 17.75rem;
+    min-width: 14rem;
+    height: 5.1852svh;
+    min-height: 3.5rem;
+    margin-top: 3.9815svh;
+    transform: none;
+  }
+}
+
+@media (min-width: 64rem) {
+  .header {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .monogram {
+    position: absolute;
+    top: 7.4074svh;
+    left: 5.9375vw;
+    width: clamp(2.875rem, 2.8125vw, 3.375rem);
+    min-width: 0;
+    min-height: 0;
+    transform: translateY(-50%);
+  }
+
+  .navigation {
+    position: absolute;
+    top: 6.2963svh;
+    left: 19.4271vw;
+    width: 30.3646vw;
+    height: 2.2222svh;
+  }
+
+  .portrait {
+    top: -8.3svh;
+    right: 0;
+    height: 145svh;
+  }
+}
+
+@media (min-width: 120rem) and (min-height: 67.5rem) {
+  .navigationLink {
+    width: 9.8125rem;
+    min-height: 1.5rem;
+    font-size: 0.8125rem;
+  }
+
+  .navigationLink + .navigationLink {
+    margin-left: -0.9375rem;
+  }
+
+  .content {
+    width: 52.625rem;
+  }
+
+  .title {
+    font-size: 4.5rem;
+    line-height: 4.875rem;
+  }
+
+  .description {
+    width: 37.5rem;
+    font-size: 1.25rem;
+    line-height: 1.875rem;
+  }
+
+  .cta {
+    width: 17.75rem;
+    height: 3.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta {
+    transition: none;
+  }
+}

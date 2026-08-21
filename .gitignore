@@ -1,0 +1,29 @@
+# Dependências e saídas de build
+**/node_modules/
+**/.next/
+**/out/
+**/build/
+
+# Arquivos locais e logs de desenvolvimento
+**/.env*
+!**/.env.example
+**/*.log
+**/*.tsbuildinfo
+**/next-env.d.ts
+
+# Evidências temporárias de validação
+tmp/
+**/tmp/
+**/test-results/
+**/playwright-report/
+
+# Ferramentas locais e arquivos-fonte privados
+.claude/
+**/.claude/
+FOTOS - PACIENTES/
+FOTOS ISA/
+
+# Sistema operacional e editor
+.DS_Store
+Thumbs.db
+**/*.swp

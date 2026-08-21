@@ -1,0 +1,113 @@
+.section {
+  position: relative;
+  min-height: 100svh;
+  overflow: clip;
+  padding: 22svh max(1.25rem, env(safe-area-inset-left)) 0;
+  background: #f8f7f4;
+  color: #535353;
+}
+
+.title {
+  width: 100%;
+  margin: 0;
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-size: clamp(3rem, 13vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.10715;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.subtitle {
+  max-width: 26.625rem;
+  margin: 1.25rem auto 0;
+  color: #535353;
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.125rem;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.subtitle em {
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-weight: 400;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: clamp(4rem, 5vw, 6rem);
+  margin-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (max-width: 63.999rem) {
+  .title {
+    font-size: clamp(2.5rem, 11.25vw, 3rem);
+    line-height: 1.08;
+  }
+
+  .subtitle {
+    max-width: 20.75rem;
+    margin-top: 0.875rem;
+    color: rgb(83 83 83 / 84%);
+    font-size: clamp(0.875rem, 3.85vw, 0.9375rem);
+    line-height: 1.35;
+  }
+
+  .cards {
+    width: 100vw;
+    gap: 4rem;
+    margin-top: 5.25rem;
+    margin-left: calc(50% - 50vw);
+  }
+}
+
+@media (min-width: 64rem) {
+  .section {
+    padding: 0;
+  }
+
+  .cards {
+    width: 100vw;
+    gap: min(5vw, 6rem);
+    margin-top: 0;
+    padding-top: 51.9444svh;
+    padding-bottom: 6rem;
+  }
+
+  .title {
+    position: absolute;
+    top: 24.6296svh;
+    left: 26.9792vw;
+    width: 46.0417vw;
+    height: 9.4444svh;
+    font-size: clamp(3rem, 2.9167vw, 3.5rem);
+    line-height: 3.875rem;
+  }
+
+  .subtitle {
+    position: absolute;
+    top: 32.5926svh;
+    left: 38.5938vw;
+    width: 22.1875vw;
+    height: 9.4444svh;
+    margin: 0;
+  }
+}
+
+@media (min-width: 120rem) and (min-height: 67.5rem) {
+  .title {
+    width: 55.25rem;
+    height: 6.375rem;
+    font-size: 3.5rem;
+  }
+
+  .subtitle {
+    width: 26.625rem;
+    height: 6.375rem;
+  }
+}
