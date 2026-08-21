@@ -344,8 +344,8 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
                   autoAlpha: 1,
                   y: 0,
                   scale: 1,
-                  duration: isDesktop ? 0.82 : 0.72,
-                  stagger: isDesktop ? 0.11 : 0,
+                  duration: isDesktop ? 1.08 : 0.86,
+                  stagger: isDesktop ? 0.17 : 0,
                   ease: "power3.out",
                   onComplete: () => {
                     gsap.set(row, { clearProps: "transform,opacity,visibility" });
@@ -415,13 +415,13 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
             }
 
             if (list && items.length > 0 && isDesktop) {
-              gsap.set(items, { autoAlpha: 0, y: 18 });
+              gsap.set(items, { autoAlpha: 0, y: 22 });
 
               gsap.to(items, {
                   autoAlpha: 1,
                   y: 0,
-                  duration: 0.58,
-                  stagger: 0.075,
+                  duration: 0.7,
+                  stagger: 0.11,
                   ease: "power3.out",
                   onComplete: () => {
                     gsap.set(items, { clearProps: "transform,opacity,visibility" });
@@ -443,7 +443,7 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
                   {
                     autoAlpha: 1,
                     y: 0,
-                    duration: 0.58,
+                    duration: 0.65,
                     ease: "power3.out",
                     clearProps: "transform,opacity,visibility",
                     scrollTrigger: {
