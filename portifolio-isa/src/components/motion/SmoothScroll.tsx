@@ -68,6 +68,7 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
         let statementReveal: gsap.core.Tween | null = null;
 
         if (split && statementHeading) {
+          gsap.set(split.masks, { overflowClipMargin: "0.25em" });
           gsap.set(split.words, { yPercent: 135, autoAlpha: 0 });
 
           statementReveal = gsap.to(split.words, {
