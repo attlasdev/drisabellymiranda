@@ -1,4 +1,5 @@
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { ConsultationPlanningSection } from "@/components/sections/ConsultationPlanningSection";
 import { ContactCtaSection } from "@/components/sections/ContactCtaSection";
 import { FaqSection } from "@/components/sections/FaqSection";
@@ -9,7 +10,7 @@ import { TreatmentsIntroSection } from "@/components/sections/TreatmentsIntroSec
 
 export default function Home() {
   return (
-    <>
+    <SmoothScroll>
       <main>
         <Hero />
         <StatementSection />
@@ -20,6 +21,6 @@ export default function Home() {
         <ContactCtaSection />
       </main>
       <SiteFooter />
-    </>
+    </SmoothScroll>
   );
 }
