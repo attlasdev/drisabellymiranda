@@ -7,7 +7,7 @@ export function StatementSection() {
   return (
     <section className={styles.section} id="essencia" aria-labelledby="essencia-title">
       <h2 className={styles.statement} id="essencia-title" aria-label={statement}>
-        <span aria-hidden="true">
+        <span aria-hidden="true" data-statement-copy>
           <span className={styles.line}>HARMONIZAR NÃO É SOBRE TRANSFORMAR,</span>
           <span className={styles.line}>
             MAS SIM SABER O QUE <span className={styles.highlight}>PRESERVAR.</span>

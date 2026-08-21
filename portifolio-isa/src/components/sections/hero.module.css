@@ -1,5 +1,6 @@
 .hero {
   position: relative;
+  z-index: 1;
   isolation: isolate;
   height: 100svh;
   min-height: 38rem;
