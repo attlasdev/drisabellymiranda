@@ -12,7 +12,7 @@ export function SiteFooter() {
     <footer className={styles.footer} id="rodape" aria-label="Rodapé">
       <div className={styles.inner}>
         <div className={styles.top}>
-          <div className={styles.brandColumn}>
+          <div className={styles.brandColumn} data-footer-group>
             <a
               className={styles.brand}
               href="#inicio"
@@ -35,7 +35,11 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <nav className={styles.footerNavigation} aria-label="Navegação do rodapé">
+          <nav
+            className={styles.footerNavigation}
+            aria-label="Navegação do rodapé"
+            data-footer-group
+          >
             <p className={styles.label}>{footerContent.navigationLabel}</p>
             <ul className={styles.navigationList}>
               {primaryNavigation.map((item) => (
@@ -48,7 +52,11 @@ export function SiteFooter() {
             </ul>
           </nav>
 
-          <div className={styles.appointments} aria-label="Informações sobre atendimentos">
+          <div
+            className={styles.appointments}
+            aria-label="Informações sobre atendimentos"
+            data-footer-group
+          >
             <p className={styles.label}>{footerContent.appointmentsLabel}</p>
             <p className={styles.appointmentsText}>{footerContent.appointmentsText}</p>
 
@@ -83,7 +91,7 @@ export function SiteFooter() {
             )}
           </div>
 
-          <div className={styles.social} aria-label="Rede social">
+          <div className={styles.social} aria-label="Rede social" data-footer-group>
             <p className={styles.label}>{footerContent.socialLabel}</p>
             <a
               className={styles.instagramLink}

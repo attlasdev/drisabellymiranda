@@ -5,8 +5,10 @@ import styles from "./results-section.module.css";
 export function ResultsSection() {
   return (
     <section className={styles.section} id="resultados" aria-labelledby="resultados-title">
-      <p className={styles.eyebrow}>Resultados reais</p>
-      <h2 className={styles.title} id="resultados-title">
+      <p className={styles.eyebrow} data-results-eyebrow>
+        Resultados reais
+      </p>
+      <h2 className={styles.title} id="resultados-title" data-results-title>
         Resultados que refletem
         <br className={styles.desktopTitleBreak} />{" "}
         técnica, naturalidade e cuidado.

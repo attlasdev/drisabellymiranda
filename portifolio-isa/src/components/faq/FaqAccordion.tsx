@@ -21,7 +21,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
         const answerId = `faq-answer-${index + 1}`;
 
         return (
-          <article className={styles.item} key={item.question}>
+          <article className={styles.item} key={item.question} data-faq-item>
             <h3 className={styles.heading}>
               <button
                 className={styles.trigger}
@@ -44,13 +44,15 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
             </h3>
 
             <div
-              className={styles.answer}
+              className={`${styles.answer} ${isOpen ? styles.answerOpen : ""}`}
               id={answerId}
               role="region"
               aria-labelledby={questionId}
-              hidden={!isOpen}
+              aria-hidden={!isOpen}
             >
-              <p>{item.answer}</p>
+              <div className={styles.answerInner}>
+                <p>{item.answer}</p>
+              </div>
             </div>
           </article>
         );

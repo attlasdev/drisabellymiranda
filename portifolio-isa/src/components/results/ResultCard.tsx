@@ -4,7 +4,7 @@ import styles from "./result-card.module.css";
 
 export function ResultCard({ title, cases, testimonial, author, image }: ResultCardContent) {
   return (
-    <article className={styles.card}>
+    <article className={styles.card} data-result-card>
       <div className={styles.media}>
         {image ? (
           <Image

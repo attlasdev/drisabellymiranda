@@ -175,6 +175,390 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       },
     );
 
+    media.add(
+      {
+        motion: "(prefers-reduced-motion: no-preference)",
+        desktop: "(min-width: 64rem)",
+        wide: "(min-width: 90rem)",
+      },
+      (context) => {
+        if (!context.conditions?.motion) {
+          return;
+        }
+
+        const isDesktop = Boolean(context.conditions.desktop);
+        const consultation = content.querySelector<HTMLElement>("#sobre");
+        const results = content.querySelector<HTMLElement>("#resultados");
+        const faq = content.querySelector<HTMLElement>("#faq");
+        const contact = content.querySelector<HTMLElement>("#contato");
+        const footer = content.querySelector<HTMLElement>("#rodape");
+
+        const remainingMotionContext = gsap.context(() => {
+          if (consultation) {
+            const title = consultation.querySelector<HTMLElement>(
+              "[data-consultation-title]",
+            );
+            const description = consultation.querySelector<HTMLElement>(
+              "[data-consultation-description]",
+            );
+            const trajectory = consultation.querySelector<HTMLElement>(
+              "[data-consultation-trajectory]",
+            );
+
+            if (title && description) {
+              const consultationTimeline = gsap
+                .timeline({
+                  scrollTrigger: {
+                    trigger: title,
+                    start: isDesktop ? "top 84%" : "top 90%",
+                    once: true,
+                    invalidateOnRefresh: true,
+                  },
+                })
+                .fromTo(
+                  title,
+                  { autoAlpha: 0, y: isDesktop ? 28 : 20 },
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.78,
+                    ease: "power3.out",
+                    clearProps: "transform,opacity,visibility",
+                  },
+                )
+                .fromTo(
+                  description,
+                  { autoAlpha: 0, y: isDesktop ? 22 : 16 },
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.72,
+                    ease: "power3.out",
+                    clearProps: "transform,opacity,visibility",
+                  },
+                  "-=0.42",
+                );
+
+              if (trajectory && isDesktop) {
+                consultationTimeline.fromTo(
+                  trajectory,
+                  { autoAlpha: 0, y: 16 },
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.62,
+                    ease: "power3.out",
+                    clearProps: "transform,opacity,visibility",
+                  },
+                  "-=0.4",
+                );
+              }
+            }
+
+            if (trajectory && !isDesktop) {
+              gsap.fromTo(
+                trajectory,
+                { autoAlpha: 0, y: 16 },
+                {
+                  autoAlpha: 1,
+                  y: 0,
+                  duration: 0.62,
+                  ease: "power3.out",
+                  clearProps: "transform,opacity,visibility",
+                  scrollTrigger: {
+                    trigger: trajectory,
+                    start: "top 92%",
+                    once: true,
+                    invalidateOnRefresh: true,
+                  },
+                },
+              );
+            }
+          }
+
+          if (results) {
+            const eyebrow = results.querySelector<HTMLElement>("[data-results-eyebrow]");
+            const title = results.querySelector<HTMLElement>("[data-results-title]");
+            const cards = Array.from(
+              results.querySelectorAll<HTMLElement>("[data-result-card]"),
+            );
+
+            if (eyebrow && title) {
+              gsap
+                .timeline({
+                  scrollTrigger: {
+                    trigger: eyebrow,
+                    start: isDesktop ? "top 86%" : "top 90%",
+                    once: true,
+                    invalidateOnRefresh: true,
+                  },
+                })
+                .fromTo(
+                  eyebrow,
+                  { autoAlpha: 0, y: 14 },
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.52,
+                    ease: "power3.out",
+                    clearProps: "transform,opacity,visibility",
+                  },
+                )
+                .fromTo(
+                  title,
+                  { autoAlpha: 0, y: isDesktop ? 28 : 20 },
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.78,
+                    ease: "power3.out",
+                    clearProps: "transform,opacity,visibility",
+                  },
+                  "-=0.3",
+                );
+            }
+
+            const rows = cards.reduce<HTMLElement[][]>((groups, card) => {
+              const currentRow = groups.at(-1);
+
+              if (
+                currentRow &&
+                Math.abs(currentRow[0].offsetTop - card.offsetTop) < 2
+              ) {
+                currentRow.push(card);
+              } else {
+                groups.push([card]);
+              }
+
+              return groups;
+            }, []);
+
+            rows.forEach((row) => {
+              gsap.set(row, {
+                autoAlpha: 0,
+                y: isDesktop ? 34 : 24,
+                scale: 0.99,
+              });
+
+              gsap.to(row, {
+                  autoAlpha: 1,
+                  y: 0,
+                  scale: 1,
+                  duration: isDesktop ? 0.82 : 0.72,
+                  stagger: isDesktop ? 0.11 : 0,
+                  ease: "power3.out",
+                  onComplete: () => {
+                    gsap.set(row, { clearProps: "transform,opacity,visibility" });
+                  },
+                  scrollTrigger: {
+                    trigger: row[0],
+                    start: isDesktop ? "top 84%" : "top 90%",
+                    once: true,
+                    invalidateOnRefresh: true,
+                  },
+              });
+            });
+          }
+
+          if (faq) {
+            const eyebrow = faq.querySelector<HTMLElement>("[data-faq-eyebrow]");
+            const title = faq.querySelector<HTMLElement>("[data-faq-title]");
+            const description = faq.querySelector<HTMLElement>("[data-faq-description]");
+            const list = faq.querySelector<HTMLElement>("[data-faq-list]");
+            const items = Array.from(faq.querySelectorAll<HTMLElement>("[data-faq-item]"));
+
+            if (eyebrow && title && description) {
+              gsap
+                .timeline({
+                  scrollTrigger: {
+                    trigger: eyebrow,
+                    start: isDesktop ? "top 86%" : "top 90%",
+                    once: true,
+                    invalidateOnRefresh: true,
+                  },
+                })
+                .fromTo(
+                  eyebrow,
+                  { autoAlpha: 0, y: 14 },
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.5,
+                    ease: "power3.out",
+                    clearProps: "transform,opacity,visibility",
+                  },
+                )
+                .fromTo(
+                  title,
+                  { autoAlpha: 0, y: isDesktop ? 26 : 20 },
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.75,
+                    ease: "power3.out",
+                    clearProps: "transform,opacity,visibility",
+                  },
+                  "-=0.3",
+                )
+                .fromTo(
+                  description,
+                  { autoAlpha: 0, y: 18 },
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.65,
+                    ease: "power3.out",
+                    clearProps: "transform,opacity,visibility",
+                  },
+                  "-=0.38",
+                );
+            }
+
+            if (list && items.length > 0 && isDesktop) {
+              gsap.set(items, { autoAlpha: 0, y: 18 });
+
+              gsap.to(items, {
+                  autoAlpha: 1,
+                  y: 0,
+                  duration: 0.58,
+                  stagger: 0.075,
+                  ease: "power3.out",
+                  onComplete: () => {
+                    gsap.set(items, { clearProps: "transform,opacity,visibility" });
+                  },
+                  scrollTrigger: {
+                    trigger: list,
+                    start: "top 86%",
+                    once: true,
+                    invalidateOnRefresh: true,
+                  },
+              });
+            }
+
+            if (!isDesktop) {
+              items.forEach((item) => {
+                gsap.fromTo(
+                  item,
+                  { autoAlpha: 0, y: 16 },
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.58,
+                    ease: "power3.out",
+                    clearProps: "transform,opacity,visibility",
+                    scrollTrigger: {
+                      trigger: item,
+                      start: "top 92%",
+                      once: true,
+                      invalidateOnRefresh: true,
+                    },
+                  },
+                );
+              });
+            }
+          }
+
+          if (contact) {
+            const eyebrow = contact.querySelector<HTMLElement>("[data-contact-eyebrow]");
+            const title = contact.querySelector<HTMLElement>("[data-contact-title]");
+            const description = contact.querySelector<HTMLElement>(
+              "[data-contact-description]",
+            );
+            const button = contact.querySelector<HTMLElement>("[data-contact-button]");
+
+            if (eyebrow && title && description && button) {
+              gsap
+                .timeline({
+                  scrollTrigger: {
+                    trigger: eyebrow,
+                    start: isDesktop ? "top 88%" : "top 90%",
+                    once: true,
+                    invalidateOnRefresh: true,
+                  },
+                })
+                .fromTo(
+                  eyebrow,
+                  { autoAlpha: 0, y: 14 },
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.5,
+                    ease: "power3.out",
+                    clearProps: "transform,opacity,visibility",
+                  },
+                )
+                .fromTo(
+                  title,
+                  { autoAlpha: 0, y: isDesktop ? 30 : 22 },
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power3.out",
+                    clearProps: "transform,opacity,visibility",
+                  },
+                  "-=0.32",
+                )
+                .fromTo(
+                  description,
+                  { autoAlpha: 0, y: 18 },
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.66,
+                    ease: "power3.out",
+                    clearProps: "transform,opacity,visibility",
+                  },
+                  "-=0.4",
+                )
+                .fromTo(
+                  button,
+                  { autoAlpha: 0, y: 16 },
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.62,
+                    ease: "power3.out",
+                    clearProps: "transform,opacity,visibility",
+                  },
+                  "-=0.38",
+                );
+            }
+          }
+
+          if (footer) {
+            const groups = footer.querySelectorAll<HTMLElement>("[data-footer-group]");
+
+            if (groups.length > 0) {
+              gsap.set(groups, {
+                autoAlpha: 0,
+                y: isDesktop ? 24 : 18,
+              });
+
+              gsap.to(groups, {
+                  autoAlpha: 1,
+                  y: 0,
+                  duration: 0.72,
+                  stagger: isDesktop ? 0.12 : 0.09,
+                  ease: "power3.out",
+                  onComplete: () => {
+                    gsap.set(groups, { clearProps: "transform,opacity,visibility" });
+                  },
+                  scrollTrigger: {
+                    trigger: groups[0],
+                    start: isDesktop ? "top 88%" : "top 92%",
+                    once: true,
+                    invalidateOnRefresh: true,
+                  },
+              });
+            }
+          }
+        }, content);
+
+        return () => remainingMotionContext.revert();
+      },
+    );
+
     return () => media.revert();
   }, []);
 

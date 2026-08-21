@@ -33,13 +33,13 @@ export function ConsultationPlanningSection() {
       </figure>
 
       <div className={styles.content}>
-        <h2 className={styles.title} id="consulta-title">
+        <h2 className={styles.title} id="consulta-title" data-consultation-title>
           Consulta e
           <br />
           planejamento
         </h2>
 
-        <div className={styles.description}>
+        <div className={styles.description} data-consultation-description>
           <p>
             Na primeira consulta, eu quero entender você antes de pensar em qualquer procedimento.
             Observo o rosto como um todo, suas proporções, simetrias e características individuais,
@@ -53,7 +53,11 @@ export function ConsultationPlanningSection() {
         </div>
       </div>
 
-      <p className={styles.trajectory} aria-label="Conheça minha trajetória, em breve">
+      <p
+        className={styles.trajectory}
+        aria-label="Conheça minha trajetória, em breve"
+        data-consultation-trajectory
+      >
         <span>Conheça minha trajetória</span>
         <ArrowUpRightIcon className={styles.arrow} size={28} aria-hidden="true" />
       </p>

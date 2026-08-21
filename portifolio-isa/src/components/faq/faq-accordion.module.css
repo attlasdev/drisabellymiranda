@@ -52,6 +52,7 @@
   border: 1px solid rgb(83 83 83 / 48%);
   border-radius: 50%;
   color: #535353;
+  transition: border-color 300ms ease, background-color 300ms ease;
 }
 
 .icon svg {
@@ -62,6 +63,7 @@
   stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .iconOpen {
@@ -74,15 +76,32 @@
 }
 
 .answer {
+  display: grid;
+  grid-template-rows: 0fr;
   max-width: 43rem;
-  padding: 0 4.25rem 1.75rem 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    grid-template-rows 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 280ms ease,
+    visibility 0s linear 500ms;
 }
 
-.answer[hidden] {
-  display: none;
+.answerOpen {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.answerInner {
+  min-height: 0;
+  overflow: hidden;
 }
 
 .answer p {
+  padding: 0 4.25rem 1.75rem 0;
   color: rgb(83 83 83 / 76%);
   font-family: var(--font-inter), Arial, sans-serif;
   font-size: 0.9375rem;
@@ -112,11 +131,16 @@
   }
 
   .answer {
+    padding-bottom: 0;
+  }
+
+  .answer p {
     padding-bottom: 2rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .answer,
   .icon,
   .icon svg {
     transition: none;
