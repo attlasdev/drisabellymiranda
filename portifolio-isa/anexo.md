@@ -36,10 +36,10 @@ Atualizar este briefing quando uma decisão permanente de identidade, layout, co
 - Implementação mobile-first, sem overflow horizontal.
 - Em telas pequenas, preservar hierarquia, legibilidade e conteúdo; não forçar as mesmas quebras ou coordenadas absolutas do desktop.
 - Validar mudanças relevantes em `1920 × 1080` e pelo menos em um viewport móvel próximo de `390 × 844`.
-- Suportar `prefers-reduced-motion` quando as animações forem implementadas.
-- O desktop está visualmente validado. A responsividade atual funciona tecnicamente, mas a aprovação editorial completa do mobile ainda é a próxima etapa do projeto.
-- O roteiro obrigatório da próxima sessão está em `docs/handoff/proxima-sessao-gsap-desktop.md`.
-- A validação estática mobile foi concluída em `360`, `390` e `430 px` em `2026-08-21`, sem overflow horizontal. A etapa seguinte começa pelas animações GSAP no desktop.
+- As animações implementadas suportam `prefers-reduced-motion` e devem continuar íntegras nesse modo.
+- Desktop e revisão estática mobile foram validados; preservar os layouts aprovados.
+- O handoff técnico atual está em `docs/handoff/sessao-animacoes-concluida.md`.
+- A camada de animações GSAP da home foi concluída em `2026-08-21`.
 
 ## 4. Paleta aprovada
 
@@ -197,7 +197,7 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 - Os títulos atuais são Preenchimento labial, Toxina Botulínica, Rinomodelação, Full Face, Bioestimulador e Outros tratamentos.
 - Cada área de mídia mede `472 × 236 px` e usa os comparativos aprovados em `public/images/results/`.
 - A estrutura e os conteúdos provisórios dos cards ficam centralizados em `src/content/results.ts`; o componente reutilizável fica em `src/components/results/ResultCard.tsx`.
-- Implementação estática concluída e validada. As animações desta e das futuras seções só serão planejadas após os parâmetros do usuário, exclusivamente com GSAP.
+- Implementação estática e animação de entrada dos cards concluídas e validadas.
 - Especificação completa: `docs/design/section-5-spec.md`.
 - Mobile aprovado: título fluido entre `40` e `44 px`, distribuído em quatro linhas; cards preservados sem alterações.
 
@@ -242,17 +242,18 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 - Especificação completa: `docs/design/section-8-footer-spec.md`.
 - Mobile aprovado: abaixo de `768 px`, marca/credenciais e navegação ficam lado a lado; Atendimentos e Social ocupam a largura completa abaixo. Altura medida em `390 px`: `1054 px`.
 
-## 8. Animação prevista
+## 8. Sistema de animação aprovado
 
-- A seção 3 será uma das experiências principais do site e terá animação completa.
-- Os layouts estáticos desktop e mobile estão aprovados.
-- Usar exclusivamente GSAP.
-- A próxima etapa deve planejar e validar as animações primeiro no desktop, usando `1920 × 1080 px` como frame principal. A adaptação mobile vem depois da aprovação desktop.
-- O conceito já informado para os cards de Tratamentos é alternado: primeiro card entra da direita para a esquerda, segundo da esquerda para a direita e assim sucessivamente.
-- Gatilhos de scroll, pinning, scrub, duração e easing ainda não foram definidos pelo usuário.
-- Não antecipar comportamentos: ouvir, devolver entendimento e plano, aguardar autorização e somente então implementar.
-- A seção deve permanecer legível e funcional quando a animação estiver desativada.
-- Usar `gsap.matchMedia()` para separar desktop, mobile e `prefers-reduced-motion`; durante a primeira implementação desktop, o mobile permanece estático.
+- A camada GSAP da home está concluída; detalhes e aprendizados estão em `docs/handoff/sessao-animacoes-concluida.md`.
+- Usar exclusivamente GSAP, ScrollTrigger, ScrollSmoother e SplitText; não adicionar outra biblioteca de movimento.
+- Desktop usa ScrollSmoother; o Hero é pinado na transição para a frase de posicionamento.
+- Entradas são acionadas uma única vez, não usam scrub e permanecem visíveis quando o usuário volta a página.
+- Hero usa cascata por camadas; seção 2 usa split por palavras; Tratamentos alterna as direções dos cards.
+- Consulta anima somente o conteúdo da direita; Resultados anima cards inteiros por linha; FAQ anima perguntas em sequência e abre respostas suavemente.
+- CTA usa cascata completa; Footer anima somente os grupos acima da divisória.
+- Usar `gsap.matchMedia()` para desktop, mobile e `prefers-reduced-motion`; a página deve permanecer legível e funcional sem movimento.
+- Links internos sob ScrollSmoother devem usar `smoother.scrollTo`; não delegar esses saltos ao comportamento nativo da âncora.
+- Não alterar timings, direções ou escopos aprovados sem novo pedido do usuário.
 
 ## 9. Acessibilidade e qualidade
 
@@ -267,7 +268,6 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 ## 10. Pendências conhecidas
 
 - Inclusão de outros procedimentos além dos três cards de validação.
-- Planejamento e implementação das animações GSAP, começando pela validação desktop conforme `docs/handoff/proxima-sessao-gsap-desktop.md`.
 - Substituição futura das sete perguntas e respostas provisórias do FAQ pela copy final; o sistema visual atual está aprovado.
 - Substituição futura da copy provisória do CTA e inclusão do número oficial do WhatsApp.
 - Inclusão futura do link oficial do Google Maps em `Como chegar`.
@@ -288,4 +288,4 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 6. Atualizar este arquivo quando surgir uma nova regra permanente do sistema visual.
 7. Atualizar a memória curta da raiz ao concluir um novo marco.
 8. A estrutura estática planejada da home está completa e o desktop está aprovado. Preservar essas decisões durante a revisão mobile.
-9. A validação estática mobile foi concluída. A próxima tarefa obrigatória é planejar e validar GSAP primeiro no desktop, preservando os layouts aprovados e aguardando o briefing do usuário antes de cada implementação.
+9. A validação estática mobile e a camada de animações GSAP foram concluídas. Preservar o marco atual e consultar `docs/handoff/sessao-animacoes-concluida.md` antes de alterar movimento ou navegação interna.

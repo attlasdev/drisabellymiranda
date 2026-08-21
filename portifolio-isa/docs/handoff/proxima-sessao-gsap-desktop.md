@@ -2,7 +2,9 @@
 
 Última atualização: `2026-08-21`.
 
-> **INSTRUÇÃO DE ABERTURA: a revisão estática mobile foi concluída. A próxima tarefa deve começar pelo planejamento e pela validação das animações GSAP no desktop, usando `1920 × 1080 px` como frame principal. Não redesenhar o desktop nem alterar o mobile aprovado durante essa etapa.**
+> **STATUS: CONCLUÍDO.** Este arquivo preserva o planejamento anterior como histórico. O estado implementado e os aprendizados finais estão em `docs/handoff/sessao-animacoes-concluida.md`.
+
+> **REGISTRO HISTÓRICO:** esta era a instrução de abertura antes da implementação. Não usar como próxima tarefa; consultar o handoff atual indicado acima.
 
 ## 1. Forma de trabalho aprovada
 

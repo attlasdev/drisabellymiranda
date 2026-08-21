@@ -2,7 +2,7 @@
 
 Última atualização: `2026-08-21`.
 
-> **STATUS: concluído em `2026-08-21`. Não usar este arquivo como instrução da próxima tarefa. A retomada atual está em `proxima-sessao-gsap-desktop.md`.**
+> **STATUS: concluído em `2026-08-21`. Não usar este arquivo como instrução da próxima tarefa. A retomada atual está em `sessao-animacoes-concluida.md`.**
 
 A revisão estática mobile foi aprovada. O conteúdo abaixo permanece como registro do roteiro que orientou essa etapa.
 
