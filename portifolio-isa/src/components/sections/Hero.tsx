@@ -43,7 +43,7 @@ export function Hero() {
               titleRef.current,
               { autoAlpha: 0, y: 30 },
               { autoAlpha: 1, y: 0, duration: 0.9 },
-              0.76,
+              0.62,
             )
             .fromTo(
               descriptionRef.current,
