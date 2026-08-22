@@ -57,6 +57,14 @@ A seção estabelece o sistema visual e interativo do FAQ com sete perguntas e r
 - Evitar promessas clínicas, prazos absolutos ou recomendações individualizadas.
 - A troca futura do conteúdo deve acontecer apenas em `src/content/faq.ts`.
 
+## Animação atual
+
+- Tag, título e descrição entram em cascata.
+- No desktop, as perguntas entram em sequência com duração `0.7 s`, stagger `0.11 s` e deslocamento inicial de `22 px`.
+- No mobile, cada item recebe seu próprio gatilho, com duração aproximada de `0.65 s`.
+- As entradas executam uma única vez; a expansão da resposta continua sendo controlada pela transição de grid do acordeão.
+- Em `prefers-reduced-motion`, a lista permanece visível e a abertura continua funcional sem movimento.
+
 ## Validação
 
 - Desktop: `1920 × 1080 px`.

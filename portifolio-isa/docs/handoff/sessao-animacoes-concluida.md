@@ -1,91 +1,114 @@
-# Handoff — sistema de animações GSAP concluído
+# Handoff — sistema GSAP e interações mobile
 
-Última atualização: `2026-08-21`.
+Última atualização: `2026-08-22`.
 
-## Estado ao encerrar
+## Estado atual
 
-- A camada de animações da home foi concluída e aprovada como base atual.
-- Implementação central: `src/components/motion/SmoothScroll.tsx`.
-- Interação do FAQ: `src/components/faq/FaqAccordion.tsx` e seu CSS Module.
-- Último commit funcional: `43f0c7d fix: coordinate internal navigation with smooth scroll`.
+- O layout estático desktop continua aprovado e a revisão estática mobile permanece aprovada em `360`, `390` e `430 px`.
+- A implementação GSAP da home está centralizada em `src/components/motion/SmoothScroll.tsx` e agora contém variantes desktop, tablet e telefone.
+- O drawer mobile está em `src/components/hero/Hero.tsx` e no CSS Module do Hero.
+- O modal de Resultados está em `src/components/results/ResultsModal.tsx` e seu CSS Module.
+- Último commit funcional publicado: `b7ee30b feat: refine mobile interactions and results experience`.
+- Repositório: `https://github.com/attlasdev/drisabellymiranda.git`, branch `main`.
 - Servidor local oficial: `http://localhost:3001/`.
-- `npm run lint` e `npm run build` passaram no encerramento.
+- `npm run lint`, `npx tsc --noEmit` e `npm run build` passaram no marco publicado.
 
-## Comportamentos aprovados
-
-### Scroll e abertura
+## Scroll e abertura
 
 - Desktop usa `ScrollSmoother` com `smooth: 0.8`.
-- Hero é pinado sem espaçamento artificial durante a passagem para a frase de posicionamento.
-- A fotografia principal deve existir desde o primeiro frame; não aplicar entrada que produza flicker.
-- A abertura do Hero é uma cascata em camadas, não um split por letra ou palavra: monograma, links, título inteiro, descrição e CTA.
-- Os intervalos se sobrepõem: o próximo elemento começa antes de o anterior terminar.
+- Mobile e tablet usam scroll nativo com `ScrollTrigger`; não criar uma segunda camada de smooth scroll nesses viewports.
+- A restauração do scroll é temporariamente manual e a página começa no topo, sem reutilizar um hash inicial que possa deixar gatilhos em estado incorreto.
+- O Hero é pinado sem espaço artificial durante a passagem para a frase de posicionamento.
+- A fotografia principal existe desde o primeiro frame; não aplicar entrada que produza flicker.
+- Desktop: cascata em camadas de monograma, links, título inteiro, descrição e CTA.
+- Mobile: monograma e menu entram primeiro; as cinco linhas do título entram de baixo para cima em cascata, seguidas por descrição e CTA.
 
-### Frase de posicionamento
+## Drawer mobile
+
+- Painel integral creme renderizado por portal, inicialmente fora da viewport com `translate3d(100%, 0, 0)`.
+- Abre da direita para a esquerda em `0.54 s`, com `power3.inOut`.
+- Fecha pela reversão da mesma timeline em `1.45×`, reduzindo o atraso percebido.
+- O destino de navegação só é executado quando o fechamento termina.
+- O drawer trava o scroll da página, confina o foco, fecha por `Escape`, restaura o foco no botão e volta ao estado fechado quando o viewport muda para desktop.
+- `aria-expanded`, `aria-controls`, `role="dialog"` e `aria-modal` fazem parte do contrato acessível.
+- Não reintroduzir escala no clique nem alternar montagem/transform sem coordenação; isso pode causar flick.
+- A estrutura e as áreas de toque de `44 px` foram verificadas. A validação tátil final em celular físico ainda está pendente.
+
+## Frase de posicionamento
 
 - É o único split por palavras desta camada.
 - Usa máscaras por palavra, entrada vertical e opacidade.
-- Máscaras precisam de `overflowClipMargin: 0.25em` para não cortar acentos, cedilhas nem extremidades horizontais das letras.
+- Máscaras usam `overflowClipMargin: 0.25em` para não cortar acentos, cedilhas nem extremidades horizontais.
+- A variante mobile usa duração e stagger mais curtos que o desktop, preservando a mesma leitura.
 - O encontro entre Hero e seção 2 não pode revelar linha ou seam durante o scroll.
 
-### Tratamentos
+## Tratamentos
 
 - Título e subtítulo entram em cascata curta.
-- Cada card anima uma única vez quando entra na área visível; não usa scrub e não recolhe ao voltar a página.
+- Cada card anima uma única vez quando entra na área visível; não recolhe ao voltar a página.
 - Direções alternadas seguem o alinhamento visual: card à direita vem da direita; card à esquerda vem da esquerda.
 - Movimento rápido no início e assentamento suave com `power4.out`.
+- No desktop, uma rota SVG pontilhada é desenhada verticalmente atrás dos cards conforme o scroll, com `scrub: 1.2`.
+- A rota é a única exceção à regra geral de não usar scrub. Ela não é renderizada no mobile e é ocultada em `prefers-reduced-motion`.
+- Os cards receberam sombra sutil sem mudar medidas, alternância ou raios aprovados.
 
-### Consulta e planejamento
+## Consulta e planejamento
 
 - Foto e identificação permanecem estáticas.
 - Somente título, descrição e `Conheça minha trajetória` participam da cascata.
+- No mobile, a foto tem cantos retos; no desktop, preserva raio de `12 px`.
 
-### Resultados reais
+## Resultados reais e modal
 
 - Tag e título entram primeiro.
 - Cards entram inteiros, sem animar informações internas.
-- No desktop, a grade é agrupada por linha e os cards da linha entram um a um.
-- Ritmo final aprovado: duração `1.08 s`, stagger `0.17 s`, `power3.out`.
-- No mobile, cada card é tratado pelo próprio gatilho visual.
+- No desktop, a grade é agrupada por linha; duração `1.08 s`, stagger `0.17 s`, `power3.out`.
+- No mobile, cada card possui seu próprio gatilho visual.
+- Toda a área do card funciona como botão e abre um diálogo de casos.
+- Cada categoria possui 12 posições; somente a primeira contém o comparativo atual e as outras 11 exibem placeholders.
+- O modal fecha pelo botão, pelo fundo ou por `Escape`; setas do teclado e botões anterior/próximo navegam entre casos.
+- Enquanto aberto, o conteúdo principal fica `inert`, o scroll é travado e o foco permanece no diálogo, retornando ao card ao fechar.
+- Ainda faltam 66 casos reais no total, 11 para cada uma das seis categorias.
 
-### FAQ
+## FAQ, CTA e Footer
 
-- Tag, título e descrição entram em cascata.
-- As perguntas da coluna direita também entram sequencialmente.
-- Ritmo desktop aprovado: duração `0.7 s`, stagger `0.11 s`, deslocamento inicial `22 px`.
-- A abertura das respostas usa transição suave de grid (`0fr` para `1fr`) e rotação do chevron; não alterar altura de forma brusca.
-
-### CTA e Footer
-
-- CTA final: tag, título, descrição e botão entram em cascata sobreposta.
+- FAQ: tag, título e descrição entram em cascata; as perguntas entram sequencialmente. No desktop, duração `0.7 s`, stagger `0.11 s` e deslocamento `22 px`.
+- A abertura das respostas usa transição de grid (`0fr` para `1fr`) e rotação do chevron.
+- CTA: tag, título, descrição e botão entram em cascata sobreposta. A fotografia contextual do fundo permanece estática e em baixa opacidade.
 - Footer: somente os quatro grupos acima da divisória animam; copyright, voltar ao topo e assinatura permanecem fora da cascata.
 
 ## Regras técnicas consolidadas
 
 - Animações de entrada usam `once: true`, sem scrub, e permanecem visíveis ao rolar de volta.
+- A rota pontilhada desktop de Tratamentos é a única exceção explícita por usar scrub.
 - Usar `gsap.matchMedia()` e manter o conteúdo íntegro com `prefers-reduced-motion`.
 - Esconder grupos com `gsap.set()` antes do tween quando o gatilho é compartilhado; isso evita que itens posteriores apareçam antes da vez.
 - Limpar transform, opacity e visibility depois da animação quando não forem mais necessários.
 - Instâncias, listeners, splits, timelines e ScrollTriggers precisam de cleanup.
 - O estado final de toda animação deve coincidir exatamente com o layout estático aprovado.
 
-## Aprendizado crítico sobre âncoras
+## Âncoras e navegação interna
 
 - Âncoras nativas e conteúdo transformado pelo `ScrollSmoother` não podem ser combinados sem coordenação.
-- O bug observado deslocava a tela visualmente para `#sobre`, mas mantinha `window.scrollY` em `0`; por isso ScrollTriggers não disparavam, o conteúdo ficava invisível e a rolagem parecia presa.
-- Links internos no desktop agora são interceptados em `SmoothScroll.tsx` e usam `smoother.scrollTo(..., "top top")`.
-- O hash continua sendo gravado no histórico e a restauração nativa do scroll é desativada enquanto o smoother está ativo.
-- Destinos validados: `#sobre`, `#tratamentos`, `#resultados` e `#contato`; todos chegam com conteúdo visível e permitem continuar rolando nas duas direções.
+- No desktop, links internos são interceptados e usam `smoother.scrollTo(..., "top top")`; o hash continua sendo gravado no histórico.
+- No mobile, o drawer fecha primeiro e só então atualiza o histórico e executa o scroll suave até o destino.
+- Destinos: `#sobre`, `#tratamentos`, `#resultados` e `#contato`.
+- Não validar navegação apenas pelo hash: conferir posição real do alvo, `window.scrollY`, visibilidade do conteúdo e continuidade do scroll.
 
-## Aprendizados de validação
+## Validação e pendência do aparelho físico
 
-- Não validar navegação suave apenas pelo `location.hash`: conferir também `window.scrollY`, posição real do alvo e opacidade do conteúdo animado.
-- Artefatos entre seções podem existir somente durante movimento; é obrigatório testar enquanto a página rola, não apenas em repouso.
-- Para cascatas, amostrar a opacidade de vários itens durante a execução ajuda a confirmar a sequência real, não apenas o estado final.
-- Mudanças de timing ainda exigem lint, build e validação no navegador, mesmo quando não alteram layout.
+- A revisão estática mobile não encontrou overflow horizontal em `360`, `390` e `430 px`.
+- A emulação mobile do navegador executa as animações e os componentes chegam ao estado final correto.
+- O usuário relatou que as animações não aparecem no celular físico pela URL da rede local, embora o aparelho não use redução de movimento e outro projeto animado funcione no mesmo cenário.
+- Essa divergência ainda não foi reproduzida com depuração remota. Investigar `matchMedia`, chunks carregados, erros do console, medidas do viewport real, lifecycle do App Router e necessidade de `ScrollTrigger.refresh()` após carregamento.
+- Não considerar a camada mobile validada em aparelho real até concluir essa investigação.
+- A automação local não conseguiu acionar controles React de forma confiável, inclusive controles não relacionados ao drawer; por isso a ausência de flick e o tempo percebido do menu devem ser confirmados por toque real.
 
 ## Próxima retomada
 
-- A fase de animação está encerrada. Não reabrir timings ou direção sem novo pedido do usuário.
-- Próximas frentes continuam sendo conteúdo/destinos definitivos, navegação mobile, SEO, auditoria final e deploy, conforme o usuário escolher.
-- Pendências externas: número oficial do WhatsApp, Google Maps, copy final do FAQ, lista/fotos finais de tratamentos e destino de `Conheça minha trajetória`.
+1. Reproduzir a URL local no celular físico com inspeção remota e resolver a ausência de animações.
+2. Validar abertura, fechamento, foco e navegação do drawer por toque, sem flick e sem atraso percebido.
+3. Preencher os 11 casos restantes por categoria quando os assets forem fornecidos.
+4. Depois seguir para conteúdo/destinos definitivos, SEO, auditoria final e deploy.
+
+Pendências externas: número oficial do WhatsApp, Google Maps, copy final do FAQ, lista/fotos finais de tratamentos e destino de `Conheça minha trajetória`.

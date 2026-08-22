@@ -34,5 +34,13 @@
 - Em telas menores que `1024 px`, a foto, a identificação e o conteúdo são empilhados, sem overflow horizontal.
 - A hierarquia, as cores, a proporção da imagem e a legibilidade são preservadas; as coordenadas absolutas do frame desktop não são forçadas.
 - Mobile aprovado em `360`, `390` e `430 px`.
+- No mobile, a moldura da fotografia usa cantos retos (`border-radius: 0`); o raio de `12 px` é exclusivo do desktop.
 - No mobile, a credencial quebra antes do registro: `CRO-MG 72298` ocupa a segunda linha.
 - No desktop, a credencial permanece em uma única linha e conserva o separador `·`.
+
+## Animação atual
+
+- Foto, nome e credencial permanecem estáticos em todos os viewports.
+- Somente título, corpo e `Conheça minha trajetória` entram em cascata.
+- Desktop e mobile usam timings e gatilhos responsivos, sempre com execução única e estado final idêntico ao layout aprovado.
+- Em `prefers-reduced-motion`, todo o conteúdo permanece visível sem transição.

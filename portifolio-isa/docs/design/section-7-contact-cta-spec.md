@@ -10,7 +10,8 @@ A seção cria o principal momento de conversão da home após o FAQ. O conteúd
 - Composição integralmente centralizada para criar contraste com Resultados reais e com a composição dividida do FAQ.
 - Linguagem editorial, acolhedora e direta, sem aparência promocional agressiva.
 - Muito espaço negativo e apenas uma ação principal.
-- Sem imagens, cards ou elementos decorativos concorrentes.
+- Sem cards ou elementos decorativos concorrentes.
+- A fotografia contextual `public/images/contact/harmonizacao.webp` ocupa o fundo com `cover`, foco superior central e opacidade de `12%`; ela não pode competir com o conteúdo.
 
 ## Base de medição desktop
 
@@ -43,6 +44,13 @@ A seção cria o principal momento de conversão da home após o FAQ. O conteúd
 - Título fluido entre `44 px` e `72 px`.
 - Botão ocupa toda a largura disponível até o máximo de `320 px` no mobile.
 - Manter centralização e ritmo vertical em todos os viewports.
+
+## Animação atual
+
+- Tag, título, texto de apoio e botão entram em cascata sobreposta.
+- A fotografia do fundo permanece estática durante a entrada para não produzir flicker.
+- Desktop e mobile usam timings responsivos e execução única.
+- Em `prefers-reduced-motion`, o bloco aparece diretamente em seu estado final.
 
 ## Pendências
 

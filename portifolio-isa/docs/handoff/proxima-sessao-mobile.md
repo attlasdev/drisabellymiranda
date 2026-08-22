@@ -2,7 +2,7 @@
 
 Última atualização: `2026-08-21`.
 
-> **STATUS: concluído em `2026-08-21`. Não usar este arquivo como instrução da próxima tarefa. A retomada atual está em `sessao-animacoes-concluida.md`.**
+> **STATUS: histórico e superado. Não usar nenhuma pendência ou restrição abaixo como estado atual. O drawer e a camada GSAP mobile foram implementados em `2026-08-22`; a retomada vigente está em `sessao-animacoes-concluida.md`.**
 
 A revisão estática mobile foi aprovada. O conteúdo abaixo permanece como registro do roteiro que orientou essa etapa.
 

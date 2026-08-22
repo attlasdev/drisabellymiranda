@@ -2,7 +2,7 @@
 
 Última atualização: `2026-08-21`.
 
-> **STATUS: CONCLUÍDO.** Este arquivo preserva o planejamento anterior como histórico. O estado implementado e os aprendizados finais estão em `docs/handoff/sessao-animacoes-concluida.md`.
+> **STATUS: histórico e superado.** Este arquivo preserva o planejamento anterior do desktop. O estado vigente, incluindo as variantes mobile implementadas em `2026-08-22`, está em `docs/handoff/sessao-animacoes-concluida.md`.
 
 > **REGISTRO HISTÓRICO:** esta era a instrução de abertura antes da implementação. Não usar como próxima tarefa; consultar o handoff atual indicado acima.
 

@@ -35,7 +35,17 @@ Trechos em destaque:
 
 Na implementação responsiva, as quatro linhas são preservadas a partir de tablet. Em telas menores, o texto pode quebrar internamente para manter legibilidade e evitar overflow horizontal.
 
-## Mobile aprovado em 2026-08-21
+## Mobile estático aprovado em 2026-08-21
 
 - A seção foi validada sem alterações finais adicionais.
-- Preservar texto, destaques, centralização e comportamento de uma dobra durante a etapa de animação.
+- Preservar texto, destaques, centralização e comportamento de uma dobra.
+
+## Animação implementada em 2026-08-22
+
+- A frase usa SplitText por palavras no desktop, tablet e telefone.
+- Cada palavra recebe máscara com `overflowClipMargin: 0.25em` para preservar acentos, cedilhas e extremidades dos glifos.
+- No telefone, as palavras entram de baixo para cima com duração `0.82 s`, stagger `0.032 s` e gatilho em aproximadamente `top 84%`.
+- No tablet, a referência é duração `0.9 s`, stagger `0.038 s` e gatilho em aproximadamente `top 86%`.
+- A animação é executada uma única vez e termina exatamente na composição estática aprovada.
+- Em `prefers-reduced-motion`, o texto permanece integralmente visível e funcional.
+- A implementação funciona na emulação mobile; a divergência relatada no aparelho físico permanece em investigação.

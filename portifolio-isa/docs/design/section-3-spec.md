@@ -2,7 +2,7 @@
 
 ## Escopo atual
 
-Nesta etapa, a seção contém o título, o subtítulo e três cards completos usados para validação. Haverá outros procedimentos futuramente. As fotografias atuais já foram incorporadas e o layout estático mobile foi aprovado; a etapa seguinte planeja a animação primeiro no desktop.
+Nesta etapa, a seção contém o título, o subtítulo e três cards completos usados para validação. Haverá outros procedimentos futuramente. As fotografias, o layout responsivo e a camada de animação atual já foram incorporados.
 
 ## Base de medição
 
@@ -51,6 +51,16 @@ características de cada rosto.
   - `toxina-botulinica.png` para Toxina Botulínica.
   - `rinomodelacao.png` para Rinomodelação.
 - As imagens usam `object-fit: cover`; um degradê escuro suave à esquerda e na parte inferior mantém legíveis os textos claros.
+- Os cards usam sombra sutil de referência `0 0.875rem 2.25rem rgb(58 47 41 / 10%)`, sem alterar medidas ou raios.
+
+## Rota pontilhada desktop
+
+- Um SVG vertical conecta visualmente o percurso entre os cards e permanece atrás de todo o conteúdo.
+- Linha: cinza esverdeado em baixa opacidade, traço aproximado de `1.35 px` e padrão pontilhado `8 12`.
+- Marcadores discretos identificam origem e término.
+- A altura do traço é revelada conforme o scroll da seção, com `scrub: 1.2`, início em aproximadamente `top -25%` e fim em `bottom 40%`.
+- Esta rota é a única animação da seção que usa scrub.
+- O SVG não aparece abaixo do breakpoint desktop nem quando `prefers-reduced-motion` está ativo.
 
 ## Mobile aprovado em 2026-08-21
 
@@ -62,7 +72,16 @@ características de cada rosto.
 - Card à direita encosta na borda direita, mantém esse lado reto e usa raio de `24 px` apenas à esquerda; o card à esquerda espelha a regra.
 - Título interno fluido entre `24` e `28 px`; descrição e CTA em `13 px`.
 - `Saiba mais` preserva a seta de `22 px` e possui alvo mínimo de toque de `44 px`.
-- Conceito futuro informado: entrada alternada pelos lados correspondentes. Gatilho, pinning, scrub, duração e easing ainda dependem do briefing do usuário.
+- Os cards entram uma única vez pelos lados correspondentes ao alinhamento e assentam com `power4.out`; no mobile, cada card possui seu próprio gatilho.
+- A rota pontilhada desktop não é renderizada no mobile.
+
+## Animação atual
+
+- Título e subtítulo entram em uma cascata curta.
+- Cards à direita entram pela direita; cards à esquerda entram pela esquerda.
+- As entradas usam `once: true`, não recolhem ao rolar de volta e não usam scrub.
+- A rota SVG desktop é a exceção explícita e acompanha o scroll.
+- Em redução de movimento, cards e cabeçalho permanecem visíveis no estado estático e a rota é ocultada.
 
 ## Card-base
 

@@ -79,6 +79,14 @@ O footer encerra a home com uma assinatura editorial, informações práticas e 
 
 - Receber o link oficial do Google Maps e transformar o botão desabilitado `Como chegar` em um link externo.
 
+## Animação atual
+
+- Somente os quatro grupos informativos acima da divisória entram em cascata.
+- Copyright, `Voltar ao topo` e a assinatura `Isabely Miranda` permanecem estáticos.
+- No mobile, o stagger de referência entre grupos é `0.09 s`.
+- A entrada executa uma única vez e não altera a altura medida nem as quebras aprovadas.
+- Em `prefers-reduced-motion`, todos os grupos permanecem imediatamente visíveis.
+
 ## Validação
 
 - Desktop: `1920 × 1080 px`, enquadrando o footer a partir do seu início.

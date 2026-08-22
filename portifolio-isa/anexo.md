@@ -39,7 +39,8 @@ Atualizar este briefing quando uma decisão permanente de identidade, layout, co
 - As animações implementadas suportam `prefers-reduced-motion` e devem continuar íntegras nesse modo.
 - Desktop e revisão estática mobile foram validados; preservar os layouts aprovados.
 - O handoff técnico atual está em `docs/handoff/sessao-animacoes-concluida.md`.
-- A camada de animações GSAP da home foi concluída em `2026-08-21`.
+- A camada de animações GSAP da home recebeu as variantes mobile e as interações finais em `2026-08-22`.
+- A implementação mobile funciona na emulação do navegador; a ausência das animações no celular físico relatada pelo usuário permanece como investigação técnica aberta.
 
 ## 4. Paleta aprovada
 
@@ -98,6 +99,15 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 - Inter Medium, `13/16 px`, tracking `4%`, branco.
 - Gap de referência: `-15 px`.
 
+### Drawer mobile
+
+- Abaixo de `768 px`, o botão de menu abre um painel integral creme da direita para a esquerda.
+- Abertura: `0.54 s`, `power3.inOut`; fechamento: reversão da mesma timeline em `1.45×` para resposta imediata.
+- O painel não pode piscar no clique: permanece fora da viewport com `translate3d`, `visibility` e `pointer-events` controlados pela timeline.
+- Durante a abertura, o scroll da página fica travado e o foco permanece dentro do diálogo; `Escape`, botão de fechar e clique em um destino fecham o painel.
+- A navegação por âncora acontece depois da animação de fechamento, evitando troca de seção com o drawer ainda visível.
+- Controles preservam alvo mínimo de toque de `44 px`, foco visível e atributos `aria` de diálogo e estado.
+
 ### Botão do Hero
 
 - Dimensão: `284 × 56 px`.
@@ -150,6 +160,8 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 - Posições principais: título `114/264`, texto `114/540`, CTA `114/643`.
 - Especificação completa: `docs/design/hero-spec.md`.
 - Mobile aprovado em `360`, `390` e `430 px`: título em cinco linhas, fotografia original posicionada por CSS e CTA com desfoque de fundo de `6 px` restrito ao botão.
+- No mobile, monograma/menu, as cinco linhas do título, descrição e CTA entram em cascata própria; a fotografia permanece visível desde o primeiro frame.
+- O menu mobile usa o drawer integral descrito na seção de elementos recorrentes.
 
 ### Seção 2 — frase de posicionamento
 
@@ -158,6 +170,7 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 - Texto principal `#535353`; destaques `#99A1A4`.
 - Caixa desktop: `X 0`, `Y 410`, `W 1920`.
 - Especificação completa: `docs/design/section-2-spec.md`.
+- A frase usa SplitText por palavras também no mobile, com máscaras ampliadas para preservar acentos e laterais dos glifos.
 
 ### Seção 3 — tratamentos
 
@@ -171,6 +184,8 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
   3. Rinomodelação — direita.
 - Especificação completa: `docs/design/section-3-spec.md`.
 - Mobile aprovado: cabeçalho tipográfico refinado, cards de `90vw` encostados alternadamente à direita e à esquerda e alvos de toque de `44 px` em `Saiba mais`.
+- No desktop, uma rota pontilhada vertical é desenhada pelo scroll atrás dos cards; ela não aparece no mobile nem em redução de movimento.
+- Os cards possuem sombra sutil e continuam entrando uma única vez pelo lado correspondente ao seu alinhamento.
 
 ### Seção 4 — consulta e planejamento
 
@@ -185,7 +200,7 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 - O item `SOBRE` da navegação usa a âncora desta seção (`#sobre`).
 - O CTA visual `Conheça minha trajetória ↗` não possui destino nesta etapa; o texto usa `16 px` e a seta diagonal compartilhada usa `28 px`.
 - Especificação completa: `docs/design/section-4-spec.md`.
-- No mobile, `CRO-MG 72298` ocupa uma segunda linha própria; no desktop, a credencial permanece em uma única linha.
+- No mobile, a fotografia fica sem raio de canto e `CRO-MG 72298` ocupa uma segunda linha própria; no desktop, a foto mantém `12 px` e a credencial permanece em uma única linha.
 
 ### Seção 5 — resultados reais
 
@@ -197,9 +212,13 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 - Os títulos atuais são Preenchimento labial, Toxina Botulínica, Rinomodelação, Full Face, Bioestimulador e Outros tratamentos.
 - Cada área de mídia mede `472 × 236 px` e usa os comparativos aprovados em `public/images/results/`.
 - A estrutura e os conteúdos provisórios dos cards ficam centralizados em `src/content/results.ts`; o componente reutilizável fica em `src/components/results/ResultCard.tsx`.
-- Implementação estática e animação de entrada dos cards concluídas e validadas.
+- Toda a área do card é interativa e abre um modal acessível em `src/components/results/ResultsModal.tsx`.
+- Cada categoria possui 12 posições navegáveis. A primeira reutiliza o comparativo atual; as 11 restantes são placeholders até o conteúdo real ser fornecido.
+- O modal suporta fechamento por fundo, botão e `Escape`, navegação por botões e setas do teclado, trava de scroll, foco confinado e restauração de foco.
+- Implementação estática, interação do modal e animação de entrada dos cards concluídas.
 - Especificação completa: `docs/design/section-5-spec.md`.
 - Mobile aprovado: título fluido entre `40` e `44 px`, distribuído em quatro linhas; cards preservados sem alterações.
+- No mobile, o modal adapta largura, altura e navegação ao viewport, respeitando safe areas.
 
 ### Seção 6 — perguntas frequentes
 
@@ -220,6 +239,7 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 - Tag `PRÓXIMO PASSO`, título editorial com `conversa` em itálico, texto de apoio e uma única ação principal.
 - Botão pill com fundo `#F8F7F4`, rótulo `AGENDAR PELO WHATSAPP` e ícone linear do WhatsApp.
 - A seção usa o ID `#contato`, atendendo aos links existentes no Hero, na navegação e nos tratamentos.
+- Uma fotografia contextual (`public/images/contact/harmonizacao.webp`) ocupa o fundo com `12%` de opacidade, `cover` e foco superior central; o conteúdo permanece acima dela e com contraste dominante.
 - A copy e o destino ficam centralizados em `src/content/contact.ts` para futura substituição.
 - O link usa provisoriamente `https://wa.me/` até o número oficial ser fornecido.
 - Implementação validada em `1920 × 1080 px` e `390 × 844 px`, sem overflow horizontal ou erros de console.
@@ -244,13 +264,14 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 
 ## 8. Sistema de animação aprovado
 
-- A camada GSAP da home está concluída; detalhes e aprendizados estão em `docs/handoff/sessao-animacoes-concluida.md`.
+- A camada GSAP da home está implementada no desktop e no mobile; detalhes e aprendizados estão em `docs/handoff/sessao-animacoes-concluida.md`.
 - Usar exclusivamente GSAP, ScrollTrigger, ScrollSmoother e SplitText; não adicionar outra biblioteca de movimento.
-- Desktop usa ScrollSmoother; o Hero é pinado na transição para a frase de posicionamento.
+- Desktop usa ScrollSmoother; mobile mantém o scroll nativo. O Hero é pinado na transição para a frase de posicionamento em ambos os contextos.
 - Entradas são acionadas uma única vez, não usam scrub e permanecem visíveis quando o usuário volta a página.
-- Hero usa cascata por camadas; seção 2 usa split por palavras; Tratamentos alterna as direções dos cards.
+- Hero usa cascata por camadas no desktop e por linhas no título mobile; seção 2 usa split por palavras; Tratamentos alterna as direções dos cards.
 - Consulta anima somente o conteúdo da direita; Resultados anima cards inteiros por linha; FAQ anima perguntas em sequência e abre respostas suavemente.
 - CTA usa cascata completa; Footer anima somente os grupos acima da divisória.
+- A rota pontilhada de Tratamentos é a única exceção de scrub: existe somente no desktop e acompanha o scroll da seção.
 - Usar `gsap.matchMedia()` para desktop, mobile e `prefers-reduced-motion`; a página deve permanecer legível e funcional sem movimento.
 - Links internos sob ScrollSmoother devem usar `smoother.scrollTo`; não delegar esses saltos ao comportamento nativo da âncora.
 - Não alterar timings, direções ou escopos aprovados sem novo pedido do usuário.
@@ -274,7 +295,9 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 - Tipografia final do rótulo do CTA do Hero.
 - Aprovação final dos crops e posições das imagens.
 - Destinos definitivos dos links e CTAs, incluindo `Conheça minha trajetória ↗`.
-- Regras finais de navegação móvel.
+- Investigação das animações GSAP que funcionam na emulação, mas não aparecem no celular físico do usuário.
+- Validação tátil final do drawer no aparelho real, incluindo resposta percebida e ausência de flick.
+- Inclusão dos 11 casos restantes em cada categoria do modal de Resultados (`66` posições provisórias).
 - Próximas seções do portfólio.
 - SEO completo, auditoria e deploy somente quando conteúdo, domínio e páginas estiverem definidos.
 
@@ -288,4 +311,4 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 6. Atualizar este arquivo quando surgir uma nova regra permanente do sistema visual.
 7. Atualizar a memória curta da raiz ao concluir um novo marco.
 8. A estrutura estática planejada da home está completa e o desktop está aprovado. Preservar essas decisões durante a revisão mobile.
-9. A validação estática mobile e a camada de animações GSAP foram concluídas. Preservar o marco atual e consultar `docs/handoff/sessao-animacoes-concluida.md` antes de alterar movimento ou navegação interna.
+9. A validação estática mobile está concluída e a camada GSAP mobile está implementada. A validação no aparelho físico permanece aberta; consultar `docs/handoff/sessao-animacoes-concluida.md` antes de alterar movimento ou navegação interna.

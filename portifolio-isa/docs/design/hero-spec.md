@@ -115,7 +115,7 @@ Estes valores ajudam a preservar a composição em telas desktop proporcionais:
 - Navegação X: `373 / 1920 = 19.4271%`.
 - Cabeçalho Y: `68 / 1080 = 6.2963%`.
 
-## Mobile aprovado em 2026-08-21
+## Mobile estático aprovado em 2026-08-21
 
 - Validado em `360`, `390` e `430 px`.
 - A fotografia usa o asset original completo e é posicionada por CSS, sem recorte destrutivo.
@@ -125,8 +125,22 @@ Estes valores ajudam a preservar a composição em telas desktop proporcionais:
 - CTA centralizado próximo à base, com `backdrop-filter: blur(6px)` somente na área do botão.
 - O desktop permaneceu inalterado durante esta validação.
 
+## Abertura e drawer mobile implementados em 2026-08-22
+
+- Monograma e botão de menu formam a primeira camada da abertura.
+- As cinco linhas intencionais do título entram em cascata vertical, seguidas por descrição e CTA.
+- A fotografia permanece visível desde o primeiro frame para impedir flicker.
+- O Hero permanece pinado, sem espaçamento artificial, durante a transição para a frase de posicionamento.
+- O menu abre um drawer integral creme da direita para a esquerda em `0.54 s`, com `power3.inOut`.
+- O fechamento percorre a mesma timeline no sentido inverso em `1.45×`; um link só executa a navegação depois que o painel termina de fechar.
+- O painel é renderizado por portal, inicia em `translate3d(100%, 0, 0)` e controla `visibility` e `pointer-events` para não piscar no clique.
+- Enquanto aberto, o drawer trava o scroll, confina o foco, fecha por `Escape` e restaura o foco no botão de menu.
+- Controles mantêm alvo mínimo de `44 px`, foco visível, `aria-expanded`, `aria-controls`, `role="dialog"` e `aria-modal`.
+- A implementação foi verificada em emulação mobile. Ainda falta a validação tátil em celular físico para confirmar a ausência de flick e o tempo percebido sem atraso.
+
 ## Pendências antes da aprovação final do Hero
 
 - Tipografia exata do rótulo do CTA.
 - Bounding box, posição e crop exatos da fotografia.
 - Regras editoriais específicas para tablet, caso sejam solicitadas futuramente.
+- Diagnóstico das animações GSAP que funcionam na emulação, mas não aparecem no celular físico relatado pelo usuário.
