@@ -89,7 +89,7 @@ Desenho acordado, para não reabrir a discussão na retomada:
 - Implica remover `unoptimized` dos componentes de Resultados, senão o site serve o arquivo cru; transformação de imagem no Storage é recurso pago e não existe no plano free.
 - Implica `images.remotePatterns` no `next.config.ts` e um cron diário na Vercel, porque projeto free hiberna após cerca de 7 dias e leva o Storage junto.
 
-Esta frente não substitui a pendência das animações no celular físico; nenhuma das duas foi concluída.
+Esta frente é independente da validação mobile: a pendência das animações no celular físico foi encerrada nesta mesma data (ver "Validação mobile concluída" acima), sem relação com o Supabase Storage.
 
 ## Ordem macro restante
 
