@@ -40,7 +40,7 @@ Atualizar este briefing quando uma decisão permanente de identidade, layout, co
 - Desktop e revisão estática mobile foram validados; preservar os layouts aprovados.
 - O handoff técnico atual está em `docs/handoff/sessao-animacoes-concluida.md`.
 - A camada de animações GSAP da home recebeu as variantes mobile e as interações finais em `2026-08-22`.
-- A implementação mobile funciona na emulação do navegador; a ausência das animações no celular físico relatada pelo usuário permanece como investigação técnica aberta.
+- A implementação mobile foi confirmada funcionando tanto na emulação do navegador quanto no celular físico.
 
 ## 4. Paleta aprovada
 
@@ -295,8 +295,6 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 - Tipografia final do rótulo do CTA do Hero.
 - Aprovação final dos crops e posições das imagens.
 - Destinos definitivos dos links e CTAs, incluindo `Conheça minha trajetória ↗`.
-- Investigação das animações GSAP que funcionam na emulação, mas não aparecem no celular físico do usuário.
-- Validação tátil final do drawer no aparelho real, incluindo resposta percebida e ausência de flick.
 - Inclusão dos 11 casos restantes em cada categoria do modal de Resultados (`66` posições provisórias).
 - Próximas seções do portfólio.
 - SEO completo, auditoria e deploy somente quando conteúdo, domínio e páginas estiverem definidos.
@@ -311,4 +309,5 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 6. Atualizar este arquivo quando surgir uma nova regra permanente do sistema visual.
 7. Atualizar a memória curta da raiz ao concluir um novo marco.
 8. A estrutura estática planejada da home está completa e o desktop está aprovado. Preservar essas decisões durante a revisão mobile.
-9. A validação estática mobile está concluída e a camada GSAP mobile está implementada. A validação no aparelho físico permanece aberta; consultar `docs/handoff/sessao-animacoes-concluida.md` antes de alterar movimento ou navegação interna.
+9. A validação estática mobile, a camada GSAP mobile e a verificação em aparelho físico estão concluídas. Consultar `docs/handoff/sessao-animacoes-concluida.md` antes de alterar movimento ou navegação interna.
+10. As tarefas em aberto do projeto vivem em `../PLANO-EXECUCAO.md`, o plano executável na raiz do repositório.

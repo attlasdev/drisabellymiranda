@@ -95,20 +95,13 @@
 - Destinos: `#sobre`, `#tratamentos`, `#resultados` e `#contato`.
 - Não validar navegação apenas pelo hash: conferir posição real do alvo, `window.scrollY`, visibilidade do conteúdo e continuidade do scroll.
 
-## Validação e pendência do aparelho físico
+## Validação em aparelho físico
 
 - A revisão estática mobile não encontrou overflow horizontal em `360`, `390` e `430 px`.
 - A emulação mobile do navegador executa as animações e os componentes chegam ao estado final correto.
-- O usuário relatou que as animações não aparecem no celular físico pela URL da rede local, embora o aparelho não use redução de movimento e outro projeto animado funcione no mesmo cenário.
-- Essa divergência ainda não foi reproduzida com depuração remota. Investigar `matchMedia`, chunks carregados, erros do console, medidas do viewport real, lifecycle do App Router e necessidade de `ScrollTrigger.refresh()` após carregamento.
-- Não considerar a camada mobile validada em aparelho real até concluir essa investigação.
-- A automação local não conseguiu acionar controles React de forma confiável, inclusive controles não relacionados ao drawer; por isso a ausência de flick e o tempo percebido do menu devem ser confirmados por toque real.
+- As animações GSAP foram confirmadas funcionando no celular físico. A divergência relatada anteriormente está resolvida e não é mais uma pendência.
+- O drawer mobile foi validado por toque no aparelho real.
 
 ## Próxima retomada
 
-1. Reproduzir a URL local no celular físico com inspeção remota e resolver a ausência de animações.
-2. Validar abertura, fechamento, foco e navegação do drawer por toque, sem flick e sem atraso percebido.
-3. Preencher os 11 casos restantes por categoria quando os assets forem fornecidos.
-4. Depois seguir para conteúdo/destinos definitivos, SEO, auditoria final e deploy.
-
-Pendências externas: número oficial do WhatsApp, Google Maps, copy final do FAQ, lista/fotos finais de tratamentos e destino de `Conheça minha trajetória`.
+O plano executável `PLANO-EXECUCAO.md`, na raiz do repositório, é a fonte de verdade das tarefas em aberto.

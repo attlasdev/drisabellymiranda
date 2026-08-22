@@ -13,9 +13,9 @@ Este arquivo é a retomada rápida após reset de contexto. O handoff técnico a
 
 ## Marco atual
 
-> **O desktop permanece aprovado e a camada mobile foi ampliada em `2026-08-22` com abertura animada, drawer, rota de Tratamentos e modal de Resultados. A ausência das animações GSAP no celular físico ainda precisa de investigação específica; não confundir essa pendência de execução no aparelho com falta de implementação.**
+> **O desktop permanece aprovado e a camada mobile foi ampliada em `2026-08-22` com abertura animada, drawer, rota de Tratamentos e modal de Resultados. As animações GSAP no celular físico foram confirmadas funcionais; a pendência anterior de investigação está encerrada.**
 
-Na próxima sessão, preservar o layout estático e os timings atuais. A prioridade técnica aberta é reproduzir e diagnosticar no celular físico por que os ScrollTriggers mobile não aparecem, embora funcionem na emulação do navegador e o aparelho não esteja com redução de movimento ativada.
+Preservar o layout estático e os timings atuais. A partir daqui, o trabalho é conduzido pelo plano executável `PLANO-EXECUCAO.md` na raiz do repositório.
 
 ## Estado atual
 
@@ -72,20 +72,14 @@ Na próxima sessão, preservar o layout estático e os timings atuais. A priorid
 - Destino definitivo de `Conheça minha trajetória`.
 - Conteúdo real para as 11 posições restantes de cada uma das seis categorias do modal de Resultados (`66` posições provisórias no total).
 
-## Pendência técnica mobile
+## Validação mobile concluída
 
-- Reproduzir em um celular físico a ausência das animações GSAP relatada pelo usuário.
-- O mesmo conjunto funciona na emulação mobile do navegador, e o aparelho informado não está com redução de movimento ativada.
-- Não declarar essa validação concluída até testar a URL de rede local no aparelho, observar console/erros remotos e confirmar `matchMedia`, carregamento de chunks, `ScrollTrigger.refresh()` e comportamento do viewport real.
-- O drawer foi verificado estruturalmente, mas ainda precisa de validação tátil final no aparelho para confirmar ausência de flick no clique e resposta percebida sem atraso.
+- As animações GSAP foram confirmadas funcionando no celular físico. A investigação técnica que estava aberta foi encerrada.
+- O drawer mobile foi validado no aparelho real.
 
 ## Ordem macro restante
 
-1. Investigar e validar as animações GSAP no celular físico.
-2. Fazer a validação tátil final do drawer no aparelho.
-3. Substituir conteúdos e destinos provisórios quando forem fornecidos.
-4. Completar os casos reais do modal de Resultados.
-5. Fazer auditoria final, SEO, build e deploy somente no encerramento.
+O plano executável `PLANO-EXECUCAO.md` na raiz do repositório é a fonte de verdade das tarefas em aberto.
 
 ## Retomada local
 
