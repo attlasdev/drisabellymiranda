@@ -1,10 +1,13 @@
 .card {
+  position: relative;
   width: 100%;
   max-width: 29.5rem;
   overflow: hidden;
   border-radius: 0.75rem;
   background: #d9d9d9;
   color: #535353;
+  cursor: pointer;
+  transition: box-shadow 220ms ease, transform 220ms ease;
 }
 
 .media {
@@ -16,6 +19,7 @@
 
 .image {
   object-fit: cover;
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .content {
@@ -79,6 +83,38 @@
   line-height: 1;
   letter-spacing: 0;
   transform: translateY(-0.125rem);
+  transition: transform 220ms ease;
+}
+
+.interaction {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.interaction:focus-visible {
+  outline: 2px solid #535353;
+  outline-offset: -4px;
+}
+
+@media (hover: hover) {
+  .card:hover {
+    box-shadow: 0 1rem 2.5rem rgb(58 47 41 / 12%);
+    transform: translateY(-0.1875rem);
+  }
+
+  .card:hover .image {
+    transform: scale(1.018);
+  }
+
+  .card:hover .arrow {
+    transform: translate(0.25rem, -0.125rem);
+  }
 }
 
 .testimonial {
@@ -129,5 +165,13 @@
   .media {
     height: 14.75rem;
     aspect-ratio: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .image,
+  .arrow {
+    transition: none;
   }
 }

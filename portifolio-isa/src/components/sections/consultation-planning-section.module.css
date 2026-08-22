@@ -136,6 +136,10 @@
     max-width: none;
   }
 
+  .photoFrame {
+    border-radius: 0;
+  }
+
   .registration,
   .registrationSeparator {
     display: inline;

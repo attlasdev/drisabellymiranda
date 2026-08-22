@@ -26,6 +26,21 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       return;
     }
 
+    const previousScrollRestoration = window.history.scrollRestoration;
+    const initialUrl = `${window.location.pathname}${window.location.search}`;
+
+    window.history.scrollRestoration = "manual";
+
+    if (window.location.hash) {
+      window.history.replaceState(null, "", initialUrl);
+    }
+
+    window.scrollTo(0, 0);
+
+    const initialTopFrame = window.requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+    });
+
     const media = gsap.matchMedia();
 
     media.add(
@@ -85,13 +100,8 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
           }
         };
 
-        const previousScrollRestoration = window.history.scrollRestoration;
-        window.history.scrollRestoration = "manual";
-
-        const initialHashFrame = window.requestAnimationFrame(() => {
-          if (window.location.hash) {
-            scrollToHash(window.location.hash, false);
-          }
+        const initialSmootherFrame = window.requestAnimationFrame(() => {
+          smoother.scrollTo(0, false);
         });
 
         anchorLinks.forEach((link) => {
@@ -152,13 +162,88 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
             link.removeEventListener("click", handleAnchorClick);
           });
           window.removeEventListener("popstate", handleHistoryNavigation);
-          window.cancelAnimationFrame(initialHashFrame);
-          window.history.scrollRestoration = previousScrollRestoration;
+          window.cancelAnimationFrame(initialSmootherFrame);
           statementReveal?.scrollTrigger?.kill();
           statementReveal?.kill();
           split?.revert();
           heroPin?.kill();
           smoother.kill();
+        };
+      },
+    );
+
+    media.add(
+      {
+        motion: "(prefers-reduced-motion: no-preference)",
+        nonDesktop: "(max-width: 63.999rem)",
+        phone: "(max-width: 47.999rem)",
+      },
+      (context) => {
+        if (!context.conditions?.motion || !context.conditions.nonDesktop) {
+          return;
+        }
+
+        const isPhone = Boolean(context.conditions.phone);
+        const hero = content.querySelector<HTMLElement>("#inicio");
+        const statement = content.querySelector<HTMLElement>("#essencia");
+        const statementHeading = statement?.querySelector<HTMLElement>("h2");
+        const statementCopy = statement?.querySelector<HTMLElement>(
+          "[data-statement-copy]",
+        );
+
+        let heroPin: ScrollTrigger | null = null;
+        let split: SplitText | null = null;
+        let statementReveal: gsap.core.Tween | null = null;
+
+        const mobileOpeningContext = gsap.context(() => {
+          heroPin = hero
+            ? ScrollTrigger.create({
+                trigger: hero,
+                start: "top top",
+                end: "bottom top",
+                pin: true,
+                pinSpacing: false,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+              })
+            : null;
+
+          split = statementCopy
+            ? SplitText.create(statementCopy, {
+                type: "words",
+                mask: "words",
+                deepSlice: true,
+                aria: "none",
+              })
+            : null;
+
+          if (split && statementHeading) {
+            gsap.set(split.masks, { overflowClipMargin: "0.25em" });
+            gsap.set(split.words, { yPercent: 135, autoAlpha: 0 });
+
+            statementReveal = gsap.to(split.words, {
+              yPercent: 0,
+              autoAlpha: 1,
+              duration: isPhone ? 0.82 : 0.9,
+              stagger: isPhone ? 0.032 : 0.038,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: statementHeading,
+                start: isPhone ? "top 84%" : "top 86%",
+                toggleActions: "play none none none",
+                invalidateOnRefresh: true,
+              },
+            });
+          }
+
+        }, content);
+
+        return () => {
+          statementReveal?.scrollTrigger?.kill();
+          statementReveal?.kill();
+          split?.revert();
+          heroPin?.kill();
+          mobileOpeningContext.revert();
         };
       },
     );
@@ -185,8 +270,29 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
           "[data-treatment-subtitle]",
         );
         const cards = treatments.querySelectorAll<HTMLElement>("[data-treatment-card]");
+        const routeReveal = treatments.querySelector<SVGRectElement>(
+          "[data-treatment-route-reveal]",
+        );
 
         const treatmentsContext = gsap.context(() => {
+          if (routeReveal && isDesktop) {
+            gsap.fromTo(
+              routeReveal,
+              { attr: { height: 0 } },
+              {
+                attr: { height: 2439 },
+                ease: "none",
+                scrollTrigger: {
+                  trigger: treatments,
+                  start: "top -25%",
+                  end: "bottom 40%",
+                  scrub: 1.2,
+                  invalidateOnRefresh: true,
+                },
+              },
+            );
+          }
+
           if (title && subtitle) {
             gsap
               .timeline({
@@ -626,7 +732,11 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       },
     );
 
-    return () => media.revert();
+    return () => {
+      window.cancelAnimationFrame(initialTopFrame);
+      media.revert();
+      window.history.scrollRestoration = previousScrollRestoration;
+    };
   }, []);
 
   return (

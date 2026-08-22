@@ -5,6 +5,7 @@
   aspect-ratio: 1046.15 / 680;
   overflow: hidden;
   background: #535353;
+  box-shadow: 0 0.875rem 2.25rem rgb(58 47 41 / 10%);
 }
 
 .media {

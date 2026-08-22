@@ -2,17 +2,24 @@ import Image from "next/image";
 import type { ResultCardContent } from "@/content/results";
 import styles from "./result-card.module.css";
 
-export function ResultCard({ title, cases, testimonial, author, image }: ResultCardContent) {
+type ResultCardProps = ResultCardContent & {
+  onOpen: () => void;
+};
+
+export function ResultCard({ title, cases, onOpen }: ResultCardProps) {
+  const firstCase = cases[0];
+
   return (
     <article className={styles.card} data-result-card>
       <div className={styles.media}>
-        {image ? (
+        {firstCase.image ? (
           <Image
-            src={image.src}
-            alt={image.alt}
+            src={firstCase.image.src}
+            alt={firstCase.image.alt}
             fill
             sizes="(max-width: 63.999rem) calc(100vw - 2.5rem), 472px"
             className={styles.image}
+            unoptimized
           />
         ) : null}
       </div>
@@ -21,7 +28,7 @@ export function ResultCard({ title, cases, testimonial, author, image }: ResultC
         <h3 className={styles.title}>{title}</h3>
 
         <div className={styles.metadata}>
-          <span className={styles.caseCount}>{cases} casos</span>
+          <span className={styles.caseCount}>{cases.length} casos</span>
           <span className={styles.separator} aria-hidden="true" />
           <span className={styles.resultsLabel}>Ver resultados</span>
           <span className={styles.arrow} aria-hidden="true">
@@ -34,11 +41,25 @@ export function ResultCard({ title, cases, testimonial, author, image }: ResultC
             “
           </span>
           <div>
-            <p>{testimonial}</p>
-            <footer>— {author}</footer>
+            <p>{firstCase.testimonial}</p>
+            <footer>— {firstCase.author}</footer>
           </div>
         </blockquote>
       </div>
+
+      <button
+        type="button"
+        className={styles.interaction}
+        onPointerDown={(event) => {
+          if (event.pointerType === "mouse" && event.button === 0) {
+            onOpen();
+          }
+        }}
+        onClick={onOpen}
+        aria-label={`Ver os ${cases.length} casos de ${title}`}
+        aria-haspopup="dialog"
+        data-result-open
+      />
     </article>
   );
 }

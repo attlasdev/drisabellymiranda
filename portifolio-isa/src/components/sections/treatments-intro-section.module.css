@@ -9,6 +9,10 @@
   color: #535353;
 }
 
+.route {
+  display: none;
+}
+
 .title {
   width: 100%;
   margin: 0;
@@ -73,7 +77,45 @@
     padding: 0;
   }
 
+  .route {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .routeLine {
+    fill: none;
+    stroke: rgb(112 119 117 / 34%);
+    stroke-width: 1.35;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 8 12;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .routeOrigin {
+    fill: rgb(112 119 117 / 46%);
+  }
+
+  .routeEnd {
+    fill: none;
+    stroke: rgb(112 119 117 / 46%);
+    stroke-width: 1.35;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .routeEndDot {
+    fill: rgb(112 119 117 / 46%);
+    stroke: none;
+  }
+
   .cards {
+    z-index: 2;
     width: 100vw;
     gap: min(5vw, 6rem);
     margin-top: 0;
@@ -82,6 +124,7 @@
   }
 
   .title {
+    z-index: 2;
     position: absolute;
     top: 24.6296svh;
     left: 26.9792vw;
@@ -92,12 +135,19 @@
   }
 
   .subtitle {
+    z-index: 2;
     position: absolute;
     top: 32.5926svh;
     left: 38.5938vw;
     width: 22.1875vw;
     height: 9.4444svh;
     margin: 0;
+  }
+}
+
+@media (min-width: 64rem) and (prefers-reduced-motion: reduce) {
+  .route {
+    display: none;
   }
 }
 
