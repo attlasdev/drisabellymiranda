@@ -79,6 +79,20 @@ Na próxima sessão, preservar o layout estático e os timings atuais. A priorid
 - Não declarar essa validação concluída até testar a URL de rede local no aparelho, observar console/erros remotos e confirmar `matchMedia`, carregamento de chunks, `ScrollTrigger.refresh()` e comportamento do viewport real.
 - O drawer foi verificado estruturalmente, mas ainda precisa de validação tátil final no aparelho para confirmar ausência de flick no clique e resposta percebida sem atraso.
 
+## Próxima frente definida e pausada (2026-08-22)
+
+Sistema de imagens em Supabase Storage, para trocar as fotos dos casos sem commit e sem deploy. Decidido em `2026-08-22` e pausado logo em seguida a pedido do usuário; retomar mais tarde.
+
+Desenho acordado, para não reabrir a discussão na retomada:
+
+- Conta Supabase separada, usada só para o Storage. Git e Vercel continuam na conta Attlas.
+- Bucket público, sem banco, sem autenticação e sem API própria: o dashboard do Supabase é o painel de upload, porque quem sobe imagem é a equipe, não a cliente.
+- Nome do arquivo espelha o id do slot já existente em `src/content/results.ts`.
+- Implica remover `unoptimized` dos componentes de Resultados, senão o site serve o arquivo cru; transformação de imagem no Storage é recurso pago e não existe no plano free.
+- Implica `images.remotePatterns` no `next.config.ts` e um cron diário na Vercel, porque projeto free hiberna após cerca de 7 dias e leva o Storage junto.
+
+Esta frente não substitui a pendência das animações no celular físico; nenhuma das duas foi concluída.
+
 ## Ordem macro restante
 
 1. Investigar e validar as animações GSAP no celular físico.
@@ -89,11 +103,29 @@ Na próxima sessão, preservar o layout estático e os timings atuais. A priorid
 
 ## Retomada local
 
+Windows:
+
 ```powershell
 cd "C:\Users\victo\Desktop\Isabely Portifolio\portifolio-isa"
 npm run dev
 ```
 
+Linux:
+
+```bash
+cd /home/agostinho/Desktop/projetos/drisabellymiranda/portifolio-isa
+npm install
+npm run dev
+```
+
 Abrir `http://localhost:3001/`. Antes de iniciar outro servidor, verificar se a porta `3001` já está em uso.
+
+### Notas de ambiente (verificadas em 2026-08-22)
+
+- O repositório é trabalhado em duas máquinas: Windows e Linux. Manter os dois blocos acima.
+- `node_modules` não vem no repositório: rodar `npm install` antes de qualquer coisa após clonar ou trocar de máquina.
+- `npx tsc --noEmit` só fica limpo depois de um `npm run build`, porque o `next-env.d.ts` é gerado por ele e está no `.gitignore`. Antes do primeiro build, o erro em `Hero.tsx` sobre o import do `.jpg` é falso positivo.
+- Baseline verificada no Linux: `lint` limpo, `tsc` limpo, `build` passou e o dev server respondeu `200`.
+- As pastas originais `FOTOS - PACIENTES` e `FOTOS ISA` estão no `.gitignore` e existem somente na máquina Windows.
 
 Para validar em um celular na mesma rede, iniciar o servidor exposto à LAN e usar o IPv4 atual do computador; não registrar um IP fixo na documentação porque ele pode mudar.
