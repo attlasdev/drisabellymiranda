@@ -65,7 +65,7 @@ Preservar o layout estático e os timings atuais. A partir daqui, o trabalho é 
 
 ## Pendências de conteúdo e destinos
 
-- Número oficial do WhatsApp; o CTA ainda usa `https://wa.me/`.
+- WhatsApp: destino oficial ativo desde `2026-08-22` (`https://wa.me/5533988497305`, fonte única em `src/content/contact.ts`). Resta apenas confirmar o número com a responsável abrindo o link num aparelho real.
 - Link oficial do Google Maps; `Como chegar` continua desabilitado.
 - Copy final das sete perguntas e respostas do FAQ.
 - Lista final de tratamentos e suas fotografias.
@@ -121,5 +121,16 @@ Abrir `http://localhost:3001/`. Antes de iniciar outro servidor, verificar se a 
 - `npx tsc --noEmit` só fica limpo depois de um `npm run build`, porque o `next-env.d.ts` é gerado por ele e está no `.gitignore`. Antes do primeiro build, o erro em `Hero.tsx` sobre o import do `.jpg` é falso positivo.
 - Baseline verificada no Linux: `lint` limpo, `tsc` limpo, `build` passou e o dev server respondeu `200`.
 - As pastas originais `FOTOS - PACIENTES` e `FOTOS ISA` estão no `.gitignore` e existem somente na máquina Windows.
+
+### Teste em celular: usar build de produção, nunca o dev (verificado em 2026-08-22)
+
+O `npm run dev` do Next 16 **bloqueia por padrão** o acesso aos recursos internos `/_next/*` vindo de uma origem diferente de `localhost`. Ao abrir o site pelo IP da rede local, o servidor entrega o HTML normalmente — a página *parece* certa — mas recusa os chunks de JavaScript. Sem JS o React não hidrata, e todo componente client morre de uma vez: menu mobile, acordeão do FAQ, modal de Resultados e as animações GSAP.
+
+O log do dev denuncia o caso com `Blocked cross-origin request to Next.js dev resource /_next/webpack-hmr`.
+
+- **Procedimento correto para testar no celular:** `npm run build` e depois `npm start`, e abrir o IP de rede. Verificado: pelo IP da rede o servidor de produção responde `200` tanto na página quanto no chunk de JS que o dev recusava.
+- **Decisão do usuário em `2026-08-22`:** não adicionar `allowedDevOrigins` ao `next.config.ts`. O IP muda de rede para rede, e o build de produção é mais fiel ao que vai ao ar.
+- **Diagnóstico retroativo:** a pendência antiga de "animações GSAP não aparecem no celular físico" tem toda a aparência de ter sido este bloqueio, e não um problema de GSAP. Se o sintoma reaparecer, conferir primeiro por qual servidor o aparelho está acessando antes de investigar movimento.
+- No celular, após trocar de servidor, forçar recarga: a página quebrada do dev pode ficar em cache.
 
 Para validar em um celular na mesma rede, iniciar o servidor exposto à LAN e usar o IPv4 atual do computador; não registrar um IP fixo na documentação porque ele pode mudar.

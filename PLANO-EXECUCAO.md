@@ -129,7 +129,7 @@ Validar visualmente em `1920 × 1080 px` e em pelo menos um viewport móvel pró
 
 ### 1. Ativar o link oficial do WhatsApp
 
-**Status:** `[ ]` pendente, pronta para execução
+**Status:** `[x]` concluída e verificada em `2026-08-22`
 
 **Problema atual:** o CTA de contato aponta para `https://wa.me/` sem número. O botão principal de conversão do site não leva a lugar nenhum.
 
@@ -150,6 +150,10 @@ Validar visualmente em `1920 × 1080 px` e em pelo menos um viewport móvel pró
 - `npm run lint` e `npx tsc --noEmit` passam.
 
 **Conferência antes do deploy:** confirmar com a responsável que o número com o nono dígito (`98849-7305`) está correto, abrindo o link em um aparelho real e checando se cai na conversa certa.
+
+**Verificado em `2026-08-22`:** `whatsappHref` passou a ser `https://wa.me/5533988497305` em `src/content/contact.ts`, fonte única — o único consumidor é `ContactCtaSection`, e nenhum componente escreve o número diretamente. No HTML renderizado o link sai como `href="https://wa.me/5533988497305" target="_blank" rel="noopener noreferrer"`, sem nenhuma ocorrência restante de `wa.me/` vazio. O `rel` ganhou `noopener` explícito. `lint`, `tsc --noEmit` e `build` passaram.
+
+**Continua pendente:** a conferência do número com a responsável em aparelho real, descrita acima. Isso não é verificável por código.
 
 ---
 
@@ -210,7 +214,7 @@ No mobile, a tira de dados empilha verticalmente, seguindo o mesmo padrão de em
 - Conteúdo estruturado migra de `treatments` (array simples em `src/content/treatments.ts`) para um objeto por slug com os campos do modelo abaixo, mantendo os campos hoje usados pelo card da home (`title`, `description`, `image`, `imageAlt`).
 - O número de WhatsApp vem de `src/content/contact.ts` (Tarefa 1). Reutilizar o **dado**, não o componente `ContactCtaSection`. Mensagem pré-preenchida por procedimento fica de fora deste escopo.
 - Definir `generateStaticParams` e `generateMetadata` por slug; slug inexistente chama `notFound()`.
-- **Reuso do `FaqAccordion`** ([FaqAccordion.tsx](portifolio-isa/src/components/faq/FaqAccordion.tsx)): ele já recebe `items` por prop, então é reutilizável, mas tem duas armadilhas verificadas no código atual — (a) os `id` gerados são fixos (`faq-question-1`, `faq-answer-1`), o que quebra `aria-controls` se dois acordeões coexistirem na mesma tela; (b) ele abre o primeiro item por padrão (`useState(0)`). Ao reutilizar, tornar o prefixo de `id` parametrizável e decidir explicitamente o estado inicial, sem alterar o comportamento hoje aprovado na home.
+- **Reuso do `FaqAccordion`** ([FaqAccordion.tsx](portifolio-isa/src/components/faq/FaqAccordion.tsx)): **as duas armadilhas foram resolvidas em `2026-08-22`.** O componente agora aceita `idPrefix` (padrão `"faq"`) e `initialOpenIndex` (padrão `0`). Os defaults preservam exatamente o comportamento aprovado na home, que foi reverificado no HTML renderizado. Ao reutilizar nesta página, passar um `idPrefix` próprio — senão dois acordeões na mesma tela colidem em `aria-controls` — e decidir explicitamente o `initialOpenIndex`.
 - **Não animar** esta página nesta tarefa. A camada GSAP atual está montada para a home dentro de `SmoothScroll`; introduzir movimento aqui é escopo separado e precisa de pedido explícito.
 
 #### Estrutura de arquivos esperada
@@ -373,4 +377,5 @@ Itens já conhecidos que ainda precisam ser transformados em tarefas completas, 
 - `2026-08-22` — WhatsApp oficial recebido e tarefa 1 desbloqueada. Definido que os cards de Tratamentos e o botão `Conheça minha trajetória` abrem rotas próprias; esqueletos das páginas em definição.
 - `2026-08-22` — Esqueleto da página de procedimento travado: capítulos claro/escuro sem fotografia, sem referência à seção Resultados, acordeão de perguntas reaproveitado do FAQ, fechamento reaproveitado da Seção 7. Tarefa 2 aguarda apenas conteúdo real.
 - `2026-08-22` — Esqueleto da página `Conheça minha trajetória` travado, mesma gramática clara/escura das outras tarefas. Foto nova a caminho (área reservada com placeholder no padrão do modal de Resultados); certificados entram como texto, não imagem. Chegou a ser implementada em código por engano e foi revertida — este plano permanece só documentação até a etapa de execução.
+- `2026-08-22` — Tarefa 1 concluída: WhatsApp oficial ativo, com o número em fonte única e verificado no HTML renderizado. `FaqAccordion` preparado para reuso (`idPrefix` e `initialOpenIndex`), sem alterar o comportamento da home.
 - `2026-08-22` — Plano lapidado após a implementação revertida ter clonado a seção de CTA da home dentro da página de trajetória. Adicionadas as Regras 10, 11 e 12 (proibição de clonar seções da home, proibição de layout decidido pelo executor, proibição de conteúdo genérico). O encerramento das páginas internas passou a ter especificação própria e explícita em vez de "reuso literal da Seção 7". Adicionados critérios de aceite visuais às Tarefas 2 e 3, e registradas as armadilhas reais do `FaqAccordion` (ids fixos e primeiro item aberto por padrão).
