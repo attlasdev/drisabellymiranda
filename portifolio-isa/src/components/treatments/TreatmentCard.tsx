@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { ArrowUpRightIcon } from "@/components/icons/ArrowUpRightIcon";
 
@@ -9,10 +10,18 @@ type TreatmentCardProps = {
   description: string;
   image: string;
   imageAlt: string;
+  slug: string;
   title: string;
 };
 
-export function TreatmentCard({ alignment, description, image, imageAlt, title }: TreatmentCardProps) {
+export function TreatmentCard({
+  alignment,
+  description,
+  image,
+  imageAlt,
+  slug,
+  title,
+}: TreatmentCardProps) {
   return (
     <article
       className={`${styles.card} ${alignment === "right" ? styles.right : styles.left}`}
@@ -28,11 +37,27 @@ export function TreatmentCard({ alignment, description, image, imageAlt, title }
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.description}>{description}</p>
 
-        <a className={styles.link} href="#contato" aria-label={`Saiba mais sobre ${title}`}>
+        {/*
+          Afordância visual apenas. O alvo clicável é o `.overlay` abaixo, que
+          cobre o card inteiro. Manter isto como link também criaria dois
+          destinos para a mesma ação no mesmo card.
+        */}
+        <span className={styles.link} aria-hidden="true">
           <span className={styles.linkLabel}>Saiba mais</span>
           <ArrowUpRightIcon className={styles.arrow} size={22} aria-hidden="true" />
-        </a>
+        </span>
       </div>
+
+      {/*
+        Link único do card, esticado sobre toda a área. Fica depois do conteúdo
+        para receber o clique, e usa `aria-label` para o nome acessível não
+        virar o texto inteiro do card.
+      */}
+      <Link
+        className={styles.overlay}
+        href={`/tratamentos/${slug}`}
+        aria-label={`Saiba mais sobre ${title}`}
+      />
     </article>
   );
 }

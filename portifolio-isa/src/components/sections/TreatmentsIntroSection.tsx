@@ -52,8 +52,9 @@ export function TreatmentsIntroSection() {
       <div className={styles.cards} aria-label="Tratamentos disponíveis">
         {treatments.map((treatment, index) => (
           <TreatmentCard
-            key={treatment.title}
+            key={treatment.slug}
             alignment={index % 2 === 0 ? "right" : "left"}
+            slug={treatment.slug}
             title={treatment.title}
             description={treatment.description}
             image={treatment.image}

@@ -1,0 +1,38 @@
+/*
+  Casca das páginas de procedimento.
+  Define o vocabulário local (medida, cores, régua) que os blocos desta pasta
+  consomem por herança, para nenhum deles repetir valor solto e para nenhum
+  precisar importar CSS de uma seção da home.
+*/
+.page {
+  --tp-shell: min(100% - 2.5rem, 56rem);
+  --tp-paper: #f8f7f4;
+  --tp-ink: #535353;
+  --tp-ink-soft: rgb(83 83 83 / 72%);
+  --tp-dark: #535353;
+  --tp-inverse: #f5f5f2;
+  --tp-rule: rgb(83 83 83 / 14%);
+
+  background: var(--tp-paper);
+  color: var(--tp-ink);
+}
+
+.chapter {
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+  background: var(--tp-paper);
+}
+
+.chapterInner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 3.5rem);
+  width: var(--tp-shell);
+  margin-inline: auto;
+}
+
+.divider {
+  height: 1px;
+  margin: 0;
+  border: 0;
+  background: var(--tp-rule);
+}

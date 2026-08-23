@@ -1,0 +1,51 @@
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.heading {
+  margin: 0;
+  color: var(--tp-ink);
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item + .item {
+  border-top: 1px solid var(--tp-rule);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.5rem;
+  padding-block: 0.75rem;
+  color: var(--tp-ink);
+  font-size: clamp(1rem, 1.8vw, 1.125rem);
+  transition: color 0.2s ease;
+}
+
+.link:hover .label {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--tp-ink);
+  outline-offset: 4px;
+}
+
+.arrow {
+  flex: 0 0 auto;
+  color: var(--tp-ink-soft);
+}

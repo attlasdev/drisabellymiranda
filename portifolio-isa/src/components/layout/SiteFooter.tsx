@@ -7,7 +7,21 @@ import { primaryNavigation } from "@/content/navigation";
 
 import styles from "./site-footer.module.css";
 
-export function SiteFooter() {
+type SiteFooterProps = {
+  /**
+   * Prefixo aplicado às âncoras da home. Vazio na própria home, onde
+   * `#sobre` resolve localmente e o `SmoothScroll` intercepta o clique pelo
+   * seletor `a[href^="#"]`. Nas páginas internas, passar `"/"`: sem isso o
+   * menu do rodapé aponta para âncoras que não existem naquela rota.
+   *
+   * O `Voltar ao topo` fica de fora de propósito — ele precisa continuar
+   * resolvendo dentro da página atual, e cada página interna expõe o id
+   * `inicio` no seu `main`.
+   */
+  hrefBase?: string;
+};
+
+export function SiteFooter({ hrefBase = "" }: SiteFooterProps) {
   return (
     <footer className={styles.footer} id="rodape" aria-label="Rodapé">
       <div className={styles.inner}>
@@ -15,7 +29,7 @@ export function SiteFooter() {
           <div className={styles.brandColumn} data-footer-group>
             <a
               className={styles.brand}
-              href="#inicio"
+              href={`${hrefBase}#inicio`}
               aria-label="Isabely Miranda — voltar ao topo"
             >
               <Image
@@ -44,7 +58,7 @@ export function SiteFooter() {
             <ul className={styles.navigationList}>
               {primaryNavigation.map((item) => (
                 <li key={item.href}>
-                  <a className={styles.navigationLink} href={item.href}>
+                  <a className={styles.navigationLink} href={`${hrefBase}${item.href}`}>
                     {item.label}
                   </a>
                 </li>
