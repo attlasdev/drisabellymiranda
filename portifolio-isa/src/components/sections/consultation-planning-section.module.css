@@ -109,6 +109,11 @@
   line-height: 1.5;
 }
 
+.trajectory:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 6px;
+}
+
 .trajectory span:first-child {
   text-decoration: underline;
   text-underline-offset: 0.15em;

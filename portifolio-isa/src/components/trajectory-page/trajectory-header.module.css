@@ -1,0 +1,101 @@
+.header {
+  padding-block: clamp(2rem, 4vw, 2.75rem) clamp(3rem, 6vw, 4.5rem);
+  background: var(--ip-paper);
+}
+
+.inner {
+  width: var(--ip-shell);
+  margin-inline: auto;
+}
+
+.composition {
+  display: grid;
+  grid-template-columns: 22rem 1fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: center;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.capsule {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 7 / 9;
+  border-radius: 0.75rem;
+  background: #dedbd6;
+}
+
+.photo {
+  object-fit: cover;
+}
+
+/* Estado vazio declarado, no mesmo vocabulário do placeholder do modal. */
+.pending {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  padding: 1.5rem;
+  background:
+    radial-gradient(circle at 50% 30%, rgb(255 255 255 / 55%), transparent 48%),
+    #dedbd6;
+  color: #6c6862;
+  text-align: center;
+}
+
+.pendingMark {
+  color: rgb(83 83 83 / 18%);
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-size: clamp(3.5rem, 7vw, 5rem);
+  font-weight: 400;
+  line-height: 0.9;
+}
+
+.pendingLabel {
+  margin: 1.25rem 0 0;
+  color: rgb(83 83 83 / 64%);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--ip-ink-soft);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0.75rem 0 0;
+  color: var(--ip-ink);
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-size: clamp(2.25rem, 5.2vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.08;
+}
+
+.opening {
+  max-width: 46ch;
+  margin: clamp(1rem, 2vw, 1.5rem) 0 0;
+  color: var(--ip-ink-soft);
+  font-size: clamp(1rem, 1.6vw, 1.125rem);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* No mobile a foto vem acima do texto. */
+@media (max-width: 47.999rem) {
+  .composition {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    align-items: start;
+  }
+
+  .capsule {
+    width: min(78%, 17rem);
+  }
+}

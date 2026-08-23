@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { ArrowUpRightIcon } from "@/components/icons/ArrowUpRightIcon";
 
@@ -53,14 +54,19 @@ export function ConsultationPlanningSection() {
         </div>
       </div>
 
-      <p
+      {/*
+        `data-consultation-trajectory` é o seletor que a cascata GSAP da
+        Seção 4 usa. Ele precisa sobreviver à troca de `<p>` para link, senão
+        a animação de entrada deste elemento para de funcionar.
+      */}
+      <Link
         className={styles.trajectory}
-        aria-label="Conheça minha trajetória, em breve"
+        href="/trajetoria"
         data-consultation-trajectory
       >
         <span>Conheça minha trajetória</span>
         <ArrowUpRightIcon className={styles.arrow} size={28} aria-hidden="true" />
-      </p>
+      </Link>
     </section>
   );
 }
