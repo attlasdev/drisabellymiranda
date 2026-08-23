@@ -159,7 +159,9 @@ Validar visualmente em `1920 × 1080 px` e em pelo menos um viewport móvel pró
 
 ### 2. Páginas de procedimento — uma rota por tratamento
 
-**Status:** `[!]` bloqueada — esqueleto travado, aguardando conteúdo real de cada procedimento
+**Status:** `[~]` em andamento — **esqueleto construído e verificado em `2026-08-22`**, aguardando o conteúdo real para substituir o provisório
+
+> Handoff detalhado desta implementação: `portifolio-isa/docs/handoff/tarefa-2-paginas-de-procedimento.md`. Ler antes de mexer nestas páginas.
 
 **Comportamento definido:** cada card da seção Tratamentos abre uma rota própria com uma página que explica aquele procedimento. Não é modal, não é âncora, não é seção da home: é navegação para uma página nova. Toda a área do card é clicável, não apenas o rótulo `Saiba mais`.
 
@@ -253,7 +255,22 @@ Visuais — a página reprovada se qualquer um falhar:
 - Nenhum CSS Module de `src/components/sections/` foi importado por esta página.
 - Nenhum texto visível foi inventado pelo executor: todo conteúdo veio do que a responsável entregou.
 
-**Não iniciar a implementação enquanto o conteúdo real dos três procedimentos não for entregue.** Escopo estrutural, layout e decisões técnicas desta tarefa estão fechados; falta somente o conteúdo.
+#### Decisões tomadas em 2026-08-22
+
+A regra de esperar o conteúdo dos três procedimentos foi **revogada pelo responsável**. Motivo: o template é único, então construí-lo com conteúdo provisório não gera retrabalho, e acrescentar um procedimento depois é acrescentar um objeto ao array.
+
+- **Lorem Ipsum autorizado** nos campos de prosa. A distinção que vale: placeholder óbvio é aceitável, texto clínico plausível não é, porque este último atravessa revisão e vai ao ar parecendo final.
+- Campos curtos da tira de dados usam `A definir` em vez de Lorem, porque latim em campo curto fica ilegível.
+- **Rótulos da tira de dados aprovados:** `Duração`, `Anestesia`, `Retorno`, `Durabilidade`. Iguais nos três procedimentos.
+- **Acordeão da página** começa com todos os itens fechados, diferente da home.
+- **Rótulo `Saiba mais` continua visível** no card, mesmo com o card inteiro clicável.
+- **Rodapé entra** nas páginas de procedimento, via a prop `hrefBase` do `SiteFooter`.
+- **Grafia oficial do nome: `Isabelly`.** As páginas novas já usam. O restante do site ainda usa `Isabely` e a correção não foi feita por estar fora deste escopo.
+
+#### O que falta para fechar a tarefa
+
+- Substituir o conteúdo provisório de `src/content/treatments.ts`.
+- Revisão visual humana das três páginas, incluindo o critério de que nenhuma tela pareça a home duas vezes.
 
 ---
 
@@ -378,4 +395,5 @@ Itens já conhecidos que ainda precisam ser transformados em tarefas completas, 
 - `2026-08-22` — Esqueleto da página de procedimento travado: capítulos claro/escuro sem fotografia, sem referência à seção Resultados, acordeão de perguntas reaproveitado do FAQ, fechamento reaproveitado da Seção 7. Tarefa 2 aguarda apenas conteúdo real.
 - `2026-08-22` — Esqueleto da página `Conheça minha trajetória` travado, mesma gramática clara/escura das outras tarefas. Foto nova a caminho (área reservada com placeholder no padrão do modal de Resultados); certificados entram como texto, não imagem. Chegou a ser implementada em código por engano e foi revertida — este plano permanece só documentação até a etapa de execução.
 - `2026-08-22` — Tarefa 1 concluída: WhatsApp oficial ativo, com o número em fonte única e verificado no HTML renderizado. `FaqAccordion` preparado para reuso (`idPrefix` e `initialOpenIndex`), sem alterar o comportamento da home.
+- `2026-08-22` — Tarefa 2: esqueleto das três rotas de procedimento construído e verificado, com conteúdo provisório. Regra de esperar os três conteúdos revogada, Lorem Ipsum autorizado e rótulos da tira de dados aprovados. Descoberto e resolvido que reusar o rodapé em página interna exigiria quebrar a interceptação de âncoras da home; solução foi a prop `hrefBase`.
 - `2026-08-22` — Plano lapidado após a implementação revertida ter clonado a seção de CTA da home dentro da página de trajetória. Adicionadas as Regras 10, 11 e 12 (proibição de clonar seções da home, proibição de layout decidido pelo executor, proibição de conteúdo genérico). O encerramento das páginas internas passou a ter especificação própria e explícita em vez de "reuso literal da Seção 7". Adicionados critérios de aceite visuais às Tarefas 2 e 3, e registradas as armadilhas reais do `FaqAccordion` (ids fixos e primeiro item aberto por padrão).

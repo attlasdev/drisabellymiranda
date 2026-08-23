@@ -34,6 +34,9 @@ Preservar o layout estático e os timings atuais. A partir daqui, o trabalho é 
 - CTA final possui fotografia contextual em baixa opacidade no fundo.
 - FAQ possui cascata das perguntas e abertura suave das respostas.
 - Links internos do Hero estão integrados ao ScrollSmoother e validados para Sobre, Tratamentos, Resultados e Contato.
+- Rotas de procedimento `/tratamentos/[slug]` construídas em `2026-08-22` para os três tratamentos, geradas estaticamente. Estrutura pronta e verificada; o texto é provisório (Lorem Ipsum) e vive em `src/content/treatments.ts`. Handoff: `portifolio-isa/docs/handoff/tarefa-2-paginas-de-procedimento.md`.
+- Os cards da Seção 3 deixaram de apontar para `#contato`: o card inteiro leva à rota do procedimento.
+- Grafia oficial do nome confirmada em `2026-08-22`: **`Isabelly`**. As páginas novas já usam; o restante do site ainda usa `Isabely` em 7 pontos, incluindo o `<title>` da home. Correção pendente de pedido explícito.
 - Repositório remoto: `https://github.com/attlasdev/drisabellymiranda.git`, branch `main`.
 - Último commit funcional publicado: `b7ee30b` (`feat: refine mobile interactions and results experience`).
 
