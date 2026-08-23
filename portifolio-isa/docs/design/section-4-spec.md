@@ -10,11 +10,11 @@
 
 ## Fotografia e identificação
 
-- Asset: `public/images/consultation/isabely-consulta-planejamento.jpg`.
+- Asset aprovado: `public/images/consultation/isabelly-consulta-planejamento-9825-v2.webp`, derivado de `FOTOS ISA/DSC_9825.jpg` sem alterar o original, pré-recortado exatamente em `7 / 9` e convertido para WebP lossless. A versão publicada mantém `1400 × 1800 px` e produz os mesmos pixels RGB da versão JPEG aprovada.
 - Foto: `X 220`, `Y 160`, `560 × 720 px`.
 - Proporção: `7 / 9`.
 - Cantos: `12 px` em todos os lados.
-- A foto usa `object-fit: cover`, foco na base, zoom de `1.5` e deslocamento de `5%` para a esquerda e `25%` para baixo no desktop.
+- A moldura permanece rigidamente em `560 × 720 px` (`7 / 9`). O asset já possui essa proporção e é exibido sem `scale` ou `translate`, preservando rosto e cabelo integralmente, com respiro de fundo acima da cabeça.
 - Para manter a nitidez após o crop, o asset é servido pelo `next/image` com largura de referência de `840 px` no desktop, para que o navegador selecione a versão otimizada de `1080 px`.
 - Nome: `X 220`, `Y 900`; Playfair Display Regular, `24/30 px`, `#FFFFFF`.
 - Credencial: `X 220`, `Y 938`; Inter Regular, `13/18 px`, tracking `3%`, `#FFFFFF` a `65%`.

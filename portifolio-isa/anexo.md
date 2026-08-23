@@ -143,10 +143,14 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
   - Descrição: `X 80`, `Y 530`, `420 × 48 px`.
   - CTA: `X 80`, `Y 615`, `82 × 24 px`.
 - CTA: `Saiba mais` sublinhado acompanhado pelo SVG diagonal `ArrowUpRightIcon` de `22 px`, com traço fino de `1.35` e alinhamento central.
-- As fotos aprovadas estão em `public/images/treatments/` e são renderizadas com `next/image`:
-  - `preenchimento-labial.png` — Preenchimento labial.
-  - `toxina-botulinica.png` — Toxina Botulínica.
-  - `rinomodelacao.png` — Rinomodelação.
+- As seis fotos aprovadas estão em `public/images/treatments/`, usam extensão `.webp` e são renderizadas com `next/image`:
+  - `toxina-botulinica.webp` — Toxina Botulínica.
+  - `preenchimento-labial.webp` — Preenchedores Faciais.
+  - `bioestimulador-de-colageno.webp` — Bioestimulador de Colágeno.
+  - `fios-de-pdo.webp` — Fios de PDO.
+  - `microagulhamento.webp` — Microagulhamento.
+  - `skinbooster.webp` — Skinbooster.
+- Esses seis arquivos já continham WebP sob a extensão antiga `.png`; a republicação com a extensão correta preservou os bytes integralmente, sem recompressão.
 - Um degradê suave preserva o contraste do conteúdo claro no lado esquerdo dos cards.
 - Os três tratamentos atuais servem para validar a seção; outros procedimentos serão adicionados depois.
 
@@ -191,10 +195,10 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 
 - Fundo `#535353`; ocupa uma dobra completa no desktop.
 - O frame desktop mantém altura mínima de `1080 px`, preservando o respiro após a identificação mesmo em janelas mais baixas.
-- Foto da Dra. Isabely: `public/images/consultation/isabely-consulta-planejamento.jpg`.
+- Foto da Dra. Isabelly: `public/images/consultation/isabelly-consulta-planejamento-9825-v2.webp`, derivada de `FOTOS ISA/DSC_9825.jpg`, pré-recortada em `7 / 9` e convertida para WebP lossless nas mesmas dimensões e com pixels decodificados idênticos aos da versão JPEG aprovada.
 - Desktop: foto `220/160 — 560 × 720 px`, com raio de `12 px`; conteúdo `980/300`.
-- A foto usa crop com foco na base, zoom de `1.5` e deslocamento de `5%` para a esquerda e `25%` para baixo no desktop.
-- O `next/image` solicita versão de até `840 px`, compensando o zoom ao selecionar a versão otimizada de `1080 px`.
+- A moldura permanece em `560 × 720 px`; a foto já possui a proporção exata e é exibida sem zoom, translação ou redimensionamento do card.
+- O `next/image` solicita versão de até `840 px`, selecionando a versão otimizada de `1080 px`; o crop definitivo está incorporado ao asset para manter o card original e o respiro superior.
 - Título em Playfair Display Regular, `56/62 px`; corpo em Inter Regular, `16/24 px`.
 - Identificação da foto: nome em Playfair Display `24/30 px`; credencial em Inter `13/18 px`, tracking `3%` e opacidade `65%`.
 - O item `SOBRE` da navegação usa a âncora desta seção (`#sobre`).
@@ -256,7 +260,7 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 - `Como chegar` é um botão pill contornado desabilitado até o Google Maps oficial ser fornecido; não exibe `EM BREVE` e usa a seta diagonal compartilhada de `20 px`.
 - Instagram também usa a seta diagonal compartilhada de `20 px`.
 - Linha legal com copyright e `Voltar ao topo` aparece antes da assinatura; a seta vertical de voltar usa círculo transparente de `44 px` com stroke fino.
-- Assinatura `Isabely Miranda` ampliada, isolada e posicionada como o último elemento do site; primeiro nome em Playfair itálico `#99A1A4` e sobrenome em Playfair regular `#535353`.
+- Assinatura `Isabelly Miranda` ampliada, isolada e posicionada como o último elemento do site; primeiro nome em Playfair itálico `#99A1A4` e sobrenome em Playfair regular `#535353`.
 - O footer é semanticamente separado do `<main>`.
 - Implementação aprovada no desktop e tecnicamente verificada no mobile sem overflow horizontal ou erros de console; a revisão editorial mobile completa continua pendente.
 - Especificação completa: `docs/design/section-8-footer-spec.md`.

@@ -12,8 +12,8 @@ export function ConsultationPlanningSection() {
         <div className={styles.photoFrame}>
           <Image
             className={styles.photo}
-            src="/images/consultation/isabely-consulta-planejamento.jpg"
-            alt="Dra. Isabelly Miranda sentada em seu consultório"
+            src="/images/consultation/isabelly-consulta-planejamento-9825-v2.webp"
+            alt="Dra. Isabelly Miranda sentada em uma poltrona, usando terno marrom"
             fill
             sizes="(max-width: 639px) 110vw, 840px"
           />

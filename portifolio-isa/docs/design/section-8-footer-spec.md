@@ -51,9 +51,9 @@ O footer encerra a home com uma assinatura editorial, informações práticas e 
 
 ## Assinatura
 
-- Texto: `Isabely Miranda`.
+- Texto: `Isabelly Miranda`.
 - Playfair Display em grande escala.
-- `Isabely` em itálico e `#99A1A4`.
+- `Isabelly` em itálico e `#99A1A4`.
 - `Miranda` em regular e `#535353`.
 - Em telas pequenas, os nomes quebram em duas linhas.
 - A assinatura é maior que na primeira versão, ocupa quase toda a largura útil e é o último elemento absoluto da página.
@@ -62,7 +62,7 @@ O footer encerra a home com uma assinatura editorial, informações práticas e 
 
 ## Linha inferior
 
-- Copyright estático: `© 2026 Isabely Miranda`.
+- Copyright estático: `© 2026 Isabelly Miranda`.
 - Link funcional `Voltar ao topo`, apontando para `#inicio`, acompanhado por `ArrowUpIcon` de `18 px` dentro de círculo transparente de `44 px` e borda de `1 px`.
 - A linha legal aparece antes da assinatura, sem nenhum conteúdo posterior ao nome.
 
@@ -82,7 +82,7 @@ O footer encerra a home com uma assinatura editorial, informações práticas e 
 ## Animação atual
 
 - Somente os quatro grupos informativos acima da divisória entram em cascata.
-- Copyright, `Voltar ao topo` e a assinatura `Isabely Miranda` permanecem estáticos.
+- Copyright, `Voltar ao topo` e a assinatura `Isabelly Miranda` permanecem estáticos.
 - No mobile, o stagger de referência entre grupos é `0.09 s`.
 - A entrada executa uma única vez e não altera a altura medida nem as quebras aprovadas.
 - Em `prefers-reduced-motion`, todos os grupos permanecem imediatamente visíveis.

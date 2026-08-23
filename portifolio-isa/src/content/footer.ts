@@ -9,10 +9,10 @@ export const footerContent = {
   instagramLabel: "Instagram",
   instagramHandle: "@draisabellymiranda",
   instagramHref: "https://www.instagram.com/draisabellymiranda/",
-  firstName: "Isabely",
+  firstName: "Isabelly",
   lastName: "Miranda",
   profession: "Cirurgiã-dentista",
   specialty: "Harmonização Orofacial",
   registration: "CRO-MG 72298",
-  copyright: "© 2026 Isabely Miranda",
+  copyright: "© 2026 Isabelly Miranda",
 } as const;

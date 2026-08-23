@@ -1,6 +1,6 @@
 # Memória curta — Portfólio Isabely
 
-Última atualização: `2026-08-22`.
+Última atualização: `2026-08-23`.
 
 Este arquivo é a retomada rápida após reset de contexto. O handoff técnico atual está em `portifolio-isa/docs/handoff/sessao-animacoes-concluida.md`.
 
@@ -38,7 +38,7 @@ Preservar o layout estático e os timings atuais. A partir daqui, o trabalho é 
 - Os cards da Seção 3 deixaram de apontar para `#contato`: o card inteiro leva à rota do procedimento.
 - Rota `/trajetoria` construída em `2026-08-22`, ligada ao botão `Conheça minha trajetória` da Seção 4, que deixou de ser um `<p>` desabilitado. Estrutura pronta e verificada; texto provisório em `src/content/trajetoria.ts` e fotografia como estado vazio declarado. Handoff: `portifolio-isa/docs/handoff/tarefa-3-pagina-trajetoria.md`.
 - Primitivas compartilhadas das páginas internas vivem em `src/components/internal-page/`. Não duplicar a casca, a faixa de dados nem o encerramento ao criar uma página interna nova.
-- Grafia oficial do nome confirmada em `2026-08-22`: **`Isabelly`**. As páginas novas já usam; o restante do site ainda usa `Isabely` em 7 pontos, incluindo o `<title>` da home. Correção pendente de pedido explícito.
+- Grafia oficial do nome confirmada em `2026-08-22`: **`Isabelly`**. O footer foi corrigido em `2026-08-23`; ainda restam três ocorrências de `Isabely` no `<title>` da home e nos rótulos acessíveis do Hero, pendentes de pedido explícito.
 - Repositório remoto: `https://github.com/attlasdev/drisabellymiranda.git`, branch `main`.
 - Último commit funcional publicado: `b7ee30b` (`feat: refine mobile interactions and results experience`).
 
@@ -50,6 +50,7 @@ Preservar o layout estático e os timings atuais. A partir daqui, o trabalho é 
 - Tratamentos mobile: cards de `90vw`, proporção `1.18`, alternância direita/esquerda e borda encostada na tela com cantos retos nesse lado.
 - Tratamentos: cards entram uma única vez em direções alternadas conforme o alinhamento e assentam com `power4.out`; a rota pontilhada desktop é a única animação de seção com scrub.
 - Consulta mobile: fotografia sem cantos arredondados e `CRO-MG 72298` sozinho na segunda linha; desktop mantém raio de `12 px` e credencial em linha única.
+- Consulta: fotografia definitiva `DSC_9825.jpg`, servida pelo asset WebP lossless `isabelly-consulta-planejamento-9825-v2.webp`, pré-recortado exatamente em `7 / 9` e com os mesmos pixels decodificados da versão JPEG aprovada. A moldura original `560 × 720` não deve ser alterada e a imagem deve permanecer sem `scale` ou `translate`.
 - Resultados mobile: título de `40–44 px` em quatro linhas; cards abrem o modal por toda a sua área clicável.
 - FAQ e CTA final aprovados sem redesenho.
 - Footer mobile: marca e navegação lado a lado abaixo de `768 px`; Atendimentos e Social ocupam a largura completa abaixo. Altura em `390 px`: `1054 px`.
@@ -73,7 +74,7 @@ Preservar o layout estático e os timings atuais. A partir daqui, o trabalho é 
 - WhatsApp: destino oficial ativo desde `2026-08-22` (`https://wa.me/5533988497305`, fonte única em `src/content/contact.ts`). Resta apenas confirmar o número com a responsável abrindo o link num aparelho real.
 - Link oficial do Google Maps; `Como chegar` continua desabilitado.
 - Copy final das sete perguntas e respostas do FAQ.
-- Lista final de tratamentos e suas fotografias.
+- As `description` dos cinco tratamentos além de `toxina-botulinica` foram redigidas a partir do texto da profissional mas **ainda não têm aprovação dela** (ver comentário no topo de `src/content/treatments.ts`).
 - Destino definitivo de `Conheça minha trajetória`.
 - Conteúdo real para as 11 posições restantes de cada uma das seis categorias do modal de Resultados (`66` posições provisórias no total).
 
@@ -108,6 +109,22 @@ Desenho acordado, para não reabrir a discussão na retomada:
 
 Esta frente é independente da validação mobile: a pendência das animações no celular físico foi encerrada nesta mesma data (ver "Validação mobile concluída" acima), sem relação com o Supabase Storage.
 
+## Seção 3 — seis tratamentos com fotografia (2026-08-23)
+
+Os seis cards de Tratamentos agora têm imagem e `alt` preenchidos em `portifolio-isa/src/content/treatments.ts`. As seis regiões de preenchimento que antes eram cards próprios viraram subtipos de `preenchedores-faciais`; a ordem atual é `toxina-botulinica`, `preenchedores-faciais`, `bioestimulador-de-colageno`, `fios-de-pdo`, `microagulhamento`, `skinbooster`. Reordenar ou mudar a quantidade exige refazer o `path` da rota pontilhada em `TreatmentsIntroSection` (ver `src/lib/treatment-route.ts`).
+
+Os seis assets publicados nos cards usam a extensão `.webp`. Os arquivos anteriores com extensão `.png` já continham WebP internamente; por isso, a mudança foi feita por cópia byte a byte, sem nova compressão, redimensionamento ou perda de qualidade. Os nomes antigos foram preservados no diretório apenas como histórico e não são mais usados pelo código.
+
+Todas as fotos foram geradas por IA (Higgsfield CLI, `nano_banana_2`) na pasta `Human Images - ISA/`, que fica um nível acima de `portifolio-isa/` e é um kit autocontido de geração de imagem (não confundir com as pastas de fotos reais `FOTOS - PACIENTES` e `FOTOS ISA`, que continuam intocadas). Os prompts, briefs e todas as variantes descartadas ficam em `Human Images - ISA/human-output/image/card-0N-*/` — útil se for preciso regenerar ou entender por que uma composição foi escolhida.
+
+Regras de composição fixadas para a seção inteira (valem para qualquer foto futura):
+
+- Sujeito sempre à direita do quadro; a metade esquerda é zona morta com fundo liso, porque `.content` no CSS fica fixo em `left: 7.6473%` independente do `alignment` do card.
+- Fundo na área do texto precisa ficar entre 28–36% de luminância depois do degradê do CSS (`treatment-card.module.css`) — testado com o script de preview em `card_preview.py` no scratchpad da sessão, que não foi salvo no repositório.
+- Sempre close, nunca plano aberto; sem contato visual com a câmera; nunca o rosto da profissional, só mão e antebraço.
+- Agulha visível é aceitável quando o instrumento em si não é ameaçador (ex.: cartucho de dermapen) — a regra não é "nunca mostrar o mecanismo", é "não mostrar nada que pareça uma seringa". Mostrar o instrumento com clareza é preferível a evitar, porque é o que diferencia um card do outro.
+- Toda foto tenta variar a aparência da paciente (idade, tom de pele, cor e textura de cabelo) para os seis cards não parecerem a mesma pessoa.
+
 ## Ordem macro restante
 
 O plano executável `PLANO-EXECUCAO.md` na raiz do repositório é a fonte de verdade das tarefas em aberto.
@@ -138,6 +155,30 @@ Abrir `http://localhost:3001/`. Antes de iniciar outro servidor, verificar se a 
 - `npx tsc --noEmit` só fica limpo depois de um `npm run build`, porque o `next-env.d.ts` é gerado por ele e está no `.gitignore`. Antes do primeiro build, o erro em `Hero.tsx` sobre o import do `.jpg` é falso positivo.
 - Baseline verificada no Linux: `lint` limpo, `tsc` limpo, `build` passou e o dev server respondeu `200`.
 - As pastas originais `FOTOS - PACIENTES` e `FOTOS ISA` estão no `.gitignore` e existem somente na máquina Windows.
+
+### Trocar imagem em `public/`: limpar o cache do otimizador (verificado em 2026-08-23)
+
+Copiar um arquivo novo por cima de outro em `portifolio-isa/public/` **mantendo o mesmo nome** não faz o site mostrar a imagem nova. O otimizador do `next/image` guarda uma entrada de cache **por largura** em `.next/dev/cache/images` — caminho do Next 16 com Turbopack, não é `.next/cache/images` — e essa entrada não invalida quando o arquivo de origem muda.
+
+O sintoma engana: a URL crua (`/images/treatments/arquivo.png`) já serve a imagem nova, e algumas larguras do endpoint otimizado também. Mas a largura que a tela realmente pede continua devolvendo a antiga, com `X-Nextjs-Cache: HIT`. Recarregar o navegador, forçar com `Ctrl+Shift+R` ou abrir aba anônima **não resolve**, porque o cache é do servidor, não do cliente.
+
+Procedimento obrigatório ao trocar uma imagem:
+
+1. Copiar o arquivo novo por cima.
+2. Parar o dev server.
+3. `rm -rf .next/dev/cache/images`
+4. Subir o servidor de novo. A configuração está em `portifolio-isa/.claude/launch.json` (nome `portifolio-isa`, porta `3001`).
+5. Conferir em **várias larguras**, nunca em uma só:
+
+```bash
+curl -s -D - -o /dev/null "http://localhost:3001/_next/image?url=%2Fimages%2Ftreatments%2FARQUIVO.png&w=1080&q=75"
+```
+
+   Olhar `X-Nextjs-Cache` e o `Content-Length`. Larguras candidatas: `640 750 828 1080 1200 1920 2048 3840`. Um `200 OK` numa largura não prova as outras.
+
+Alternativa que evita o problema de vez: trocar também o nome do arquivo, o que muda a chave de cache. Custa uma edição em `treatments.ts`, mas dispensa reiniciar o servidor.
+
+**Origem:** em `2026-08-23` a foto do card de Fios de PDO foi substituída e o site continuou exibindo a antiga. A largura `3840` respondia com a nova e a `1080` com a antiga. O diagnóstico inicial atribuiu a culpa ao cache do navegador do usuário, o que era falso e custou três rodadas de ida e volta até a causa real aparecer.
 
 ### Teste em celular: usar build de produção, nunca o dev (verificado em 2026-08-22)
 

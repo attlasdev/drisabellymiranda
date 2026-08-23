@@ -26,9 +26,7 @@
 
 .photo {
   object-fit: cover;
-  object-position: center bottom;
-  transform: scale(1.1);
-  transform-origin: center bottom;
+  object-position: center;
 }
 
 .caption {
@@ -148,10 +146,6 @@
   .registration,
   .registrationSeparator {
     display: inline;
-  }
-
-  .photo {
-    transform: translate(-5%, 25%) scale(1.5);
   }
 
   .content {

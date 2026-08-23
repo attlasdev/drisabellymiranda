@@ -46,10 +46,14 @@ características de cada rosto.
 - A sequência alterna automaticamente: direita, esquerda, direita, esquerda.
 - Distância vertical entre os cards: `96 px` no frame desktop.
 - O primeiro card começa alinhado à direita.
-- As fotografias fornecidas foram incorporadas em `public/images/treatments/`:
-  - `preenchimento-labial.png` para Preenchimento labial.
-  - `toxina-botulinica.png` para Toxina Botulínica.
-  - `rinomodelacao.png` para Rinomodelação.
+- As seis fotografias aprovadas foram incorporadas em `public/images/treatments/`:
+  - `toxina-botulinica.webp` para Toxina Botulínica.
+  - `preenchimento-labial.webp` para Preenchedores Faciais.
+  - `bioestimulador-de-colageno.webp` para Bioestimulador de Colágeno.
+  - `fios-de-pdo.webp` para Fios de PDO.
+  - `microagulhamento.webp` para Microagulhamento.
+  - `skinbooster.webp` para Skinbooster.
+- Os seis arquivos já continham WebP sob a extensão anterior `.png`; a correção da extensão foi feita por cópia byte a byte, sem recompressão, redimensionamento ou perda de qualidade.
 - As imagens usam `object-fit: cover`; um degradê escuro suave à esquerda e na parte inferior mantém legíveis os textos claros.
 - Os cards usam sombra sutil de referência `0 0.875rem 2.25rem rgb(58 47 41 / 10%)`, sem alterar medidas ou raios.
 

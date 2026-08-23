@@ -30,7 +30,7 @@ export function SiteFooter({ hrefBase = "" }: SiteFooterProps) {
             <a
               className={styles.brand}
               href={`${hrefBase}#inicio`}
-              aria-label="Isabely Miranda — voltar ao topo"
+              aria-label="Isabelly Miranda — voltar ao topo"
             >
               <Image
                 className={styles.monogram}
@@ -139,7 +139,7 @@ export function SiteFooter({ hrefBase = "" }: SiteFooterProps) {
           </a>
         </div>
 
-        <p className={styles.signature} translate="no" aria-label="Isabely Miranda">
+        <p className={styles.signature} translate="no" aria-label="Isabelly Miranda">
           <span className={styles.firstName}>{footerContent.firstName}</span>
           <span className={styles.lastName}>{footerContent.lastName}</span>
         </p>

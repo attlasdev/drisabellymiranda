@@ -23,10 +23,9 @@
  *
  * FOTOGRAFIA
  *
- * `image` e `imageAlt` são opcionais. Quatro procedimentos ainda não têm
- * fotografia; o card cai para o fundo sólido `#535353` sem quebrar o layout.
- * Decisão de `2026-08-23`: subir a estrutura sem as fotos e preenchê-las
- * depois.
+ * Os seis procedimentos possuem fotografia em WebP. Em `2026-08-23`, os
+ * arquivos que já continham WebP sob extensão `.png` foram republicados com
+ * a extensão correta, sem recompressão e sem alterar nenhum byte da imagem.
  *
  * As seis regiões de preenchimento (lábios, nariz, queixo, mandíbula, maçãs
  * do rosto e bigode chinês) deixaram de ser cards próprios e passaram a ser
@@ -103,8 +102,8 @@ export const treatments: Treatment[] = [
     title: "Toxina Botulínica",
     description:
       "Avaliação cuidadosa da expressão e do movimento para suavizar sem apagar o que torna seu rosto único.",
-    image: "/images/treatments/toxina-botulinica.png",
-    imageAlt: "Aplicação de toxina botulínica na testa de uma paciente",
+    image: "/images/treatments/toxina-botulinica.webp",
+    imageAlt: "Marcação da testa com lápis dermográfico antes da aplicação de toxina botulínica",
     oQueE: LOREM_LONGO,
     quandoIndicado: LOREM_MEDIO,
     tiraDeDados: criarTiraDeDados(),
@@ -116,8 +115,8 @@ export const treatments: Treatment[] = [
     title: "Preenchedores Faciais",
     description:
       "Volume, contorno e suporte devolvidos com proporção, região a região do rosto.",
-    image: "/images/treatments/preenchimento-labial.png",
-    imageAlt: "Detalhe de lábios em procedimento de preenchimento",
+    image: "/images/treatments/preenchimento-labial.webp",
+    imageAlt: "Close dos lábios hidratados após preenchimento labial, com contorno natural e arco do Cupido definido",
     oQueE: LOREM_LONGO,
     quandoIndicado: LOREM_MEDIO,
     tiraDeDados: criarTiraDeDados(),
@@ -129,6 +128,8 @@ export const treatments: Treatment[] = [
     title: "Bioestimulador de Colágeno",
     description:
       "Estímulo à produção do próprio colágeno, com resultado progressivo em firmeza e qualidade de pele.",
+    image: "/images/treatments/bioestimulador-de-colageno.webp",
+    imageAlt: "Perfil de pescoço e mandíbula em luz rasante, evidenciando firmeza de pele",
     oQueE: LOREM_LONGO,
     quandoIndicado: LOREM_MEDIO,
     tiraDeDados: criarTiraDeDados(),
@@ -140,6 +141,8 @@ export const treatments: Treatment[] = [
     title: "Fios de PDO",
     description:
       "Filamentos absorvíveis que estimulam colágeno e, em técnicas específicas, sustentam os tecidos.",
+    image: "/images/treatments/fios-de-pdo.webp",
+    imageAlt: "Leque de vetores marcados a lápis dermográfico a partir de um ponto no arco zigomático, indicando a direção de tração dos fios",
     oQueE: LOREM_LONGO,
     quandoIndicado: LOREM_MEDIO,
     tiraDeDados: criarTiraDeDados(),
@@ -151,6 +154,8 @@ export const treatments: Treatment[] = [
     title: "Microagulhamento",
     description:
       "Microperfurações controladas que ativam a regeneração da pele e melhoram textura e cicatrizes.",
+    image: "/images/treatments/microagulhamento.webp",
+    imageAlt: "Caneta de microagulhamento aplicada perpendicularmente à bochecha, cartucho em foco",
     oQueE: LOREM_LONGO,
     quandoIndicado: LOREM_MEDIO,
     tiraDeDados: criarTiraDeDados(),
@@ -162,6 +167,8 @@ export const treatments: Treatment[] = [
     title: "Skinbooster",
     description:
       "Hidratação profunda para uma pele mais viçosa e uniforme, sem alterar volume ou contorno.",
+    image: "/images/treatments/skinbooster.webp",
+    imageAlt: "Perfil com dedo em repouso na têmpora, evidenciando o brilho saudável da pele hidratada",
     oQueE: LOREM_LONGO,
     quandoIndicado: LOREM_MEDIO,
     tiraDeDados: criarTiraDeDados(),
