@@ -11,13 +11,31 @@
  * Os campos `tiraDeDados` usam o valor `A definir` em vez de Lorem Ipsum,
  * porque são campos curtos onde o latim ficaria ilegível.
  *
- * Já são reais e aprovados: `title`, `description`, `image` e `imageAlt` — os
- * mesmos que a Seção 3 da home usa hoje. A `description` também alimenta a
- * frase-resumo e a meta description da página do procedimento.
+ * ESTADO DAS DESCRIÇÕES (atualizado em 2026-08-23)
+ *
+ * `title` e `description` de `toxina-botulinica` seguem aprovados desde a
+ * validação original da Seção 3.
+ *
+ * As demais `description` foram redigidas a partir do texto da própria
+ * profissional (`texto 3.txt`) e ainda **não passaram por aprovação dela**.
+ * São curtas e fiéis à fonte, mas devem ser confirmadas antes de publicar,
+ * porque também alimentam a meta description da página do procedimento.
+ *
+ * FOTOGRAFIA
+ *
+ * `image` e `imageAlt` são opcionais. Quatro procedimentos ainda não têm
+ * fotografia; o card cai para o fundo sólido `#535353` sem quebrar o layout.
+ * Decisão de `2026-08-23`: subir a estrutura sem as fotos e preenchê-las
+ * depois.
+ *
+ * As seis regiões de preenchimento (lábios, nariz, queixo, mandíbula, maçãs
+ * do rosto e bigode chinês) deixaram de ser cards próprios e passaram a ser
+ * subtipos de `preenchedores-faciais`. A foto de rinomodelação continua em
+ * `public/images/treatments/` sem uso na Seção 3.
  *
  * Os rótulos da tira de dados foram aprovados em 2026-08-22 e precisam ser
- * iguais nos três procedimentos, senão a faixa escura muda de forma entre as
- * páginas.
+ * iguais em todos os procedimentos, senão a faixa escura muda de forma entre
+ * as páginas.
  */
 
 const LOREM_LONGO =
@@ -43,8 +61,10 @@ export type Treatment = {
   slug: string;
   title: string;
   description: string;
-  image: string;
-  imageAlt: string;
+  /** Ausente enquanto a fotografia do procedimento não existir. */
+  image?: string;
+  /** Obrigatório sempre que houver `image`. */
+  imageAlt?: string;
   /** Provisório: Lorem Ipsum. */
   oQueE: string;
   /** Provisório: Lorem Ipsum. Deve incluir quando NÃO é indicado. */
@@ -71,19 +91,13 @@ const criarPerguntas = (): TreatmentQuestion[] => [
   { question: "Excepteur sint occaecat cupidatat non proident?", answer: LOREM_CURTO },
 ];
 
+/*
+  A ordem define a alternância dos cards na Seção 3: índice par encosta na
+  borda direita, ímpar na esquerda. O traçado pontilhado do desktop foi
+  desenhado para esta sequência de seis; reordenar ou mudar a quantidade exige
+  refazer o `path` em `TreatmentsIntroSection`.
+*/
 export const treatments: Treatment[] = [
-  {
-    slug: "preenchimento-labial",
-    title: "Preenchimento labial",
-    description: "Proporção, contorno e suporte planejados com naturalidade.",
-    image: "/images/treatments/preenchimento-labial.png",
-    imageAlt: "Detalhe de lábios em procedimento de preenchimento labial",
-    oQueE: LOREM_LONGO,
-    quandoIndicado: LOREM_MEDIO,
-    tiraDeDados: criarTiraDeDados(),
-    perguntas: criarPerguntas(),
-    convite: LOREM_CURTO,
-  },
   {
     slug: "toxina-botulinica",
     title: "Toxina Botulínica",
@@ -98,12 +112,56 @@ export const treatments: Treatment[] = [
     convite: LOREM_CURTO,
   },
   {
-    slug: "rinomodelacao",
-    title: "Rinomodelação",
+    slug: "preenchedores-faciais",
+    title: "Preenchedores Faciais",
     description:
-      "Uma alternativa sem cirurgia, indicada após avaliação cuidadosa de anatomia, proporção e segurança.",
-    image: "/images/treatments/rinomodelacao.png",
-    imageAlt: "Avaliação do perfil nasal para rinomodelação",
+      "Volume, contorno e suporte devolvidos com proporção, região a região do rosto.",
+    image: "/images/treatments/preenchimento-labial.png",
+    imageAlt: "Detalhe de lábios em procedimento de preenchimento",
+    oQueE: LOREM_LONGO,
+    quandoIndicado: LOREM_MEDIO,
+    tiraDeDados: criarTiraDeDados(),
+    perguntas: criarPerguntas(),
+    convite: LOREM_CURTO,
+  },
+  {
+    slug: "bioestimulador-de-colageno",
+    title: "Bioestimulador de Colágeno",
+    description:
+      "Estímulo à produção do próprio colágeno, com resultado progressivo em firmeza e qualidade de pele.",
+    oQueE: LOREM_LONGO,
+    quandoIndicado: LOREM_MEDIO,
+    tiraDeDados: criarTiraDeDados(),
+    perguntas: criarPerguntas(),
+    convite: LOREM_CURTO,
+  },
+  {
+    slug: "fios-de-pdo",
+    title: "Fios de PDO",
+    description:
+      "Filamentos absorvíveis que estimulam colágeno e, em técnicas específicas, sustentam os tecidos.",
+    oQueE: LOREM_LONGO,
+    quandoIndicado: LOREM_MEDIO,
+    tiraDeDados: criarTiraDeDados(),
+    perguntas: criarPerguntas(),
+    convite: LOREM_CURTO,
+  },
+  {
+    slug: "microagulhamento",
+    title: "Microagulhamento",
+    description:
+      "Microperfurações controladas que ativam a regeneração da pele e melhoram textura e cicatrizes.",
+    oQueE: LOREM_LONGO,
+    quandoIndicado: LOREM_MEDIO,
+    tiraDeDados: criarTiraDeDados(),
+    perguntas: criarPerguntas(),
+    convite: LOREM_CURTO,
+  },
+  {
+    slug: "skinbooster",
+    title: "Skinbooster",
+    description:
+      "Hidratação profunda para uma pele mais viçosa e uniforme, sem alterar volume ou contorno.",
     oQueE: LOREM_LONGO,
     quandoIndicado: LOREM_MEDIO,
     tiraDeDados: criarTiraDeDados(),

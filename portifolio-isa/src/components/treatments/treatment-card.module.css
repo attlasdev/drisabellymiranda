@@ -40,11 +40,19 @@
   border-radius: 0 2rem 2rem 0;
 }
 
+/*
+  Ancorado pela base, não pelo topo. Títulos de duas linhas (`Preenchedores
+  Faciais`, `Bioestimulador de Colágeno`) cresciam para baixo e empurravam o
+  `Saiba mais` para fora do card. Pela base, a linha de apoio fica sempre à
+  mesma distância da borda inferior e o título cresce para cima.
+
+  5.9701% = os 40 px de folga que o card de título em uma linha já tinha.
+*/
 .content {
   position: absolute;
   z-index: 2;
   left: 7.6473%;
-  top: 69.4118%;
+  bottom: 5.9701%;
   width: 40.1472%;
   color: #f5f5f2;
 }

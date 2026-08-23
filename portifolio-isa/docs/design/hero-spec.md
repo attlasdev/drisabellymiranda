@@ -95,7 +95,7 @@ anatomia, expressão, momento e suas expectativas reais.
 - Borda: `1.5 px`, cor `#D1D6D8`.
 - Texto/elementos claros: `#D1D6D8`.
 - A composição visual mostra interior transparente sobre o fundo do Hero; a cor exibida como Fill na seleção do grupo também representa elementos internos. Não aplicar preenchimento cinza opaco sem uma nova confirmação.
-- A tipografia do rótulo não foi mostrada em seleção individual e permanece pendente.
+- Tipografia do rótulo confirmada em `2026-08-23`: `Inter 500`, `0.8125rem` (13 px), `letter-spacing 0.04em`, mesma família de valores do botão do CTA final (`ContactCtaSection`). Substitui o `0.6875rem` (11 px) usado antes, que nunca escalava nos breakpoints desktop.
 
 ## Fotografia
 
@@ -140,7 +140,6 @@ Estes valores ajudam a preservar a composição em telas desktop proporcionais:
 
 ## Pendências antes da aprovação final do Hero
 
-- Tipografia exata do rótulo do CTA.
 - Bounding box, posição e crop exatos da fotografia.
 - Regras editoriais específicas para tablet, caso sejam solicitadas futuramente.
 - Diagnóstico das animações GSAP que funcionam na emulação, mas não aparecem no celular físico relatado pelo usuário.

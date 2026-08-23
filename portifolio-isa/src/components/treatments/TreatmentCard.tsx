@@ -8,8 +8,9 @@ import styles from "./treatment-card.module.css";
 type TreatmentCardProps = {
   alignment: "left" | "right";
   description: string;
-  image: string;
-  imageAlt: string;
+  /** Ausente enquanto o procedimento não tiver fotografia. */
+  image?: string;
+  imageAlt?: string;
   slug: string;
   title: string;
 };
@@ -25,13 +26,26 @@ export function TreatmentCard({
   return (
     <article
       className={`${styles.card} ${alignment === "right" ? styles.right : styles.left}`}
-      data-image-state="ready"
+      data-image-state={image ? "ready" : "empty"}
       data-treatment-card
       data-treatment-alignment={alignment}
     >
-      <div className={styles.media}>
-        <Image className={styles.image} src={image} alt={imageAlt} fill sizes="(max-width: 1023px) 100vw, 55vw" />
-      </div>
+      {/*
+        Sem fotografia, o card fica no fundo sólido `#535353` que já é a cor
+        base de `.card`. O degradê continua aplicado, então o texto mantém o
+        mesmo contraste do card com foto.
+      */}
+      {image ? (
+        <div className={styles.media}>
+          <Image
+            className={styles.image}
+            src={image}
+            alt={imageAlt ?? ""}
+            fill
+            sizes="(max-width: 1023px) 100vw, 55vw"
+          />
+        </div>
+      ) : null}
 
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>

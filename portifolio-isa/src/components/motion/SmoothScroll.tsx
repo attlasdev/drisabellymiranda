@@ -6,6 +6,8 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 
+import { buildTreatmentRoute, readTreatmentGeometry } from "@/lib/treatment-route";
+
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText);
 }
@@ -274,13 +276,91 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
           "[data-treatment-route-reveal]",
         );
 
+        const routeSvg = treatments.querySelector<SVGSVGElement>(
+          "[data-treatment-route]",
+        );
+        const routeLine = routeSvg?.querySelector<SVGPathElement>("path") ?? null;
+        const routeOrigin = treatments.querySelector<SVGCircleElement>(
+          "[data-treatment-route-origin]",
+        );
+        const routeEnds = treatments.querySelectorAll<SVGCircleElement>(
+          "[data-treatment-route-end]",
+        );
+
+        /*
+          O traçado é redesenhado a partir da posição real dos cards. O `path`
+          que vem do servidor é só um ponto de partida; a proporção da seção
+          muda com o viewport e um `path` fixo desalinha fora de 1920 × 1080.
+        */
+        let revealHeight = 0;
+
+        const drawRoute = () => {
+          if (!routeSvg || !routeLine || !isDesktop) {
+            return;
+          }
+
+          const route = buildTreatmentRoute(readTreatmentGeometry(treatments));
+
+          if (!route) {
+            return;
+          }
+
+          routeSvg.setAttribute("viewBox", route.viewBox);
+          routeLine.setAttribute("d", route.d);
+          routeOrigin?.setAttribute("cx", String(route.origin.x));
+          routeOrigin?.setAttribute("cy", String(route.origin.y));
+          routeEnds.forEach((circle) => {
+            circle.setAttribute("cx", String(route.end.x));
+            circle.setAttribute("cy", String(route.end.y));
+          });
+          routeReveal?.setAttribute("y", String(route.revealY));
+
+          revealHeight = route.revealHeight;
+        };
+
+        drawRoute();
+
+        /*
+          `refreshInit` cobre os refreshes que o próprio ScrollTrigger dispara,
+          e roda antes dele remedir — então `revealHeight` já está atualizado
+          quando `invalidateOnRefresh` reavalia o alvo do scrub.
+
+          O ResizeObserver cobre o resto: mudança de viewport, barra de
+          endereço recolhendo, fonte carregando. Ele observa o box da seção em
+          vez do evento global, então só reage quando a geometria realmente
+          muda. O `refresh()` daqui não realimenta o observer, porque redesenhar
+          o traçado não altera o tamanho da seção.
+        */
+        ScrollTrigger.addEventListener("refreshInit", drawRoute);
+
+        let lastWidth = treatments.offsetWidth;
+        let lastHeight = treatments.offsetHeight;
+
+        const observer = new ResizeObserver(() => {
+          if (
+            treatments.offsetWidth === lastWidth &&
+            treatments.offsetHeight === lastHeight
+          ) {
+            return;
+          }
+
+          lastWidth = treatments.offsetWidth;
+          lastHeight = treatments.offsetHeight;
+
+          drawRoute();
+          ScrollTrigger.refresh();
+        });
+
+        observer.observe(treatments);
+
         const treatmentsContext = gsap.context(() => {
           if (routeReveal && isDesktop) {
             gsap.fromTo(
               routeReveal,
               { attr: { height: 0 } },
               {
-                attr: { height: 2439 },
+                // Reavaliado a cada refresh graças a `invalidateOnRefresh`.
+                attr: { height: () => revealHeight },
                 ease: "none",
                 scrollTrigger: {
                   trigger: treatments,
@@ -344,7 +424,11 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
           });
         }, treatments);
 
-        return () => treatmentsContext.revert();
+        return () => {
+          observer.disconnect();
+          ScrollTrigger.removeEventListener("refreshInit", drawRoute);
+          treatmentsContext.revert();
+        };
       },
     );
 
