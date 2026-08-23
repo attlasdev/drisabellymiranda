@@ -276,7 +276,11 @@ A regra de esperar o conteúdo dos três procedimentos foi **revogada pelo respo
 
 ### 3. Página `Conheça minha trajetória`
 
-**Status:** `[!]` bloqueada — esqueleto travado, aguardando conteúdo real (formação, certificados, eventos) e a fotografia
+**Status:** `[~]` em andamento — **esqueleto construído e verificado em `2026-08-22`**, aguardando conteúdo real e a fotografia
+
+> Handoff detalhado: `portifolio-isa/docs/handoff/tarefa-3-pagina-trajetoria.md`. Ler antes de mexer nesta página.
+
+> Correção ao texto abaixo: a linha "o `SiteFooter` pode ser reutilizado como está" **está desatualizada**. Ele precisa receber `hrefBase="/"`, senão a navegação do rodapé aponta para âncoras que não existem nesta rota. Ver a Tarefa 2.
 
 **Comportamento definido:** o botão `Conheça minha trajetória`, hoje desabilitado (`<p>` estático, sem `href`, `aria-label` "em breve") na seção Consulta e planejamento ([ConsultationPlanningSection.tsx](portifolio-isa/src/components/sections/ConsultationPlanningSection.tsx)), passa a ser um link real para uma rota nova com página institucional sobre a Dra. Isabely, em 1ª pessoa (é portfólio pessoal, não terceiros).
 
@@ -353,7 +357,23 @@ Visuais — a página reprovada se qualquer um falhar:
 - Nenhum texto visível foi inventado pelo executor: todo conteúdo veio do que a responsável entregou.
 - A área de foto está claramente anunciada como pendente enquanto a imagem real não chegar.
 
-**Não iniciar a implementação enquanto o conteúdo mínimo (foto + abertura + ao menos um item de formação) não for entregue.** Se algum bloco continuar sem conteúdo no momento da execução, ele **não é renderizado** — não preencher com texto genérico (Regra 12).
+#### Decisões tomadas em 2026-08-22
+
+A regra de esperar o conteúdo mínimo foi **revogada pelo responsável**, na mesma linha da Tarefa 2: Lorem Ipsum autorizado, esqueleto construído agora, conteúdo entra depois.
+
+- **Bloco pessoal "como comecei" não entra** no esqueleto. Acrescentar depois é barato; deixá-lo indefinido travaria a tarefa.
+- **`Áreas de atuação` já nasce como lista de links**, porque as rotas de procedimento da Tarefa 2 existem.
+- **Fotografia como estado vazio declarado**, na proporção `7 / 9` da Seção 4, para a troca pela imagem real não mexer no layout.
+- **`Minha abordagem` foi acrescentado ao modelo de conteúdo.** O layout previa o bloco, mas ele não constava da lista de campos.
+- **`Atendimento`**, o terceiro fato rápido, não tem valor real e está como `A definir`.
+- As primitivas compartilhadas entre páginas internas foram extraídas para `src/components/internal-page/`. A Tarefa 2 foi revalidada por inteiro depois disso.
+
+#### O que falta para fechar a tarefa
+
+- Substituir o conteúdo provisório de `src/content/trajetoria.ts`.
+- Fornecer a fotografia própria da página.
+- Definir o valor de `Atendimento`.
+- Revisão visual humana das páginas.
 
 ---
 
@@ -395,5 +415,6 @@ Itens já conhecidos que ainda precisam ser transformados em tarefas completas, 
 - `2026-08-22` — Esqueleto da página de procedimento travado: capítulos claro/escuro sem fotografia, sem referência à seção Resultados, acordeão de perguntas reaproveitado do FAQ, fechamento reaproveitado da Seção 7. Tarefa 2 aguarda apenas conteúdo real.
 - `2026-08-22` — Esqueleto da página `Conheça minha trajetória` travado, mesma gramática clara/escura das outras tarefas. Foto nova a caminho (área reservada com placeholder no padrão do modal de Resultados); certificados entram como texto, não imagem. Chegou a ser implementada em código por engano e foi revertida — este plano permanece só documentação até a etapa de execução.
 - `2026-08-22` — Tarefa 1 concluída: WhatsApp oficial ativo, com o número em fonte única e verificado no HTML renderizado. `FaqAccordion` preparado para reuso (`idPrefix` e `initialOpenIndex`), sem alterar o comportamento da home.
+- `2026-08-22` — Tarefa 3: esqueleto de `/trajetoria` construído e verificado, com conteúdo provisório, e o botão da Seção 4 religado preservando o seletor da cascata GSAP. Primitivas compartilhadas entre páginas internas extraídas para `src/components/internal-page/`, com a Tarefa 2 revalidada por inteiro.
 - `2026-08-22` — Tarefa 2: esqueleto das três rotas de procedimento construído e verificado, com conteúdo provisório. Regra de esperar os três conteúdos revogada, Lorem Ipsum autorizado e rótulos da tira de dados aprovados. Descoberto e resolvido que reusar o rodapé em página interna exigiria quebrar a interceptação de âncoras da home; solução foi a prop `hrefBase`.
 - `2026-08-22` — Plano lapidado após a implementação revertida ter clonado a seção de CTA da home dentro da página de trajetória. Adicionadas as Regras 10, 11 e 12 (proibição de clonar seções da home, proibição de layout decidido pelo executor, proibição de conteúdo genérico). O encerramento das páginas internas passou a ter especificação própria e explícita em vez de "reuso literal da Seção 7". Adicionados critérios de aceite visuais às Tarefas 2 e 3, e registradas as armadilhas reais do `FaqAccordion` (ids fixos e primeiro item aberto por padrão).
