@@ -8,17 +8,28 @@ import styles from "./faq-accordion.module.css";
 
 type FaqAccordionProps = {
   items: FaqItem[];
+  /**
+   * Prefixo dos `id` gerados. Precisa ser único quando mais de um acordeão
+   * coexiste na mesma tela, senão `aria-controls` aponta para o elemento errado.
+   */
+  idPrefix?: string;
+  /** Índice aberto na primeira renderização. `null` abre a lista toda fechada. */
+  initialOpenIndex?: number | null;
 };
 
-export function FaqAccordion({ items }: FaqAccordionProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+export function FaqAccordion({
+  items,
+  idPrefix = "faq",
+  initialOpenIndex = 0,
+}: FaqAccordionProps) {
+  const [openIndex, setOpenIndex] = useState<number | null>(initialOpenIndex);
 
   return (
     <div className={styles.list}>
       {items.map((item, index) => {
         const isOpen = openIndex === index;
-        const questionId = `faq-question-${index + 1}`;
-        const answerId = `faq-answer-${index + 1}`;
+        const questionId = `${idPrefix}-question-${index + 1}`;
+        const answerId = `${idPrefix}-answer-${index + 1}`;
 
         return (
           <article className={styles.item} key={item.question} data-faq-item>

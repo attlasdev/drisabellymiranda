@@ -23,7 +23,7 @@ export function ContactCtaSection() {
           className={styles.button}
           href={contactCta.whatsappHref}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           aria-label={`${contactCta.linkLabel} ${contactCta.linkBrand} (abre em uma nova guia)`}
           data-contact-button
         >

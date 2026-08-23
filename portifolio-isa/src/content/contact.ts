@@ -6,6 +6,6 @@ export const contactCta = {
     "Agende uma avaliação e dê o primeiro passo para um planejamento pensado com escuta, precisão e respeito à sua identidade.",
   linkLabel: "Agendar pelo",
   linkBrand: "WhatsApp",
-  // Destino provisório: substituir pelo número oficial no formato https://wa.me/55DDDNUMERO.
-  whatsappHref: "https://wa.me/",
+  // Número oficial da responsável. Fonte única: nenhum componente deve escrever o número diretamente.
+  whatsappHref: "https://wa.me/5533988497305",
 } as const;
