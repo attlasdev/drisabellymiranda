@@ -18,6 +18,8 @@ tmp/
 **/playwright-report/
 
 # Ferramentas locais e arquivos-fonte privados
+# Especificacao da ferramenta de upload: vive so aqui ate ganhar repositorio proprio
+FERRAMENTA-UPLOAD.md
 .claude/
 **/.claude/
 FOTOS - PACIENTES/

@@ -82,6 +82,18 @@ Preservar o layout estático e os timings atuais. A partir daqui, o trabalho é 
 - As animações GSAP foram confirmadas funcionando no celular físico. A investigação técnica que estava aberta foi encerrada.
 - O drawer mobile foi validado no aparelho real.
 
+## Sistema externo — ferramenta de upload (2026-08-23)
+
+O upload de imagens **não** será feito por dentro deste site nem pelo dashboard do Supabase. Será um **programa de mesa separado**, em Electron, rodado localmente, com repositório próprio. A especificação está sendo escrita em `FERRAMENTA-UPLOAD.md`, na raiz — **mas esse arquivo não é versionado** (está no `.gitignore`). Ele vive apenas na máquina onde está sendo redigido e migra para o repositório próprio da ferramenta quando ela ganhar um. Se você não encontrou o arquivo, não é engano: peça a versão atual a quem está redigindo.
+
+Por que ficou fora daqui: a ferramenta usa a `service_role key`, que ignora RLS. Rodando só na máquina, some a necessidade de autenticação, políticas e URL assinada. E ela nasce pensada para servir a outros projetos, apontando para outro banco por configuração.
+
+O que isso muda para o portfólio: a lista fixa de 12 posições por categoria em `src/content/results.ts` deixa de existir. O site passa a descobrir as imagens listando o bucket, para que subir a 13ª foto faça o site mostrar 13 casos sem editar código nem publicar de novo.
+
+Consequências já aceitas enquanto não houver tabela: depoimento passa a ser um por categoria e não por caso; o texto alternativo das imagens é derivado da categoria e do número, não descritivo por imagem; a ordem é a do nome do arquivo.
+
+Decisão de `2026-08-23`: o modelo com tabela ficou **parado para estudo**, não descartado.
+
 ## Próxima frente definida e pausada (2026-08-22)
 
 Sistema de imagens em Supabase Storage, para trocar as fotos dos casos sem commit e sem deploy. Decidido em `2026-08-22` e pausado logo em seguida a pedido do usuário; retomar mais tarde.
@@ -89,8 +101,8 @@ Sistema de imagens em Supabase Storage, para trocar as fotos dos casos sem commi
 Desenho acordado, para não reabrir a discussão na retomada:
 
 - Conta Supabase separada, usada só para o Storage. Git e Vercel continuam na conta Attlas.
-- Bucket público, sem banco, sem autenticação e sem API própria: o dashboard do Supabase é o painel de upload, porque quem sobe imagem é a equipe, não a cliente.
-- Nome do arquivo espelha o id do slot já existente em `src/content/results.ts`.
+- ~~O dashboard do Supabase como painel de upload.~~ **Superado em `2026-08-23`**: o upload passa a ser feito pela ferramenta externa descrita acima. O bucket segue sem banco e sem API própria.
+- ~~Nome do arquivo espelha o id do slot existente.~~ **Superado em `2026-08-23`**: slots fixos não permitem crescer para 13 imagens. O nome passa a ser sequencial com zero à esquerda, e o site descobre o que existe listando o bucket.
 - Implica remover `unoptimized` dos componentes de Resultados, senão o site serve o arquivo cru; transformação de imagem no Storage é recurso pago e não existe no plano free.
 - Implica `images.remotePatterns` no `next.config.ts` e um cron diário na Vercel, porque projeto free hiberna após cerca de 7 dias e leva o Storage junto.
 
