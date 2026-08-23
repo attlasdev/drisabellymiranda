@@ -1,7 +1,7 @@
 .closing {
   padding-block: clamp(2.75rem, 5.5vw, 4rem);
-  background: var(--tp-dark);
-  color: var(--tp-inverse);
+  background: var(--ip-dark);
+  color: var(--ip-inverse);
 }
 
 .inner {
@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: space-between;
   gap: clamp(1.5rem, 3vw, 2.5rem);
-  width: var(--tp-shell);
+  width: var(--ip-shell);
   margin-inline: auto;
 }
 
@@ -30,8 +30,8 @@
   min-height: 3.25rem;
   padding-inline: clamp(1.25rem, 2.4vw, 1.75rem);
   border-radius: 999px;
-  background: var(--tp-paper);
-  color: var(--tp-ink);
+  background: var(--ip-paper);
+  color: var(--ip-ink);
   font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -44,7 +44,7 @@
 }
 
 .button:focus-visible {
-  outline: 2px solid var(--tp-paper);
+  outline: 2px solid var(--ip-paper);
   outline-offset: 4px;
 }
 

@@ -3,20 +3,26 @@ import Link from "next/link";
 import { ArrowUpRightIcon } from "@/components/icons/ArrowUpRightIcon";
 import type { Treatment } from "@/content/treatments";
 
-import styles from "./other-treatments.module.css";
+import styles from "./treatment-links.module.css";
 
-type OtherTreatmentsProps = {
+type TreatmentLinksProps = {
+  heading: string;
   treatments: Treatment[];
 };
 
-export function OtherTreatments({ treatments }: OtherTreatmentsProps) {
+/*
+  Lista de procedimentos como links. Serve à página de procedimento
+  (`Outros tratamentos`) e à página de trajetória (`Áreas de atuação`), por
+  isso o título vem por prop.
+*/
+export function TreatmentLinks({ heading, treatments }: TreatmentLinksProps) {
   if (treatments.length === 0) {
     return null;
   }
 
   return (
     <section className={styles.block}>
-      <h2 className={styles.heading}>Outros tratamentos</h2>
+      <h2 className={styles.heading}>{heading}</h2>
 
       <ul className={styles.list}>
         {treatments.map((treatment) => (

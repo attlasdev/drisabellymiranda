@@ -1,44 +1,16 @@
 .header {
   padding-block: clamp(2rem, 4vw, 2.75rem) clamp(3rem, 6vw, 4.5rem);
-  background: var(--tp-paper);
+  background: var(--ip-paper);
 }
 
 .inner {
-  width: var(--tp-shell);
+  width: var(--ip-shell);
   margin-inline: auto;
-}
-
-.back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-height: 2.75rem;
-  color: var(--tp-ink-soft);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transition: color 0.2s ease;
-}
-
-.back:hover {
-  color: var(--tp-ink);
-}
-
-.back:focus-visible {
-  outline: 2px solid var(--tp-ink);
-  outline-offset: 4px;
-}
-
-/* Reaproveita a seta vertical aprovada em vez de criar um ícone novo. */
-.backIcon {
-  flex: 0 0 auto;
-  transform: rotate(-90deg);
 }
 
 .eyebrow {
   margin: clamp(2rem, 4vw, 3rem) 0 0;
-  color: var(--tp-ink-soft);
+  color: var(--ip-ink-soft);
   font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -47,7 +19,7 @@
 
 .title {
   margin: 0.75rem 0 0;
-  color: var(--tp-ink);
+  color: var(--ip-ink);
   font-family: var(--font-playfair-display), Georgia, serif;
   font-size: clamp(2.25rem, 5.2vw, 3.5rem);
   font-weight: 500;
@@ -57,7 +29,7 @@
 .summary {
   max-width: 40ch;
   margin: clamp(1rem, 2vw, 1.5rem) 0 0;
-  color: var(--tp-ink-soft);
+  color: var(--ip-ink-soft);
   font-size: clamp(1rem, 1.6vw, 1.1875rem);
   font-weight: 300;
   line-height: 1.6;

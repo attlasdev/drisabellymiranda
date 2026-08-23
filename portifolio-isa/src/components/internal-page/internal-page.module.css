@@ -1,0 +1,40 @@
+/*
+  Casca das páginas internas (procedimento e trajetória).
+
+  Define o vocabulário local — medida, cores e régua — que os blocos destas
+  páginas consomem por herança. Existe para que nenhuma página interna
+  precise importar CSS de uma seção da home e para que nenhum bloco repita
+  valor solto.
+*/
+.page {
+  --ip-shell: min(100% - 2.5rem, 56rem);
+  --ip-paper: #f8f7f4;
+  --ip-ink: #535353;
+  --ip-ink-soft: rgb(83 83 83 / 72%);
+  --ip-dark: #535353;
+  --ip-inverse: #f5f5f2;
+  --ip-rule: rgb(83 83 83 / 14%);
+
+  background: var(--ip-paper);
+  color: var(--ip-ink);
+}
+
+.chapter {
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+  background: var(--ip-paper);
+}
+
+.chapterInner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 3.5rem);
+  width: var(--ip-shell);
+  margin-inline: auto;
+}
+
+.divider {
+  height: 1px;
+  margin: 0;
+  border: 0;
+  background: var(--ip-rule);
+}

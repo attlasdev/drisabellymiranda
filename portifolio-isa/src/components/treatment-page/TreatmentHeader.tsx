@@ -1,6 +1,4 @@
-import Link from "next/link";
-
-import { ArrowUpIcon } from "@/components/icons/ArrowUpIcon";
+import { BackLink } from "@/components/internal-page/BackLink";
 
 import styles from "./treatment-header.module.css";
 
@@ -13,14 +11,8 @@ export function TreatmentHeader({ summary, title }: TreatmentHeaderProps) {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        {/*
-          Destino absoluto: esta página não tem a âncora `#tratamentos`, que
-          só existe na home.
-        */}
-        <Link className={styles.back} href="/#tratamentos">
-          <ArrowUpIcon className={styles.backIcon} size={16} aria-hidden="true" />
-          <span>Voltar para tratamentos</span>
-        </Link>
+        {/* Destino absoluto: `#tratamentos` só existe na home. */}
+        <BackLink href="/#tratamentos" label="Voltar para tratamentos" />
 
         <p className={styles.eyebrow}>Tratamentos</p>
         <h1 className={styles.title}>{title}</h1>

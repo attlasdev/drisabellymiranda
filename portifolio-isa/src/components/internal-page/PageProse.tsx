@@ -1,11 +1,12 @@
-import styles from "./treatment-prose.module.css";
+import styles from "./page-prose.module.css";
 
-type TreatmentProseProps = {
+type PageProseProps = {
   heading: string;
   text: string;
 };
 
-export function TreatmentProse({ heading, text }: TreatmentProseProps) {
+/** Bloco de prosa com título, usado pelas páginas internas. */
+export function PageProse({ heading, text }: PageProseProps) {
   return (
     <section className={styles.block}>
       <h2 className={styles.heading}>{heading}</h2>

@@ -1,25 +1,25 @@
 import { WhatsappLineIcon } from "@/components/icons/WhatsappLineIcon";
 import { contactCta } from "@/content/contact";
 
-import styles from "./treatment-closing.module.css";
+import styles from "./page-closing.module.css";
 
-type TreatmentClosingProps = {
+type PageClosingProps = {
   invite: string;
 };
 
 /*
-  Encerramento próprio da página de procedimento.
+  Encerramento das páginas internas.
 
   Deliberadamente menor que a Seção 7 da home e com composição diferente:
   faixa horizontal com a frase à esquerda e o botão à direita, contra a
-  composição centralizada de dobra inteira que a home usa. Sem fotografia de
-  fundo, sem `min-height` de dobra, sem eyebrow, sem título editorial e sem
-  parágrafo de apoio.
+  composição centralizada de dobra inteira da home. Sem fotografia de fundo,
+  sem `min-height` de dobra, sem eyebrow, sem título editorial e sem parágrafo
+  de apoio.
 
   Reaproveita o DADO de `contact.ts`, nunca o componente `ContactCtaSection`
   nem o CSS Module dele.
 */
-export function TreatmentClosing({ invite }: TreatmentClosingProps) {
+export function PageClosing({ invite }: PageClosingProps) {
   return (
     <section className={styles.closing}>
       <div className={styles.inner}>

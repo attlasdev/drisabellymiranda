@@ -1,18 +1,14 @@
-/*
-  Faixa de dados. É uma tira de altura contida, não uma seção de tela cheia:
-  a altura vem do conteúdo mais o padding, sem `min-height` de dobra.
-*/
 .strip {
   padding-block: clamp(2.25rem, 4.5vw, 3rem);
-  background: var(--tp-dark);
-  color: var(--tp-inverse);
+  background: var(--ip-dark);
+  color: var(--ip-inverse);
 }
 
 .list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
   gap: 1.5rem;
-  width: var(--tp-shell);
+  width: var(--ip-shell);
   margin: 0 auto;
 }
 

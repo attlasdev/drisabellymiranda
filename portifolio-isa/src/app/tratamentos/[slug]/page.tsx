@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { OtherTreatments } from "@/components/treatment-page/OtherTreatments";
-import { TreatmentClosing } from "@/components/treatment-page/TreatmentClosing";
-import { TreatmentDataStrip } from "@/components/treatment-page/TreatmentDataStrip";
+import { PageClosing } from "@/components/internal-page/PageClosing";
+import { PageDataStrip } from "@/components/internal-page/PageDataStrip";
+import { PageProse } from "@/components/internal-page/PageProse";
+import { TreatmentLinks } from "@/components/internal-page/TreatmentLinks";
 import { TreatmentHeader } from "@/components/treatment-page/TreatmentHeader";
-import { TreatmentProse } from "@/components/treatment-page/TreatmentProse";
 import { TreatmentQuestions } from "@/components/treatment-page/TreatmentQuestions";
 import { getOtherTreatments, getTreatment, treatments } from "@/content/treatments";
 
-import styles from "@/components/treatment-page/treatment-page.module.css";
+import styles from "@/components/internal-page/internal-page.module.css";
 
 type TreatmentPageProps = {
   params: Promise<{ slug: string }>;
@@ -51,12 +51,12 @@ export default async function TreatmentPage({ params }: TreatmentPageProps) {
       <main className={styles.page} id="inicio">
         <TreatmentHeader title={treatment.title} summary={treatment.description} />
 
-        <TreatmentDataStrip items={treatment.tiraDeDados} />
+        <PageDataStrip ariaLabel="Informações do procedimento" items={treatment.tiraDeDados} />
 
         <div className={styles.chapter}>
           <div className={styles.chapterInner}>
-            <TreatmentProse heading="O que é" text={treatment.oQueE} />
-            <TreatmentProse heading="Quando é indicado" text={treatment.quandoIndicado} />
+            <PageProse heading="O que é" text={treatment.oQueE} />
+            <PageProse heading="Quando é indicado" text={treatment.quandoIndicado} />
 
             <hr className={styles.divider} />
 
@@ -64,11 +64,11 @@ export default async function TreatmentPage({ params }: TreatmentPageProps) {
 
             <hr className={styles.divider} />
 
-            <OtherTreatments treatments={getOtherTreatments(treatment.slug)} />
+            <TreatmentLinks heading="Outros tratamentos" treatments={getOtherTreatments(treatment.slug)} />
           </div>
         </div>
 
-        <TreatmentClosing invite={treatment.convite} />
+        <PageClosing invite={treatment.convite} />
       </main>
 
       {/* `hrefBase` absoluto: as âncoras da navegação só existem na home. */}

@@ -6,7 +6,7 @@
 
 .heading {
   margin: 0;
-  color: var(--tp-ink);
+  color: var(--ip-ink);
   font-family: var(--font-playfair-display), Georgia, serif;
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 400;
@@ -16,7 +16,7 @@
 .text {
   max-width: 64ch;
   margin: 0;
-  color: var(--tp-ink-soft);
+  color: var(--ip-ink-soft);
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.7;

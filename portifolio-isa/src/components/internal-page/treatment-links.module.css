@@ -6,7 +6,7 @@
 
 .heading {
   margin: 0;
-  color: var(--tp-ink);
+  color: var(--ip-ink);
   font-family: var(--font-playfair-display), Georgia, serif;
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 400;
@@ -20,7 +20,7 @@
 }
 
 .item + .item {
-  border-top: 1px solid var(--tp-rule);
+  border-top: 1px solid var(--ip-rule);
 }
 
 .link {
@@ -30,7 +30,7 @@
   gap: 1rem;
   min-height: 3.5rem;
   padding-block: 0.75rem;
-  color: var(--tp-ink);
+  color: var(--ip-ink);
   font-size: clamp(1rem, 1.8vw, 1.125rem);
   transition: color 0.2s ease;
 }
@@ -41,11 +41,11 @@
 }
 
 .link:focus-visible {
-  outline: 2px solid var(--tp-ink);
+  outline: 2px solid var(--ip-ink);
   outline-offset: 4px;
 }
 
 .arrow {
   flex: 0 0 auto;
-  color: var(--tp-ink-soft);
+  color: var(--ip-ink-soft);
 }
