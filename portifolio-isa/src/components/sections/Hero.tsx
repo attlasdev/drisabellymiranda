@@ -355,7 +355,7 @@ export function Hero() {
       <Image
         className={`${styles.portrait} ${isPortraitReady ? styles.portraitReady : ""}`}
         src={heroPortrait}
-        alt="Isabely Miranda sorrindo"
+        alt="Isabelly Miranda sorrindo"
         sizes="(max-width: 767px) 105vw, (max-width: 1023px) 82vw, 60vw"
         preload
         decoding="sync"
@@ -364,7 +364,7 @@ export function Hero() {
       />
 
       <header className={styles.header}>
-        <a className={styles.monogram} href="#inicio" aria-label="Isabely Miranda — início">
+        <a className={styles.monogram} href="#inicio" aria-label="Isabelly Miranda — início">
           <span
             className={styles.monogramViewport}
             aria-hidden="true"

@@ -20,7 +20,7 @@ const initialScrollResetScript = `
 `;
 
 export const metadata: Metadata = {
-  title: "Isabely Miranda | Harmonização Orofacial",
+  title: "Isabelly Miranda | Harmonização Orofacial",
   description:
     "Harmonização orofacial com precisão, escuta e respeito à sua identidade.",
 };
