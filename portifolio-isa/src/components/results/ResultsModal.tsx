@@ -146,16 +146,6 @@ export function ResultsModal({ result, onClose }: ResultsModalProps) {
         </header>
 
         <div className={styles.viewer}>
-          <button
-            type="button"
-            className={`${styles.navigation} ${styles.previous}`}
-            onClick={() => setActiveIndex((current) => Math.max(0, current - 1))}
-            disabled={activeIndex === 0}
-            aria-label="Ver caso anterior"
-          >
-            <NavigationIcon direction="previous" />
-          </button>
-
           <div className={styles.media} key={activeCase.id} data-case-index={activeIndex}>
             {activeCase.image ? (
               <>
@@ -179,15 +169,31 @@ export function ResultsModal({ result, onClose }: ResultsModalProps) {
             )}
           </div>
 
-          <button
-            type="button"
-            className={`${styles.navigation} ${styles.next}`}
-            onClick={() => setActiveIndex((current) => Math.min(result.cases.length - 1, current + 1))}
-            disabled={activeIndex === result.cases.length - 1}
-            aria-label="Ver próximo caso"
-          >
-            <NavigationIcon direction="next" />
-          </button>
+          <div className={styles.navigationBar}>
+            <span className={styles.viewerCounter} aria-live="polite">
+              Caso {String(caseNumber).padStart(2, "0")} de {String(result.cases.length).padStart(2, "0")}
+            </span>
+
+            <button
+              type="button"
+              className={`${styles.navigation} ${styles.previous}`}
+              onClick={() => setActiveIndex((current) => Math.max(0, current - 1))}
+              disabled={activeIndex === 0}
+              aria-label="Ver caso anterior"
+            >
+              <NavigationIcon direction="previous" />
+            </button>
+
+            <button
+              type="button"
+              className={`${styles.navigation} ${styles.next}`}
+              onClick={() => setActiveIndex((current) => Math.min(result.cases.length - 1, current + 1))}
+              disabled={activeIndex === result.cases.length - 1}
+              aria-label="Ver próximo caso"
+            >
+              <NavigationIcon direction="next" />
+            </button>
+          </div>
         </div>
 
         <footer className={styles.footer} id="results-modal-description">

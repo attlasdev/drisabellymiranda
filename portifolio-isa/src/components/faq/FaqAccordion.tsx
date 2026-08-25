@@ -20,7 +20,7 @@ type FaqAccordionProps = {
 export function FaqAccordion({
   items,
   idPrefix = "faq",
-  initialOpenIndex = 0,
+  initialOpenIndex = null,
 }: FaqAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(initialOpenIndex);
 

@@ -25,11 +25,17 @@
   width: auto;
   max-width: none;
   height: 82svh;
+  opacity: 0;
   backface-visibility: hidden;
   object-fit: contain;
   transform: translateZ(0);
+  transition: opacity 360ms ease-out;
   user-select: none;
   will-change: transform;
+}
+
+.portraitReady {
+  opacity: 1;
 }
 
 .header {
@@ -204,6 +210,12 @@
     display: block;
     min-height: 0;
     padding: 0;
+    pointer-events: none;
+  }
+
+  .monogram,
+  .mobileMenu {
+    pointer-events: auto;
   }
 
   .monogram {
@@ -280,11 +292,10 @@
   }
 
   .mobileMenuBrand {
-    font-family: var(--font-playfair-display), Georgia, serif;
-    font-size: clamp(1.75rem, 8vw, 2rem);
-    font-weight: 400;
-    line-height: 1;
-    letter-spacing: -0.04em;
+    width: clamp(34px, 10.0513vw, 39.2px);
+    height: auto;
+    color: #535353;
+    filter: brightness(0) invert(32%);
   }
 
   .mobileMenuClose {
@@ -559,6 +570,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .portrait,
   .cta {
     transition: none;
   }

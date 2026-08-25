@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { ScrollToTopOnMount } from "@/components/navigation/ScrollToTopOnMount";
 import { PageClosing } from "@/components/internal-page/PageClosing";
 import { PageDataStrip } from "@/components/internal-page/PageDataStrip";
 import { PageProse } from "@/components/internal-page/PageProse";
@@ -28,6 +29,8 @@ export default function TrajectoryPage() {
     <>
       {/* O id `inicio` serve ao `Voltar ao topo` do rodapé. */}
       <main className={styles.page} id="inicio">
+        <ScrollToTopOnMount routeKey="trajetoria" />
+
         <TrajectoryHeader
           eyebrow={trajetoria.eyebrow}
           name={trajetoria.nome}

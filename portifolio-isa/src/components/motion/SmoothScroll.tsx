@@ -45,6 +45,57 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
 
     const media = gsap.matchMedia();
 
+    media.add("(max-width: 63.999rem)", () => {
+      const anchorLinks = Array.from(
+        content.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'),
+      );
+
+      const handleAnchorClick = (event: MouseEvent) => {
+        if (
+          event.defaultPrevented ||
+          event.button !== 0 ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey
+        ) {
+          return;
+        }
+
+        const link = event.currentTarget as HTMLAnchorElement;
+        const hash = link.getAttribute("href");
+        const targetId = hash ? decodeURIComponent(hash.slice(1)) : "";
+        const target = targetId ? document.getElementById(targetId) : null;
+
+        if (!hash || !target || !content.contains(target)) {
+          return;
+        }
+
+        event.preventDefault();
+        window.history.pushState(null, "", hash);
+
+        const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth";
+
+        if (targetId === "inicio") {
+          window.scrollTo({ top: 0, left: 0, behavior });
+        } else {
+          target.scrollIntoView({ behavior, block: "start" });
+        }
+      };
+
+      anchorLinks.forEach((link) => {
+        link.addEventListener("click", handleAnchorClick);
+      });
+
+      return () => {
+        anchorLinks.forEach((link) => {
+          link.removeEventListener("click", handleAnchorClick);
+        });
+      };
+    });
+
     media.add(
       "(min-width: 64rem) and (prefers-reduced-motion: no-preference)",
       () => {
@@ -141,8 +192,14 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
         let statementReveal: gsap.core.Tween | null = null;
 
         if (split && statementHeading) {
-          gsap.set(split.masks, { overflowClipMargin: "0.25em" });
-          gsap.set(split.words, { yPercent: 135, autoAlpha: 0 });
+          gsap.set(split.masks, {
+            overflow: "hidden",
+            paddingTop: "0.24em",
+            paddingBottom: "0.24em",
+            marginTop: "-0.24em",
+            marginBottom: "-0.24em",
+          });
+          gsap.set(split.words, { yPercent: 150, autoAlpha: 0 });
 
           statementReveal = gsap.to(split.words, {
             yPercent: 0,
@@ -220,8 +277,14 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
             : null;
 
           if (split && statementHeading) {
-            gsap.set(split.masks, { overflowClipMargin: "0.25em" });
-            gsap.set(split.words, { yPercent: 135, autoAlpha: 0 });
+            gsap.set(split.masks, {
+              overflow: "hidden",
+              paddingTop: "0.24em",
+              paddingBottom: "0.24em",
+              marginTop: "-0.24em",
+              marginBottom: "-0.24em",
+            });
+            gsap.set(split.words, { yPercent: 150, autoAlpha: 0 });
 
             statementReveal = gsap.to(split.words, {
               yPercent: 0,

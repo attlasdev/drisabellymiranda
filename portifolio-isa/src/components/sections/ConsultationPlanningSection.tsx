@@ -62,6 +62,7 @@ export function ConsultationPlanningSection() {
       <Link
         className={styles.trajectory}
         href="/trajetoria"
+        scroll={false}
         data-consultation-trajectory
       >
         <span>Conheça minha trajetória</span>

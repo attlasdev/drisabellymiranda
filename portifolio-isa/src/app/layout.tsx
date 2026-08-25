@@ -4,6 +4,21 @@ import { inter, playfairDisplay } from "@/lib/fonts";
 
 import "./globals.css";
 
+const initialScrollResetScript = `
+  (() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    const resetScroll = () => window.scrollTo(0, 0);
+
+    resetScroll();
+    window.addEventListener("pageshow", resetScroll, { once: true });
+    window.addEventListener("load", resetScroll, { once: true });
+    window.requestAnimationFrame(resetScroll);
+  })();
+`;
+
 export const metadata: Metadata = {
   title: "Isabely Miranda | Harmonização Orofacial",
   description:
@@ -24,6 +39,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
+      <head>
+        {/*
+          Executa antes da hidratação para impedir que o navegador restaure a
+          posição de uma sessão anterior durante um refresh, inclusive no mobile.
+        */}
+        <script dangerouslySetInnerHTML={{ __html: initialScrollResetScript }} />
+      </head>
       <body
         className={`${inter.variable} ${playfairDisplay.variable}`}
         suppressHydrationWarning

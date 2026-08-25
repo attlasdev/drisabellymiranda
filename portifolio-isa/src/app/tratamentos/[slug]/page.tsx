@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { ScrollToTopOnMount } from "@/components/navigation/ScrollToTopOnMount";
 import { PageClosing } from "@/components/internal-page/PageClosing";
 import { PageProse } from "@/components/internal-page/PageProse";
 import { TreatmentLinks } from "@/components/internal-page/TreatmentLinks";
@@ -51,6 +52,8 @@ export default async function TreatmentPage({ params }: TreatmentPageProps) {
         desta página. Sem ele o link cairia numa âncora inexistente.
       */}
       <main className={styles.page} id="inicio">
+        <ScrollToTopOnMount routeKey={treatment.slug} />
+
         {treatment.subtypes?.length ? (
           <FacialFillersExperience
             otherTreatments={otherTreatments}

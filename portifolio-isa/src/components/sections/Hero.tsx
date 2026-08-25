@@ -19,6 +19,7 @@ import styles from "./hero.module.css";
 
 export function Hero() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isPortraitReady, setIsPortraitReady] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const monogramRef = useRef<HTMLSpanElement>(null);
   const navigationRef = useRef<HTMLElement>(null);
@@ -324,13 +325,21 @@ export function Hero() {
     const navigationFrame = window.requestAnimationFrame(() => {
       const targetId = decodeURIComponent(hash.slice(1));
       const target = targetId ? document.getElementById(targetId) : null;
+      const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth";
 
       if (!target) {
         return;
       }
 
       window.history.pushState(null, "", hash);
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      if (targetId === "inicio") {
+        window.scrollTo({ top: 0, left: 0, behavior });
+      } else {
+        target.scrollIntoView({ behavior, block: "start" });
+      }
     });
 
     return () => window.cancelAnimationFrame(navigationFrame);
@@ -344,14 +353,14 @@ export function Hero() {
       ref={heroRef}
     >
       <Image
-        className={styles.portrait}
+        className={`${styles.portrait} ${isPortraitReady ? styles.portraitReady : ""}`}
         src={heroPortrait}
         alt="Isabely Miranda sorrindo"
         sizes="(max-width: 767px) 105vw, (max-width: 1023px) 82vw, 60vw"
-        placeholder="blur"
         preload
         decoding="sync"
         fetchPriority="high"
+        onLoad={() => setIsPortraitReady(true)}
       />
 
       <header className={styles.header}>
@@ -458,9 +467,16 @@ export function Hero() {
               ref={mobileMenuOverlayRef}
             >
               <div className={styles.mobileMenuOverlayHeader}>
-                <span className={styles.mobileMenuBrand} data-mobile-menu-chrome aria-hidden="true">
-                  IM
-                </span>
+                <Image
+                  className={styles.mobileMenuBrand}
+                  src="/images/brand/isabely-monogram.svg"
+                  alt=""
+                  width={1076}
+                  height={824}
+                  sizes="40px"
+                  data-mobile-menu-chrome
+                  aria-hidden="true"
+                />
 
                 <button
                   className={styles.mobileMenuClose}

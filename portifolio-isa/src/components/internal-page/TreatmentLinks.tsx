@@ -27,7 +27,7 @@ export function TreatmentLinks({ heading, treatments }: TreatmentLinksProps) {
       <ul className={styles.list}>
         {treatments.map((treatment) => (
           <li className={styles.item} key={treatment.slug}>
-            <Link className={styles.link} href={`/tratamentos/${treatment.slug}`}>
+            <Link className={styles.link} href={`/tratamentos/${treatment.slug}`} scroll={false}>
               <span className={styles.label}>{treatment.title}</span>
               <ArrowUpRightIcon className={styles.arrow} size={20} aria-hidden="true" />
             </Link>

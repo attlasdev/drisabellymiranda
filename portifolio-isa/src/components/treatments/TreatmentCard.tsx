@@ -29,6 +29,7 @@ export function TreatmentCard({
     <article
       className={`${styles.card} ${alignment === "right" ? styles.right : styles.left}`}
       data-image-state={image ? "ready" : "empty"}
+      data-card-layout={cardItems?.length ? "subtypes" : "description"}
       data-treatment-card
       data-treatment-alignment={alignment}
     >
@@ -82,6 +83,7 @@ export function TreatmentCard({
       <Link
         className={styles.overlay}
         href={`/tratamentos/${slug}`}
+        scroll={false}
         aria-label={`Saiba mais sobre ${title}`}
       />
     </article>
