@@ -133,6 +133,42 @@ Regras de composição fixadas para a seção inteira (valem para qualquer foto 
 - Agulha visível é aceitável quando o instrumento em si não é ameaçador (ex.: cartucho de dermapen) — a regra não é "nunca mostrar o mecanismo", é "não mostrar nada que pareça uma seringa". Mostrar o instrumento com clareza é preferível a evitar, porque é o que diferencia um card do outro.
 - Toda foto tenta variar a aparência da paciente (idade, tom de pele, cor e textura de cabelo) para os seis cards não parecerem a mesma pessoa.
 
+## Camada de SEO — primeira frente (2026-08-25)
+
+A descoberta nunca tinha sido construída. O `<head>` que ia ao ar tinha seis tags, não havia `robots.txt`, `sitemap.xml` nem uma linha de dado estruturado. Isso foi resolvido; Open Graph, canonical e `metadataBase` real continuam pendentes porque dependem do domínio.
+
+### Decisões que não devem regredir
+
+- **O padrão é NÃO indexar.** `NEXT_PUBLIC_SITE_INDEXABLE` precisa valer exatamente `"true"` E existir domínio real em `NEXT_PUBLIC_SITE_URL`. Sem isso, `robots.txt` recusa tudo e cada página sai com `noindex, nofollow`. O motivo é editorial, não técnico: assim que o deploy da Vercel subir, o preview vira URL pública, e o conteúdo clínico ainda não tem aprovação da Dra. Isabelly. Indexar texto médico não revisado sob o CRO dela é o risco que este bloqueio existe para impedir. Tirar do índice depois é lento e nunca fica limpo.
+- **As duas camadas de bloqueio são necessárias e não são redundantes.** `robots.txt` impede a varredura; uma URL descoberta por link externo ainda pode ser indexada sem nunca ter sido lida. Só a diretiva `noindex` no HTML impede a indexação de fato.
+- **O fallback de `siteUrl` é `localhost` de propósito.** Domínio inventado como fallback vazaria para o sitemap e para as canônicas sem ninguém notar. `localhost` é obviamente errado e denuncia a falta de configuração.
+- **`lastModified` do sitemap é uma data fixa**, nunca `new Date()`. Marcar toda página como alterada a cada build é sinal falso.
+- **Nada entra no JSON-LD sem ser verificável.** Endereço, horário e avaliação estão ausentes porque não existem. Inventá-los para "completar" um tipo é o caminho direto para penalização manual.
+- **`reviewedBy` e `lastReviewed` só aparecem depois da revisão clínica real.** Enquanto `editorialStatus.revisadoPelaProfissional` for `false`, os campos são omitidos. A revisão vai acontecer em bloco antes da entrega final, então o estado global basta — granularidade por tratamento foi avaliada e descartada.
+- **Página de concorrente não vira citação.** As URLs de `drakureski.com.br` do handoff de pesquisa serviram de referência editorial de estrutura; publicá-las como fonte clínica mandaria autoridade para o site dela.
+- **Sem bloco visível de procedência.** Decisão do usuário em `2026-08-25`: alterar layout não é escopo dele. As fontes vivem só no `citation` do JSON-LD. Os dados já estão prontos em `src/content/sources.ts` caso a decisão mude.
+- **`FAQPage` foi mantido sabendo que não gera rich result.** O Google aposentou o recurso para todos os sites em `2026-05-07`. Continua schema válido e ajuda extração por IA, mas não espere sanfona no resultado de busca.
+
+### Lacunas que dependem de terceiros
+
+- **Domínio** — destrava Open Graph, canonical, sitemap com URL real e a liberação da indexação. Sem OG, link colado no WhatsApp aparece sem preview, e WhatsApp e Instagram são o funil principal do negócio.
+- **Endereço** — sem `address`, o `Dentist` não é elegível ao pacote local do Google, que costuma ser o maior canal de uma clínica. `footerContent.locationHref` continua `null`.
+- **Fontes de `toxina-botulinica` e `bioestimulador-de-colageno`** — são os dois únicos tratamentos sem referência citável, porque o levantamento original só teve a página da concorrente para eles.
+
+### Decisões tomadas para a migração das imagens ao bucket (2026-08-25)
+
+Não haverá tabela: os metadados continuam em `src/content/results.ts`, versionados. O software da Attlas sobe as imagens já no tamanho final e em WebP.
+
+- **`unoptimized` nas imagens de Resultados está CORRETO** e deve permanecer. Imagem que já chega pronta não deve passar pelo otimizador do Next.
+- **Por isso `next.config.ts` NÃO precisa de `images.remotePatterns`.** Verificado no código do Next: com `unoptimized`, `generateImgAttrs` retorna antes de chamar o loader, e é o loader que valida o hostname. **Estopim:** se alguém remover `unoptimized`, o build quebra com "hostname is not configured".
+- **Nome de arquivo nunca se repete.** As URLs do bucket serão assadas no HTML estático; sobrescrever um arquivo mantendo o nome repete o bug de cache já documentado neste arquivo, numa camada mais difícil de limpar.
+- **As imagens acima da dobra ficam locais.** O retrato do Hero é o elemento de LCP e é pré-carregado; movê-lo para o bucket adiciona DNS e conexão nova no caminho crítico. Bucket só para a galeria de Resultados.
+- **O bucket precisa ser público**, porque URL assinada expira e o HTML é estático. Isso colide com a pendência de LGPD/CFO abaixo.
+
+### Pendência levantada e ainda não respondida
+
+Publicidade odontológica no Brasil tem restrição sobre divulgação de antes e depois, e a seção Resultados é construída sobre isso, com 66 posições reservadas. A regra vigente **não foi verificada** — precisa vir da Dra. Isabelly ou do CRO-MG. Se a resposta impedir, é melhor saber antes de alguém coletar e editar dezenas de fotos de pacientes, e antes de o bucket ser definido como público.
+
 ## Ordem macro restante
 
 O plano executável `PLANO-EXECUCAO.md` na raiz do repositório é a fonte de verdade das tarefas em aberto.
