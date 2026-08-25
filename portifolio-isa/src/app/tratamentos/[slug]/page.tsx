@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { ScrollToTopOnMount } from "@/components/navigation/ScrollToTopOnMount";
 import { PageClosing } from "@/components/internal-page/PageClosing";
 import { PageProse } from "@/components/internal-page/PageProse";
@@ -10,6 +11,7 @@ import { FacialFillersExperience } from "@/components/treatment-page/FacialFille
 import { TreatmentHeader } from "@/components/treatment-page/TreatmentHeader";
 import { TreatmentQuestions } from "@/components/treatment-page/TreatmentQuestions";
 import { getOtherTreatments, getTreatment, treatments } from "@/content/treatments";
+import { treatmentStructuredData } from "@/lib/structured-data";
 
 import styles from "@/components/internal-page/internal-page.module.css";
 
@@ -47,6 +49,8 @@ export default async function TreatmentPage({ params }: TreatmentPageProps) {
 
   return (
     <>
+      <JsonLd data={treatmentStructuredData(treatment)} />
+
       {/*
         O id `inicio` existe para o `Voltar ao topo` do rodapé resolver dentro
         desta página. Sem ele o link cairia numa âncora inexistente.

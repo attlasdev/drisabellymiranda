@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { ScrollToTopOnMount } from "@/components/navigation/ScrollToTopOnMount";
 import { PageClosing } from "@/components/internal-page/PageClosing";
 import { PageDataStrip } from "@/components/internal-page/PageDataStrip";
@@ -11,6 +12,7 @@ import { TrajectoryHeader } from "@/components/trajectory-page/TrajectoryHeader"
 import { footerContent } from "@/content/footer";
 import { trajetoria } from "@/content/trajetoria";
 import { treatments } from "@/content/treatments";
+import { trajectoryStructuredData } from "@/lib/structured-data";
 
 import styles from "@/components/internal-page/internal-page.module.css";
 
@@ -27,6 +29,8 @@ export const metadata: Metadata = {
 export default function TrajectoryPage() {
   return (
     <>
+      <JsonLd data={trajectoryStructuredData()} />
+
       {/* O id `inicio` serve ao `Voltar ao topo` do rodapé. */}
       <main className={styles.page} id="inicio">
         <ScrollToTopOnMount routeKey="trajetoria" />
