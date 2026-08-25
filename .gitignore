@@ -24,6 +24,17 @@ FERRAMENTA-UPLOAD.md
 **/.claude/
 FOTOS - PACIENTES/
 FOTOS ISA/
+Human Images - ISA/
+
+# Fontes locais e duplicatas de imagens; somente os WebP publicados entram no deploy
+portifolio-isa/public/images/consultation/isabelly-consulta-planejamento-9825.jpg
+portifolio-isa/public/images/consultation/isabelly-consulta-planejamento-9825-v2.jpg
+portifolio-isa/public/images/treatments/bioestimulador-de-colageno.png
+portifolio-isa/public/images/treatments/fios-de-pdo.png
+portifolio-isa/public/images/treatments/microagulhamento.png
+portifolio-isa/public/images/treatments/preenchimento-labial.png
+portifolio-isa/public/images/treatments/skinbooster.png
+portifolio-isa/public/images/treatments/toxina-botulinica.png
 
 # Sistema operacional e editor
 .DS_Store
