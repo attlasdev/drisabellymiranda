@@ -7,6 +7,7 @@ import styles from "./treatment-card.module.css";
 
 type TreatmentCardProps = {
   alignment: "left" | "right";
+  cardItems?: readonly string[];
   description: string;
   /** Ausente enquanto o procedimento não tiver fotografia. */
   image?: string;
@@ -17,6 +18,7 @@ type TreatmentCardProps = {
 
 export function TreatmentCard({
   alignment,
+  cardItems,
   description,
   image,
   imageAlt,
@@ -49,7 +51,17 @@ export function TreatmentCard({
 
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>
-        <p className={styles.description}>{description}</p>
+        {cardItems?.length ? (
+          <ul className={styles.subtypes} aria-label={`Procedimentos de ${title}`}>
+            {cardItems.map((item) => (
+              <li className={styles.subtype} key={item}>
+                {item}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className={styles.description}>{description}</p>
+        )}
 
         {/*
           Afordância visual apenas. O alvo clicável é o `.overlay` abaixo, que

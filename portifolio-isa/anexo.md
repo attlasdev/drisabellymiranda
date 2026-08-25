@@ -143,6 +143,11 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
   - Descrição: `X 80`, `Y 530`, `420 × 48 px`.
   - CTA: `X 80`, `Y 615`, `82 × 24 px`.
 - CTA: `Saiba mais` sublinhado acompanhado pelo SVG diagonal `ArrowUpRightIcon` de `22 px`, com traço fino de `1.35` e alinhamento central.
+- O card `Preenchedores Faciais` é a única variação de conteúdo: no lugar da descrição, exibe uma grade informativa `2 × 3` com `Preenchimento labial`, `Rinomodelação`, `Queixo`, `Mandíbula`, `Maçãs do rosto` e `Bigode chinês`. A grade mantém duas colunas no mobile e não cria links individuais; o card inteiro continua levando à página guarda-chuva.
+- A rota guarda-chuva de `Preenchedores Faciais` usa uma variação própria: remove o cabeçalho visível repetido, posiciona o retorno no topo da coluna esquerda e apresenta seis botões compactos com bullets em uma grade `2 × 3`. No desktop amplo, o seletor fica sticky à esquerda enquanto somente o procedimento ativo ocupa a direita; em tablet e mobile, ele empilha acima do mesmo conteúdo. O topo da direita recebeu marcador, eyebrow, título em destaque e linha divisória; o título do procedimento se alinha pelo topo com `Escolha o tratamento`. A troca retorna ao topo e aplica fade ao conteúdo. A segunda rodada está documentada em `docs/design/preenchedores-faciais-selector-spec.md` e aguarda validação visual.
+- A faixa técnica escura de duração, anestesia, retorno e durabilidade não aparece em nenhuma página de tratamento. Os dados permanecem estruturados em `src/content/treatments.ts` para uma possível reutilização posterior em um ponto menos precoce da experiência.
+- Os textos de `Preenchimento labial`, `Rinomodelação`, `Toxina Botulínica` e `Bioestimulador de Colágeno` são rascunhos autorais baseados nas referências fornecidas pelo usuário em `2026-08-24`. Servem como orientação editorial e precisam de revisão clínica da Dra. Isabelly. O conteúdo de Full Face orientou apenas o princípio de avaliação global e não foi reutilizado como explicação de outro procedimento.
+- `Queixo`, `Mandíbula`, `Maçãs do rosto`, `Bigode chinês`, `Fios de PDO`, `Microagulhamento` e `Skinbooster` também receberam rascunhos autorais na mesma data, com base em fontes regulatórias e científicas específicas. Não existe mais Lorem Ipsum nas páginas de tratamentos, mas todo o conteúdo clínico continua pendente de validação da Dra. Isabelly. Fontes e limites: `docs/handoff/tratamentos-conteudo-pesquisa.md`.
 - As seis fotos aprovadas estão em `public/images/treatments/`, usam extensão `.webp` e são renderizadas com `next/image`:
   - `toxina-botulinica.webp` — Toxina Botulínica.
   - `preenchimento-labial.webp` — Preenchedores Faciais.
@@ -183,9 +188,12 @@ O fundo `#535353` permanece como fallback dos cards, enquanto as fotografias apr
 - Subtítulo: `741/352 — 426 × 102 px`.
 - Primeiro card: `874/561 — 1046.15 × 680 px`.
 - Cards atuais:
-  1. Preenchimento labial — direita.
+  1. Preenchedores Faciais — direita.
   2. Toxina Botulínica — esquerda.
-  3. Rinomodelação — direita.
+  3. Bioestimulador de Colágeno — direita.
+  4. Fios de PDO — esquerda.
+  5. Microagulhamento — direita.
+  6. Skinbooster — esquerda.
 - Especificação completa: `docs/design/section-3-spec.md`.
 - Mobile aprovado: cabeçalho tipográfico refinado, cards de `90vw` encostados alternadamente à direita e à esquerda e alvos de toque de `44 px` em `Saiba mais`.
 - No desktop, uma rota pontilhada vertical é desenhada pelo scroll atrás dos cards; ela não aparece no mobile nem em redução de movimento.

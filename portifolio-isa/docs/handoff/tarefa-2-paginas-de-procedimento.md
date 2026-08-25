@@ -5,19 +5,33 @@ Escopo: esqueleto completo das rotas `/tratamentos/[slug]`, com conteúdo provis
 
 Este documento existe para quem for substituir o conteúdo e ajustar os detalhes depois. Ele registra **o que foi construído, por que cada decisão foi tomada e o que foi verificado de fato**.
 
+## Atualização de conteúdo — `2026-08-24`
+
+- As páginas cresceram para seis tratamentos, e `Preenchedores Faciais` passou a funcionar como rota guarda-chuva com seis subtipos selecionáveis.
+- Rascunhos autorais substituíram o Lorem Ipsum de `Preenchimento labial`, `Rinomodelação`, `Toxina Botulínica` e `Bioestimulador de Colágeno`.
+- As referências fornecidas pelo usuário foram as páginas de preenchimento labial, toxina botulínica, bioestimuladores, Full Face e rinomodelação do site `drakureski.com.br`.
+- O conteúdo de Full Face foi usado apenas como orientação de tom para avaliação integrada; ele não foi apresentado como explicação clínica de outro procedimento.
+- `Fios de PDO`, `Microagulhamento`, `Skinbooster`, `Queixo`, `Mandíbula`, `Maçãs do rosto` e `Bigode chinês` receberam uma segunda rodada de rascunhos baseada em órgãos reguladores, ensaios clínicos, consensos e revisões sistemáticas.
+- Os textos novos são um norte editorial, não conteúdo aprovado. Precisam de revisão e validação clínica da Dra. Isabelly.
+- A faixa escura de dados técnicos foi removida de todas as páginas de tratamento. Os campos continuam em `treatments.ts`, com valores `A definir`.
+- O inventário completo de fontes está em `docs/handoff/tratamentos-conteudo-pesquisa.md`.
+
 ---
 
 ## 1. Resumo
 
-As três rotas de procedimento existem, são geradas estaticamente e estão navegáveis a partir dos cards da home. Toda a estrutura, o layout, a acessibilidade e a navegação estão prontos.
+As seis rotas de tratamento existem, são geradas estaticamente e estão navegáveis a partir dos cards da home. Toda a estrutura, o layout, a acessibilidade e a navegação estão prontos. `Preenchedores Faciais` possui seis conteúdos internos selecionáveis na mesma rota.
 
-**O texto é provisório.** Os campos de prosa usam Lorem Ipsum e os campos curtos usam `A definir`. Nenhuma linha descreve procedimento de verdade.
+**O texto continua provisório.** Todas as páginas possuem rascunhos informativos, mas nenhuma passou pela validação clínica final. Os campos técnicos curtos continuam com `A definir`.
 
 Rotas geradas:
 
-- `/tratamentos/preenchimento-labial`
+- `/tratamentos/preenchedores-faciais`
 - `/tratamentos/toxina-botulinica`
-- `/tratamentos/rinomodelacao`
+- `/tratamentos/bioestimulador-de-colageno`
+- `/tratamentos/fios-de-pdo`
+- `/tratamentos/microagulhamento`
+- `/tratamentos/skinbooster`
 
 ---
 
@@ -104,15 +118,15 @@ Tudo vive em `src/content/treatments.ts`, que abre com um aviso.
 | Campo | Estado | Observação |
 | --- | --- | --- |
 | `title` | **real** | mesmo da home |
-| `description` | **real** | alimenta a frase-resumo e a meta description |
+| `description` | rascunho completo | alimenta a frase-resumo e a meta description; exige validação |
 | `image`, `imageAlt` | **real** | usados só pelo card da home |
-| `oQueE` | Lorem Ipsum | |
-| `quandoIndicado` | Lorem Ipsum | deve incluir quando NÃO é indicado |
-| `tiraDeDados` | rótulos reais, valores `A definir` | rótulos aprovados: Duração, Anestesia, Retorno, Durabilidade |
-| `perguntas` | Lorem Ipsum | quantidade livre |
-| `convite` | Lorem Ipsum | linha única do encerramento |
+| `oQueE` | rascunho completo | todos os procedimentos; exige validação clínica |
+| `quandoIndicado` | rascunho completo | inclui limites do procedimento; exige validação clínica |
+| `tiraDeDados` | oculto, valores `A definir` | estrutura preservada para possível uso futuro |
+| `perguntas` | rascunho completo | cinco perguntas por procedimento ou subtipo |
+| `convite` | rascunho completo | linha única do encerramento; exige validação |
 
-Os rótulos da tira de dados **precisam continuar iguais nos três procedimentos**, senão a faixa escura muda de forma de uma página para outra.
+Os campos da tira permanecem estruturados, mas o componente não aparece em nenhuma página de tratamento desde `2026-08-24`.
 
 `convite` não constava do modelo de conteúdo do plano; foi acrescentado porque o layout do encerramento exige uma frase e a Regra 12 proíbe inventá-la.
 

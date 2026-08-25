@@ -94,23 +94,24 @@ características de cada rosto.
 - Primeiro card: cantos esquerdos com `32 px`; cantos direitos retos.
 - Cards alinhados à esquerda espelham os raios.
 
-### Conteúdo do primeiro card
+### Variação — Preenchedores Faciais
 
-- Título: `Preenchimento labial`.
+- Decisão aprovada em `2026-08-24`: esse card funciona como guarda-chuva e não exibe a descrição curta usada pelos demais tratamentos.
+- Abaixo do título, uma lista em duas colunas por três linhas apresenta, nesta ordem: `Preenchimento labial`, `Rinomodelação`, `Queixo`, `Mandíbula`, `Maçãs do rosto` e `Bigode chinês`.
+- Os itens usam marcadores circulares pequenos e são apenas informativos; o card inteiro continua sendo o único link para `/tratamentos/preenchedores-faciais`.
+- A grade permanece em duas colunas no mobile. Os nomes compactos evitam aumentar a proporção aprovada de `90vw / 1.18`.
+- A descrição original permanece no conteúdo estruturado porque alimenta a página interna e sua metadata.
+
+### Conteúdo e ordem atual
+
 - Título: `X 80`, `Y 472`, `W 381`, `H 46`, Playfair Display Regular, `40/46 px`, `#F5F5F2`.
-- Descrição: `Proporção, contorno e suporte planejados com naturalidade.`
-- Descrição: `X 80`, `Y 530`, `W 420`, `H 47`, Inter Regular, `16/24 px`, `#F5F5F2` a `80%`.
+- Descrição dos cards comuns: `X 80`, `Y 530`, `W 420`, `H 47`, Inter Regular, `16/24 px`, `#F5F5F2` a `80%`.
 - CTA: `Saiba mais` com `ArrowUpRightIcon` de `22 px`, traço `1.35`, inclinação de `45°` e alinhamento central.
 - CTA: `X 80`, `Y 615`, `W 82`, `H 24`, Inter Regular, `16/24 px`, `#F5F5F2` a `90%`.
-
-### Conteúdo do segundo card
-
-- Alinhamento: esquerda.
-- Título: `Toxina Botulínica`.
-- Descrição: `Avaliação cuidadosa da expressão e do movimento para suavizar sem apagar o que torna seu rosto único.`
-
-### Conteúdo do terceiro card
-
-- Alinhamento: direita.
-- Título: `Rinomodelação`.
-- Descrição: `Uma alternativa sem cirurgia, indicada após avaliação cuidadosa de anatomia, proporção e segurança.`
+- Ordem definida em `2026-08-24`:
+  1. `Preenchedores Faciais` — direita.
+  2. `Toxina Botulínica` — esquerda.
+  3. `Bioestimulador de Colágeno` — direita.
+  4. `Fios de PDO` — esquerda.
+  5. `Microagulhamento` — direita.
+  6. `Skinbooster` — esquerda.

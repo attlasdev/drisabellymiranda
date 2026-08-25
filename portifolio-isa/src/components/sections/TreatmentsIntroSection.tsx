@@ -81,6 +81,7 @@ export function TreatmentsIntroSection() {
             slug={treatment.slug}
             title={treatment.title}
             description={treatment.description}
+            cardItems={treatment.subtypes?.map((subtype) => subtype.cardLabel)}
             image={treatment.image}
             imageAlt={treatment.imageAlt}
           />

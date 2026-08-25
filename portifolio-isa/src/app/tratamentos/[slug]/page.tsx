@@ -3,9 +3,9 @@ import { notFound } from "next/navigation";
 
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { PageClosing } from "@/components/internal-page/PageClosing";
-import { PageDataStrip } from "@/components/internal-page/PageDataStrip";
 import { PageProse } from "@/components/internal-page/PageProse";
 import { TreatmentLinks } from "@/components/internal-page/TreatmentLinks";
+import { FacialFillersExperience } from "@/components/treatment-page/FacialFillersExperience";
 import { TreatmentHeader } from "@/components/treatment-page/TreatmentHeader";
 import { TreatmentQuestions } from "@/components/treatment-page/TreatmentQuestions";
 import { getOtherTreatments, getTreatment, treatments } from "@/content/treatments";
@@ -42,6 +42,8 @@ export default async function TreatmentPage({ params }: TreatmentPageProps) {
     notFound();
   }
 
+  const otherTreatments = getOtherTreatments(treatment.slug);
+
   return (
     <>
       {/*
@@ -49,24 +51,33 @@ export default async function TreatmentPage({ params }: TreatmentPageProps) {
         desta página. Sem ele o link cairia numa âncora inexistente.
       */}
       <main className={styles.page} id="inicio">
-        <TreatmentHeader title={treatment.title} summary={treatment.description} />
+        {treatment.subtypes?.length ? (
+          <FacialFillersExperience
+            otherTreatments={otherTreatments}
+            subtypes={treatment.subtypes}
+            treatmentSlug={treatment.slug}
+            treatmentTitle={treatment.title}
+          />
+        ) : (
+          <>
+            <TreatmentHeader title={treatment.title} summary={treatment.description} />
 
-        <PageDataStrip ariaLabel="Informações do procedimento" items={treatment.tiraDeDados} />
+            <div className={styles.chapter}>
+              <div className={styles.chapterInner}>
+                <PageProse heading="O que é" text={treatment.oQueE} />
+                <PageProse heading="Quando é indicado" text={treatment.quandoIndicado} />
 
-        <div className={styles.chapter}>
-          <div className={styles.chapterInner}>
-            <PageProse heading="O que é" text={treatment.oQueE} />
-            <PageProse heading="Quando é indicado" text={treatment.quandoIndicado} />
+                <hr className={styles.divider} />
 
-            <hr className={styles.divider} />
+                <TreatmentQuestions items={treatment.perguntas} slug={treatment.slug} />
 
-            <TreatmentQuestions items={treatment.perguntas} slug={treatment.slug} />
+                <hr className={styles.divider} />
 
-            <hr className={styles.divider} />
-
-            <TreatmentLinks heading="Outros tratamentos" treatments={getOtherTreatments(treatment.slug)} />
-          </div>
-        </div>
+                <TreatmentLinks heading="Outros tratamentos" treatments={otherTreatments} />
+              </div>
+            </div>
+          </>
+        )}
 
         <PageClosing invite={treatment.convite} />
       </main>
