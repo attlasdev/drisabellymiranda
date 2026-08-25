@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 
 import { inter, playfairDisplay } from "@/lib/fonts";
+import { isIndexable, siteUrl } from "@/lib/site";
 
 import "./globals.css";
 
@@ -20,9 +21,21 @@ const initialScrollResetScript = `
 `;
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Isabelly Miranda | Harmonização Orofacial",
   description:
     "Harmonização orofacial com precisão, escuta e respeito à sua identidade.",
+  /*
+    Segunda camada de bloqueio, e não redundância do `robots.txt`.
+
+    O `robots.txt` impede a varredura, mas uma URL descoberta por link externo
+    ainda pode ser indexada sem nunca ter sido lida — aparece no resultado sem
+    título nem descrição. Só a diretiva `noindex` no HTML impede a indexação de
+    fato. Enquanto o conteúdo clínico não for aprovado, valem as duas.
+  */
+  robots: isIndexable
+    ? { index: true, follow: true }
+    : { index: false, follow: false, nocache: true },
 };
 
 export const viewport: Viewport = {
