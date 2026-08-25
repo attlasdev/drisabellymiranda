@@ -157,7 +157,43 @@ A descoberta nunca tinha sido construída. O `<head>` que ia ao ar tinha seis ta
 
 ### Decisões tomadas para a migração das imagens ao bucket (2026-08-25)
 
-Não haverá tabela: os metadados continuam em `src/content/results.ts`, versionados. O software da Attlas sobe as imagens já no tamanho final e em WebP.
+Não haverá tabela. O software da Attlas sobe as imagens já no tamanho final e em WebP, com dimensão configurável por projeto.
+
+**Correção ao que este arquivo dizia antes:** uma versão anterior desta seção afirmava que os metadados continuariam em `src/content/results.ts`. Isso contradizia a decisão de `2026-08-23` registrada acima, em que a lista fixa sai do código e o site passa a descobrir as imagens listando o bucket. Vale a decisão de `2026-08-23`.
+
+**Também estava errado o risco de CLS.** A afirmação de que imagem remota sem `width`/`height` faria a página pular não se aplica aqui: os dois componentes de Resultados usam `fill`, e a caixa vem do CSS — `aspect-ratio: 2 / 1` no card e `height: min(52svh, 30rem)` no modal. Com `fill`, o Next nem aceita `width` e `height`. **Nenhuma dimensão precisa ser armazenada em lugar nenhum.**
+
+### Separação entre card e galeria (2026-08-25)
+
+Os dois grupos de imagem têm requisitos diferentes e não devem ser tratados igual:
+
+- **As 6 imagens de card**, na home, ficam no código com `alt` escrito à mão. São renderizadas no servidor e são as únicas com peso real de busca e de LCP. Seis textos alternativos bons são meia hora de trabalho.
+- **As demais imagens da galeria** seguem a decisão de `2026-08-23`: listagem do bucket e `alt` derivado da categoria e do número. Elas vivem atrás do modal, que o Google não indexa como conteúdo da página — o `alt` genérico ali não custa busca.
+
+Isso substitui uma recomendação anterior de escrever 66 textos alternativos à mão, que ignorava a decisão já tomada e gastaria esforço onde não rende.
+
+### Dimensões a implementar no software (2026-08-25)
+
+Os dois destinos são quase o mesmo formato: o card é exatamente `2:1` e o modal fica em no máximo `62rem × 30rem` (≈ `2,07:1`). Ambos usam `object-fit: cover`, que **corta o excedente** — entregar `4:3` ou `3:2` faz o recorte comer testa e queixo, justamente o que um antes/depois precisa mostrar.
+
+Padronizar em `2:1`, com **duas saídas por caso**:
+
+| saída | dimensão | uso |
+|---|---|---|
+| card | `1000 × 500` | grade da home, 6 arquivos |
+| full | `2000 × 1000` | modal, sob demanda |
+
+O motivo das duas: com `unoptimized` não há `srcset`, então um arquivo único de `2000 px` seria baixado inteiro também pelos 6 cards da home, que precisam de `472 px` (944 em tela 2x). Seriam ~1,8 MB onde ~480 KB resolvem, na página que mais importa para LCP.
+
+Convenção de nome para o código derivar as duas de uma base só: `{categoria}-{nn}-{versao}-card.webp` e `{categoria}-{nn}-{versao}-full.webp`.
+
+### Tensão a resolver: "sem redeploy" versus HTML estático
+
+As duas coisas não coexistem. Hoje as 12 rotas são SSG e o HTML sai pronto no build. Se a lista de imagens vem de listagem do bucket, ou se lê no build — e a 13ª foto só aparece no próximo deploy, que é o que a decisão de `2026-08-23` quer evitar — ou se lê em tempo de execução, e a página deixa de ser estática.
+
+O impacto de SEO é quase nulo, porque as 66 imagens ficam atrás de um modal e não são indexadas como conteúdo de qualquer forma. O que precisa continuar renderizando no servidor são os 6 cards.
+
+Se o "sem redeploy" for desejado também para os 6, o caminho limpo é **revalidação sob demanda**: a ferramenta Electron chama um webhook depois do upload e a página se regenera. Mantém HTML estático e atualiza na hora. Mais trabalho que revalidação por tempo, e o único caminho que entrega as duas coisas.
 
 - **`unoptimized` nas imagens de Resultados está CORRETO** e deve permanecer. Imagem que já chega pronta não deve passar pelo otimizador do Next.
 - **Por isso `next.config.ts` NÃO precisa de `images.remotePatterns`.** Verificado no código do Next: com `unoptimized`, `generateImgAttrs` retorna antes de chamar o loader, e é o loader que valida o hostname. **Estopim:** se alguém remover `unoptimized`, o build quebra com "hostname is not configured".
