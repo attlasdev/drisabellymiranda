@@ -36,7 +36,13 @@ portifolio-isa/public/images/treatments/preenchimento-labial.png
 portifolio-isa/public/images/treatments/skinbooster.png
 portifolio-isa/public/images/treatments/toxina-botulinica.png
 
+# Link e credenciais locais da Vercel, criados por `vercel link`
+**/.vercel
+
 # Sistema operacional e editor
 .DS_Store
 Thumbs.db
 **/*.swp
+
+.vercel
+.env*
