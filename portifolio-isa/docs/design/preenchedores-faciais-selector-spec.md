@@ -49,7 +49,8 @@ Segunda rodada funcional para validação visual e de interação em `2026-08-24
 - Os mini cards são botões com semântica de tabs (`tablist`, `tab`, `tabpanel`).
 - O selecionado usa `aria-selected="true"`, fundo escuro e texto claro.
 - O teclado navega entre as opções por setas, `Home` e `End`.
-- A troca remonta o painel ativo para que estados internos, como o FAQ aberto, não vazem de um procedimento para outro.
+- Os sete painéis coexistem no HTML; os inativos ficam sob o atributo `hidden`. Isso mudou em `2026-09-01`: antes existia um painel só, remontado a cada troca, e as perguntas dos subtipos fechados não estavam no documento, o que deixava a marcação de FAQ sem lastro.
+- O estado interno, como o FAQ aberto, continua não vazando de um procedimento para outro. Agora isso vem de um contador que entra como `key` dos blocos de perguntas: eles remontam fechados a cada seleção, inclusive ao voltar para um procedimento já visitado.
 - Ao trocar o procedimento, a página volta ao topo e somente a coluna direita faz uma saída e entrada em fade com GSAP.
 - Em `prefers-reduced-motion`, a seleção e o retorno ao topo são imediatos, sem fade.
 - Nesta rodada, a seleção vive apenas no estado da página; a URL compartilhável fica para uma rodada posterior.

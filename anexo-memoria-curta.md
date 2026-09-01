@@ -265,6 +265,20 @@ Medido depois: folga lateral de `4,75 px` em `390 px`, dos quais `2,37 px` (`0.0
 
 **`O que é` do Preenchimento labial virou parágrafo único.** A divisão anterior separava duas frases que diziam a mesma coisa, então a quebra não carregava ideia nova e deixava linha órfã. Nos outros procedimentos a quebra separa o que o procedimento é do que ele muda, e por isso continua.
 
+## Marcação de FAQ alinhada ao conteúdo (2026-09-01)
+
+A página de Preenchedores Faciais declarava **40 perguntas** no JSON-LD e mostrava **5**. As 35 dos subtipos fechados não estavam no documento: existiam só dentro de `<script>`, como dado serializado do React, porque havia um painel único remontado a cada troca. As outras 5 eram as do próprio guarda-chuva, que a página nunca renderiza.
+
+O que foi feito:
+
+- Os sete painéis passaram a coexistir no HTML, com os inativos sob `hidden`. Medido depois: **35 perguntas no DOM e 35 no JSON-LD**.
+- As 5 perguntas do guarda-chuva saíram da marcação. Continuam em `treatments.ts` para o dia em que a página ganhar uma introdução ao que é um preenchedor facial.
+- `.panel` replica o `gap` de `.chapterInner`, de quem deixou de ser filho direto, e precisa de `.panel[hidden] { display: none }` porque `display: flex` sobrepõe o `hidden` do user agent.
+- `Outros tratamentos` saiu de dentro do painel, senão o mesmo conjunto de links apareceria sete vezes.
+- O padrão ARIA de abas ficou correto: cada aba aponta para o seu próprio painel.
+
+**Não regredir:** o FAQ precisa voltar fechado ao trocar de procedimento, inclusive ao retornar a um já visitado. Isso não vem mais da remontagem do painel; vem do contador `faqReset`, usado como `key` dos blocos de perguntas. Testado abrindo uma pergunta no Labial, indo ao Mento e voltando.
+
 ## Armadilhas de verificação neste projeto (2026-09-01)
 
 Quatro erros de medição que custaram rodadas nesta sessão. Conferir aqui antes de confiar numa verificação.
