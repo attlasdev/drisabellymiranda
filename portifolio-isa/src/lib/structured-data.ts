@@ -164,9 +164,16 @@ export const treatmentStructuredData = (treatment: Treatment) => {
 
   const fontes = getTreatmentSources(treatment.slug);
 
+  /*
+    `perguntas` é opcional desde `2026-09-01`: a profissional não entregou
+    nenhuma pergunta, e o bloco de FAQ só é renderizado onde existe conteúdo.
+    Espalhar o campo direto quebraria aqui no dia em que um procedimento
+    ficasse sem FAQ, e o JSON-LD precisa acompanhar a página: declarar uma
+    `FAQPage` sem pergunta visível seria marcação sem lastro.
+  */
   const perguntas: TreatmentQuestion[] = [
-    ...treatment.perguntas,
-    ...(treatment.subtypes?.flatMap((subtype) => subtype.perguntas) ?? []),
+    ...(treatment.perguntas ?? []),
+    ...(treatment.subtypes?.flatMap((subtype) => subtype.perguntas ?? []) ?? []),
   ];
 
   return comContexto([

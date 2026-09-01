@@ -30,8 +30,25 @@
  *
  * `toxina-botulinica` e `bioestimulador-de-colageno` ficam sem referência
  * porque o levantamento original só teve a página da concorrente para esses
- * dois. Preferimos a ausência visível à fonte inventada — a lacuna é o pedido
+ * dois. Preferimos a ausência visível à fonte inventada: a lacuna é o pedido
  * de pesquisa, e some quando a pesquisa acontecer.
+ *
+ * O QUE MUDOU EM 2026-09-01
+ *
+ * A Dra. Isabelly entregou o texto dos procedimentos, e ele substituiu os
+ * rascunhos de pesquisa em `O que é` e `Quando é indicado` dos doze. Esses
+ * dois campos deixaram de depender de fonte externa: agora são palavra da
+ * profissional que assina a página.
+ *
+ * As referências continuam válidas e continuam necessárias, mas passaram a
+ * sustentar outra coisa. O que ainda é conteúdo derivado de pesquisa são as
+ * `perguntas` de cada procedimento, incluindo prazos e número de sessões. É a
+ * elas que a citação dá lastro.
+ *
+ * Consequência prática: a lacuna de `toxina-botulinica` e
+ * `bioestimulador-de-colageno` ficou menos grave, porque o corpo do texto
+ * desses dois não vem mais de pesquisa. Ela continua aberta enquanto o FAQ
+ * deles permanecer no ar sem fonte.
  */
 
 export type TreatmentSource = {
