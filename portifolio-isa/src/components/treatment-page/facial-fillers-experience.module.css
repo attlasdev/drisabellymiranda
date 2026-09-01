@@ -145,8 +145,25 @@
   padding-top: clamp(2.5rem, 4.5vw, 3.75rem);
 }
 
+/*
+  O painel deixou de ser filho direto de `.chapterInner` quando os sete
+  subtipos passaram a coexistir no HTML, então replica o `gap` de lá. Sem
+  isso, `O que é`, `Quando é indicado` e o bloco de perguntas perderiam o
+  espaçamento aprovado.
+
+  `display: flex` sobrepõe o `display: none` que o atributo `hidden` herda do
+  user agent, por isso a regra explícita logo abaixo. Os seis painéis inativos
+  dependem dela para não aparecerem empilhados.
+*/
 .panel {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 3.5rem);
   min-width: 0;
+}
+
+.panel[hidden] {
+  display: none;
 }
 
 @media (max-width: 27.499rem) {

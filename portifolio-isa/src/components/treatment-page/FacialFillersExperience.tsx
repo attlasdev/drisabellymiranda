@@ -35,6 +35,33 @@ function scrollPageToTop() {
   window.scrollTo({ top: 0, left: 0, behavior: "auto" });
 }
 
+/*
+  TODOS os subtipos são renderizados; os inativos ficam com o atributo
+  `hidden`. Antes existia um painel só, remontado a cada troca.
+
+  POR QUE MUDOU
+
+  O JSON-LD da página declara as perguntas dos sete subtipos, mas o HTML só
+  continha as do subtipo aberto. Marcação de FAQ precisa descrever conteúdo
+  que está na página; declarar 35 perguntas e entregar 5 é promessa sem
+  lastro, e o buscador tende a ignorar a marcação inteira. Com todos os
+  painéis no HTML, o que é declarado existe e o visitante alcança clicando.
+
+  De quebra, isto corrige o padrão ARIA: cada aba passa a apontar para o seu
+  próprio painel, em vez de todas dividirem um único `id`.
+
+  O QUE FOI PRESERVADO
+
+  A spec do seletor exige que o estado interno, como o FAQ aberto, não vaze
+  de um procedimento para outro. Sem a remontagem do painel, isso viria de
+  graça só até alguém voltar a um procedimento já visitado e reencontrar a
+  pergunta aberta. Por isso `faqReset` incrementa a cada seleção e entra como
+  `key` dos blocos de perguntas: eles remontam e voltam fechados, que é o
+  comportamento aprovado.
+
+  `Outros tratamentos` saiu de dentro do painel. Repetido em sete painéis, o
+  mesmo conjunto de links apareceria sete vezes no HTML.
+*/
 export function FacialFillersExperience({
   otherTreatments,
   subtypes,
@@ -42,7 +69,8 @@ export function FacialFillersExperience({
   treatmentTitle,
 }: FacialFillersExperienceProps) {
   const [activeSlug, setActiveSlug] = useState(subtypes[0]?.slug ?? "");
-  const panelRef = useRef<HTMLDivElement>(null);
+  const [faqReset, setFaqReset] = useState(0);
+  const detailRef = useRef<HTMLDivElement>(null);
   const previousSlugRef = useRef(activeSlug);
   const selectorRef = useRef<HTMLDivElement>(null);
   const transitionRef = useRef<gsap.core.Tween | null>(null);
@@ -54,15 +82,15 @@ export function FacialFillersExperience({
     }
 
     previousSlugRef.current = activeSlug;
-    const panel = panelRef.current;
+    const detail = detailRef.current;
 
-    if (!panel || prefersReducedMotion()) {
+    if (!detail || prefersReducedMotion()) {
       return;
     }
 
     const context = gsap.context(() => {
       gsap.fromTo(
-        panel,
+        detail,
         { autoAlpha: 0 },
         {
           autoAlpha: 1,
@@ -71,7 +99,7 @@ export function FacialFillersExperience({
           clearProps: "opacity,visibility",
         },
       );
-    }, panel);
+    }, detail);
 
     return () => context.revert();
   }, [activeSlug]);
@@ -91,23 +119,27 @@ export function FacialFillersExperience({
       return;
     }
 
-    const panel = panelRef.current;
+    const detail = detailRef.current;
     transitionRef.current?.kill();
 
-    if (!panel || prefersReducedMotion()) {
+    const aplicar = () => {
       scrollPageToTop();
       setActiveSlug(slug);
+      setFaqReset((valor) => valor + 1);
+    };
+
+    if (!detail || prefersReducedMotion()) {
+      aplicar();
       return;
     }
 
-    transitionRef.current = gsap.to(panel, {
+    transitionRef.current = gsap.to(detail, {
       autoAlpha: 0,
       duration: 0.18,
       ease: "power1.out",
       overwrite: true,
       onComplete: () => {
-        scrollPageToTop();
-        setActiveSlug(slug);
+        aplicar();
         transitionRef.current = null;
       },
     });
@@ -162,7 +194,7 @@ export function FacialFillersExperience({
                   key={subtype.slug}
                   type="button"
                   role="tab"
-                  aria-controls="filler-procedure-panel"
+                  aria-controls={`filler-panel-${subtype.slug}`}
                   aria-label={subtype.title}
                   aria-selected={isActive}
                   tabIndex={isActive ? 0 : -1}
@@ -178,51 +210,64 @@ export function FacialFillersExperience({
         </div>
       </aside>
 
-      <div className={styles.detail}>
-        <div
-          className={styles.panel}
-          id="filler-procedure-panel"
-          key={activeSubtype.slug}
-          ref={panelRef}
-          role="tabpanel"
-          aria-labelledby={`filler-tab-${activeSubtype.slug}`}
-          tabIndex={0}
-        >
-          <header className={styles.detailHeader}>
+      <div className={styles.detail} ref={detailRef}>
+        {/*
+          Um cabeçalho por subtipo, fora do `.chapter` como no layout aprovado.
+          Só o do procedimento ativo fica visível.
+        */}
+        {subtypes.map((subtype) => (
+          <header
+            className={styles.detailHeader}
+            hidden={subtype.slug !== activeSubtype.slug}
+            key={subtype.slug}
+          >
             <div className={styles.detailHeaderInner}>
               <div className={styles.detailEyebrowRow}>
                 <span className={styles.detailEyebrowLine} aria-hidden="true" />
                 <p className={styles.detailEyebrow}>Procedimento selecionado</p>
               </div>
-              <h2 className={styles.detailTitle}>{activeSubtype.title}</h2>
+              <h2 className={styles.detailTitle}>{subtype.title}</h2>
             </div>
           </header>
+        ))}
 
-          <div className={`${internalStyles.chapter} ${styles.detailChapter}`}>
-            <div className={internalStyles.chapterInner}>
-              <PageProse heading="O que é" text={activeSubtype.oQueE} />
-              <PageProse heading="Quando é indicado" text={activeSubtype.quandoIndicado} />
+        <div className={`${internalStyles.chapter} ${styles.detailChapter}`}>
+          <div className={internalStyles.chapterInner}>
+            {subtypes.map((subtype) => (
+              <div
+                aria-labelledby={`filler-tab-${subtype.slug}`}
+                className={styles.panel}
+                hidden={subtype.slug !== activeSubtype.slug}
+                id={`filler-panel-${subtype.slug}`}
+                key={subtype.slug}
+                role="tabpanel"
+                tabIndex={subtype.slug === activeSubtype.slug ? 0 : -1}
+              >
+                <PageProse heading="O que é" text={subtype.oQueE} />
+                <PageProse heading="Quando é indicado" text={subtype.quandoIndicado} />
 
-              {/*
-                O bloco de perguntas some inteiro quando o subtipo não tem
-                conteúdo, e a divisória vai junto: sem isso o painel mostraria
-                dois traços colados ao trocar para um subtipo sem perguntas.
-              */}
-              {activeSubtype.perguntas?.length ? (
-                <>
-                  <hr className={internalStyles.divider} />
+                {/*
+                  O bloco de perguntas some inteiro quando o subtipo não tem
+                  conteúdo, e a divisória vai junto: sem isso o painel mostraria
+                  dois traços colados ao trocar para um subtipo sem perguntas.
+                */}
+                {subtype.perguntas?.length ? (
+                  <>
+                    <hr className={internalStyles.divider} />
 
-                  <TreatmentQuestions
-                    items={activeSubtype.perguntas}
-                    slug={`${treatmentSlug}-${activeSubtype.slug}`}
-                  />
-                </>
-              ) : null}
+                    <TreatmentQuestions
+                      items={subtype.perguntas}
+                      key={`${subtype.slug}-${faqReset}`}
+                      slug={`${treatmentSlug}-${subtype.slug}`}
+                    />
+                  </>
+                ) : null}
+              </div>
+            ))}
 
-              <hr className={internalStyles.divider} />
+            <hr className={internalStyles.divider} />
 
-              <TreatmentLinks heading="Outros tratamentos" treatments={otherTreatments} />
-            </div>
+            <TreatmentLinks heading="Outros tratamentos" treatments={otherTreatments} />
           </div>
         </div>
       </div>
