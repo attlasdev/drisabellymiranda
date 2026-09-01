@@ -1,36 +1,83 @@
 /**
  * Conteúdo dos tratamentos.
  *
- * ATENÇÃO — CONTEÚDO EM VALIDAÇÃO
+ * ORIGEM DO TEXTO — ATUALIZADO EM 2026-09-01
  *
- * Em 2026-08-24, todos os tratamentos receberam rascunhos autorais. Os quatro
- * primeiros foram construídos a partir das páginas fornecidas pelo usuário;
- * os demais usam sínteses de órgãos reguladores e literatura científica. Os
- * textos servem como norte editorial para a Dra. Isabelly e ainda precisam da
- * revisão e da aprovação clínica dela antes da publicação.
+ * Os campos `oQueE` e `quandoIndicado` de todos os doze procedimentos passaram
+ * a reproduzir o material escrito pela própria Dra. Isabelly. Ele substituiu
+ * integralmente os rascunhos anteriores, que tinham sido construídos a partir
+ * de páginas de referência de outra profissional e de pesquisa em órgãos
+ * reguladores. Onde o texto dela e o rascunho anterior diziam a mesma coisa,
+ * o dela prevaleceu, inclusive na forma de dizer.
  *
- * Os campos `tiraDeDados` continuam com `A definir`, porque a faixa está
- * oculta e duração, anestesia e retorno dependem da conduta profissional.
+ * Correções ortográficas aplicadas: acentos ausentes (`mandibula`, `maças`,
+ * `chines`) e `Podendo melhorar` → `Pode melhorar` em `Preenchimento labial`,
+ * para a frase deixar de ser fragmento.
  *
- * ESTADO DAS DESCRIÇÕES (atualizado em 2026-08-24)
+ * PASSADA EDITORIAL — 2026-09-01
  *
- * Todas as `description` permanecem provisórias. Elas alimentam os cards e a
- * meta description das páginas, portanto precisam da mesma validação.
+ * Depois de aplicado, o material foi lapidado a pedido do usuário, com a
+ * proporção acordada de manter cerca de 90% da linguagem dela e usar os 10%
+ * restantes para clareza. **Nenhuma afirmação clínica foi acrescentada,
+ * removida ou alterada.** O que mudou foi a forma:
+ *
+ * - Abertura nomeia o procedimento em vez de começar por `Procedimento feito
+ *   com...`. Mento, mandíbula e malar usavam esse mesmo molde e, como ficam
+ *   lado a lado no seletor, liam-se como o mesmo texto.
+ * - `Quando é indicado` virou lista onde ela escreveu enumeração corrida. O
+ *   formato passou a ser o mesmo em todos, em vez de seis marcadores em
+ *   labial e uma frase solta em mento. As palavras da lista são as dela.
+ * - Onde o título usa termo técnico, uma frase liga o termo à palavra comum:
+ *   `O mento é a região do queixo`, `A mandíbula é a linha que separa o rosto
+ *   do pescoço`, `A região malar é a das maçãs do rosto`. São as **três
+ *   únicas frases inteiramente novas** do arquivo, e são definição
+ *   anatômica, não conduta. Precisam do aval dela.
+ * - `Fios de PDO` e `Preenchimento de olheiras` seguem em prosa: a indicação
+ *   que ela deu é uma condição só, e transformá-la em lista seria encher
+ *   linguiça.
+ *
+ * Sem travessão (`—`) em nenhum texto visível, por decisão do usuário.
+ *
+ * O QUE AINDA NÃO VEIO DELA
+ *
+ * - `perguntas`: ela não entregou perguntas para nenhum procedimento. As dos
+ *   onze primeiros são o rascunho de pesquisa anterior, mantido porque ela não
+ *   pediu a remoção. As de `Preenchimento de olheiras` foram pesquisadas em
+ *   2026-09-01, a pedido do usuário, para o procedimento novo não ficar sem
+ *   FAQ enquanto os outros têm. Todas seguem pendentes de aprovação clínica.
+ *   O tipo aceita a ausência do campo e o bloco só é renderizado onde existe
+ *   conteúdo, então remover um FAQ não deixa buraco na página.
+ * - `convite`: também é rascunho anterior.
+ * - `description`: os cinco tratamentos que não são guarda-chuva usam a linha
+ *   de apresentação escrita por ela. A de `Preenchedores Faciais` continua
+ *   sendo rascunho, e alimenta apenas a meta description, porque o card
+ *   exibe a grade de subtipos no lugar dela.
+ * - `tiraDeDados`: segue com `A definir`. A faixa está oculta desde
+ *   2026-08-24 e os valores dependem da conduta profissional.
+ *
+ * MUDANÇAS DE ESTRUTURA PEDIDAS POR ELA
+ *
+ * - `Preenchimento de queixo` passou a se chamar `Preenchimento de mento`.
+ * - `Preenchimento das maçãs do rosto` passou a `Preenchimento de malar`.
+ *   Nos dois casos, o corpo do texto continua usando as palavras do dia a dia
+ *   (`queixo`, `maçãs do rosto`), porque foi assim que ela escreveu.
+ * - `Preenchimento de olheiras` entrou como sétimo subtipo de
+ *   `Preenchedores Faciais`. Ela o listou solto no fim do documento; foi
+ *   agrupado aqui por ser um preenchimento regional, que é exatamente o que
+ *   a página guarda-chuva reúne. Virar um sétimo card exigiria fotografia
+ *   própria e revisão do ritmo da Seção 3.
  *
  * FOTOGRAFIA
  *
- * Os seis procedimentos possuem fotografia em WebP. Em `2026-08-23`, os
- * arquivos que já continham WebP sob extensão `.png` foram republicados com
- * a extensão correta, sem recompressão e sem alterar nenhum byte da imagem.
- *
- * As seis regiões de preenchimento (lábios, nariz, queixo, mandíbula, maçãs
- * do rosto e bigode chinês) deixaram de ser cards próprios e passaram a ser
- * subtipos de `preenchedores-faciais`. A foto de rinomodelação continua em
- * `public/images/treatments/` sem uso na Seção 3.
- *
- * A tira de dados foi retirada visualmente de todas as páginas em 2026-08-24.
- * Os campos continuam estruturados e com `A definir` para possível uso futuro.
+ * Os seis cards possuem fotografia em WebP. Em `2026-08-23`, os arquivos que
+ * já continham WebP sob extensão `.png` foram republicados com a extensão
+ * correta, sem recompressão e sem alterar nenhum byte da imagem. Subtipos não
+ * têm fotografia própria, então `Preenchimento de olheiras` não pediu imagem
+ * nova. A foto de rinomodelação continua em `public/images/treatments/` sem
+ * uso na Seção 3.
  */
+
+import type { ProseSection } from "@/content/prose";
 
 export type TreatmentDataItem = {
   label: string;
@@ -50,14 +97,17 @@ export type TreatmentSubtype = {
   selectorLabel: string;
   /** Título completo exibido na coluna de conteúdo. */
   title: string;
-  /** Rascunho para validação clínica. */
-  oQueE: string;
-  /** Rascunho para validação clínica. Deve incluir quando NÃO é indicado. */
-  quandoIndicado: string;
+  /** Texto entregue pela profissional. */
+  oQueE: ProseSection;
+  /** Texto entregue pela profissional. */
+  quandoIndicado: ProseSection;
   /** Rótulos fixos e aprovados; valores provisórios. */
   tiraDeDados: TreatmentDataItem[];
-  /** Rascunho para validação clínica. */
-  perguntas: TreatmentQuestion[];
+  /**
+   * Opcional: a profissional não entregou perguntas, e o bloco só é
+   * renderizado onde existe conteúdo. Os itens presentes ainda são rascunho.
+   */
+  perguntas?: TreatmentQuestion[];
 };
 
 export type Treatment = {
@@ -70,14 +120,17 @@ export type Treatment = {
   image?: string;
   /** Obrigatório sempre que houver `image`. */
   imageAlt?: string;
-  /** Rascunho para validação clínica. */
-  oQueE: string;
-  /** Rascunho para validação clínica. Deve incluir quando NÃO é indicado. */
-  quandoIndicado: string;
+  /** Texto entregue pela profissional. */
+  oQueE: ProseSection;
+  /** Texto entregue pela profissional. */
+  quandoIndicado: ProseSection;
   /** Rótulos fixos e aprovados; valores provisórios. */
   tiraDeDados: TreatmentDataItem[];
-  /** Rascunho para validação clínica. */
-  perguntas: TreatmentQuestion[];
+  /**
+   * Opcional: a profissional não entregou perguntas, e o bloco só é
+   * renderizado onde existe conteúdo. Os itens presentes ainda são rascunho.
+   */
+  perguntas?: TreatmentQuestion[];
   /** Rascunho provisório. Linha única do encerramento da página. */
   convite: string;
 };
@@ -95,10 +148,32 @@ const criarTiraDeDados = (): TreatmentDataItem[] => [
 ];
 
 const CONTEUDO_PREENCHIMENTO_LABIAL: TreatmentDraftContent = {
-  oQueE:
-    "O preenchimento labial é realizado com ácido hialurônico reabsorvível para ajustar aspectos como desenho, proporção e sustentação dos lábios. O planejamento pode priorizar definição, equilíbrio entre os lados ou relação com o restante do rosto, sem que o objetivo precise ser aumentar muito o volume. A quantidade e os pontos de aplicação dependem da anatomia e do resultado buscado.",
-  quandoIndicado:
-    "Pode ser considerado quando há perda de volume, lábios naturalmente finos, diferença entre os lados, pouca definição do contorno ou mudanças percebidas durante o sorriso. Antes de indicar, é importante observar o rosto em repouso e em movimento. Se o preenchimento não for capaz de responder à queixa, outra conduta deve ser discutida na avaliação.",
+  /*
+    Parágrafo único de propósito. A divisão anterior separava duas frases que
+    dizem a mesma coisa (valorizar/harmonizar e melhorar contorno, definição,
+    proporção e volume), então a quebra não carregava ideia nova e deixava uma
+    linha órfã. Nos outros procedimentos a quebra separa o que o procedimento
+    é do que ele muda, e por isso continua.
+  */
+  oQueE: {
+    paragraphs: [
+      "O preenchimento labial é feito com ácido hialurônico para valorizar e harmonizar os lábios, melhorando o contorno, a definição, a proporção e o volume.",
+    ],
+  },
+  quandoIndicado: {
+    paragraphs: ["Pode ser uma opção para quem deseja:"],
+    bullets: [
+      "deixar os lábios mais definidos",
+      "melhorar alguma diferença entre os lados",
+      "recuperar volume perdido",
+      "melhorar a proporção dos lábios com o rosto",
+      "ter mais volume ou sustentação",
+      "melhorar o formato dos lábios ao sorrir",
+    ],
+    afterBullets: [
+      "Cada pessoa tem uma anatomia diferente. Por isso, o resultado e a quantidade de produto são definidos de forma individual, de acordo com o rosto e o objetivo de cada paciente.",
+    ],
+  },
   perguntas: [
     {
       question: "Quanto tempo costuma durar o preenchimento labial?",
@@ -129,10 +204,21 @@ const CONTEUDO_PREENCHIMENTO_LABIAL: TreatmentDraftContent = {
 };
 
 const CONTEUDO_RINOMODELACAO: TreatmentDraftContent = {
-  oQueE:
-    "A rinomodelação utiliza preenchedor injetável para modificar pontos do contorno nasal sem cirurgia. O planejamento pode atuar na projeção da ponta, em pequenas irregularidades do dorso, em assimetrias discretas e na relação entre nariz e lábio. O resultado é temporário e acrescenta produto em áreas estratégicas; o procedimento não reduz estruturas do nariz.",
-  quandoIndicado:
-    "Pode ser considerada quando a queixa está relacionada ao contorno, como uma irregularidade discreta no dorso, ponta caída ou pequena assimetria. Não substitui cirurgia quando o objetivo é diminuir o nariz, estreitar a base, corrigir alterações respiratórias ou produzir uma mudança estrutural ampla. Por ser uma região vascular delicada, a indicação exige análise anatômica e de segurança especialmente cuidadosa.",
+  oQueE: {
+    paragraphs: [
+      "A rinomodelação é um procedimento feito sem cirurgia, com ácido hialurônico, para melhorar o formato do nariz.",
+      "Pode ajudar a corrigir pequenas imperfeições, melhorar o formato da ponta e deixar o nariz mais equilibrado com o restante do rosto.",
+    ],
+  },
+  quandoIndicado: {
+    paragraphs: ["Pode ser uma opção para quem deseja melhorar:"],
+    bullets: [
+      "pequenas diferenças no formato do nariz",
+      "uma pequena elevação ou queda da ponta",
+      "pequenas diferenças entre os lados",
+      "a harmonia entre o nariz, os lábios e o rosto",
+    ],
+  },
   perguntas: [
     {
       question: "Rinomodelação substitui rinoplastia?",
@@ -163,10 +249,23 @@ const CONTEUDO_RINOMODELACAO: TreatmentDraftContent = {
 };
 
 const CONTEUDO_TOXINA_BOTULINICA: TreatmentDraftContent = {
-  oQueE:
-    "A toxina botulínica reduz temporariamente a força de contração dos músculos nos pontos em que é aplicada. Como algumas linhas surgem ou se aprofundam pela repetição dos movimentos faciais, essa redução pode suavizar marcas existentes e ajudar a retardar sua progressão. O plano é definido a partir da expressão de cada pessoa, e não como uma aplicação igual para todo o rosto.",
-  quandoIndicado:
-    "Pode ser indicada quando as linhas de expressão começam a permanecer visíveis mesmo com o rosto em repouso ou quando determinados movimentos criam um aspecto que incomoda. Também pode fazer parte de estratégias preventivas em pessoas com musculatura muito ativa e de protocolos para regiões específicas. A escolha dos pontos e da dose depende da análise do movimento e dos objetivos individuais.",
+  oQueE: {
+    paragraphs: [
+      "A toxina botulínica reduz temporariamente a força dos músculos responsáveis por alguns movimentos do rosto.",
+      "Com isso, ajuda a suavizar as linhas de expressão e a prevenir que elas se tornem mais marcadas. A aplicação é planejada de acordo com os movimentos e as características de cada rosto.",
+    ],
+  },
+  quandoIndicado: {
+    paragraphs: ["É indicada para suavizar as linhas que aparecem com o movimento, principalmente:"],
+    bullets: [
+      "na testa",
+      "entre as sobrancelhas",
+      "ao redor dos olhos",
+    ],
+    afterBullets: [
+      "Também pode ser utilizada de forma preventiva, principalmente quando há movimentos muito intensos nessas regiões.",
+    ],
+  },
   perguntas: [
     {
       question: "Em quanto tempo o efeito começa a aparecer?",
@@ -197,10 +296,23 @@ const CONTEUDO_TOXINA_BOTULINICA: TreatmentDraftContent = {
 };
 
 const CONTEUDO_BIOESTIMULADOR: TreatmentDraftContent = {
-  oQueE:
-    "O bioestimulador de colágeno é um produto injetável pensado para estimular uma resposta gradual do próprio organismo. Diferentemente do preenchimento, sua finalidade principal não é criar volume imediato em um ponto específico, mas favorecer firmeza, sustentação e qualidade da pele ao longo das semanas seguintes.",
-  quandoIndicado:
-    "Pode ser considerado quando a principal queixa é perda de firmeza, flacidez leve a moderada ou mudança na qualidade da pele do rosto e de outras regiões avaliadas. Também pode ser combinado com outros recursos dentro de um plano por etapas. Em casos de flacidez avançada e excesso importante de pele, é necessário reconhecer que tratamentos injetáveis não oferecem o mesmo resultado de uma abordagem cirúrgica.",
+  oQueE: {
+    paragraphs: [
+      "O bioestimulador estimula o próprio organismo a produzir mais colágeno. Com o passar do tempo, isso pode melhorar a firmeza, a sustentação e a aparência da pele.",
+      "Diferente do preenchimento, o resultado acontece de forma gradual e natural, sem criar volume imediato.",
+    ],
+  },
+  quandoIndicado: {
+    paragraphs: ["É indicado principalmente para:"],
+    bullets: [
+      "flacidez leve a moderada",
+      "perda de firmeza",
+      "alterações na qualidade da pele",
+    ],
+    afterBullets: [
+      "O tratamento é definido de acordo com as necessidades de cada paciente e pode fazer parte de um plano de cuidados associado a outros procedimentos.",
+    ],
+  },
   perguntas: [
     {
       question: "Quando começam a aparecer os resultados?",
@@ -231,10 +343,16 @@ const CONTEUDO_BIOESTIMULADOR: TreatmentDraftContent = {
 };
 
 const CONTEUDO_PREENCHEDORES_FACIAIS: TreatmentDraftContent = {
-  oQueE:
-    "Preenchedores faciais são materiais injetáveis utilizados para acrescentar ou restaurar volume, suavizar sulcos e ajustar contornos em regiões específicas do rosto. O ácido hialurônico é uma das opções absorvíveis mais utilizadas, mas cada produto possui indicação própria. O planejamento deve considerar anatomia, proporções, qualidade dos tecidos e o efeito desejado em cada área.",
-  quandoIndicado:
-    "Podem ser considerados quando existe perda de volume, assimetria, pouca projeção ou um contorno que pode ser melhorado com acréscimo controlado de produto. Nem toda queixa facial é resolvida com preenchimento: flacidez importante, excesso de pele, alterações funcionais e expectativas incompatíveis com a técnica exigem outra abordagem ou encaminhamento.",
+  oQueE: {
+    paragraphs: [
+      "Preenchedores faciais são materiais injetáveis utilizados para acrescentar ou restaurar volume, suavizar sulcos e ajustar contornos em regiões específicas do rosto. O ácido hialurônico é uma das opções absorvíveis mais utilizadas, mas cada produto possui indicação própria. O planejamento deve considerar anatomia, proporções, qualidade dos tecidos e o efeito desejado em cada área.",
+    ],
+  },
+  quandoIndicado: {
+    paragraphs: [
+      "Podem ser considerados quando existe perda de volume, assimetria, pouca projeção ou um contorno que pode ser melhorado com acréscimo controlado de produto. Nem toda queixa facial é resolvida com preenchimento: flacidez importante, excesso de pele, alterações funcionais e expectativas incompatíveis com a técnica exigem outra abordagem ou encaminhamento.",
+    ],
+  },
   perguntas: [
     {
       question: "Todos os preenchimentos faciais são iguais?",
@@ -264,11 +382,21 @@ const CONTEUDO_PREENCHEDORES_FACIAIS: TreatmentDraftContent = {
   ],
 };
 
-const CONTEUDO_PREENCHIMENTO_QUEIXO: TreatmentDraftContent = {
-  oQueE:
-    "O preenchimento de queixo acrescenta volume em pontos planejados para modificar projeção, comprimento aparente e contorno do mento. Ele pode melhorar a leitura do perfil e a relação entre o terço inferior, os lábios e o nariz. Como o procedimento adiciona material, não altera a posição dos ossos nem substitui correções cirúrgicas ou funcionais quando elas são necessárias.",
-  quandoIndicado:
-    "Pode ser considerado em casos de queixo pouco projetado, contorno discreto, pequenas assimetrias ou desequilíbrio de proporção no perfil. A indicação precisa avaliar o rosto de frente e de lado, além da relação com a mandíbula e os lábios. Alterações estruturais importantes, queixas funcionais ou expectativas de redução não são resolvidas apenas com preenchimento.",
+const CONTEUDO_PREENCHIMENTO_MENTO: TreatmentDraftContent = {
+  oQueE: {
+    paragraphs: [
+      "O mento é a região do queixo. O preenchimento é feito com ácido hialurônico para valorizar seu formato e melhorar o equilíbrio do rosto.",
+      "Pode deixar o perfil mais harmônico, equilibrando a relação entre queixo, lábios e nariz.",
+    ],
+  },
+  quandoIndicado: {
+    paragraphs: ["Pode ser uma opção para quem deseja:"],
+    bullets: [
+      "mais definição no queixo",
+      "corrigir pequenas diferenças na região",
+      "deixar o rosto mais proporcional",
+    ],
+  },
   perguntas: [
     {
       question: "O que pode mudar com o preenchimento de queixo?",
@@ -299,10 +427,20 @@ const CONTEUDO_PREENCHIMENTO_QUEIXO: TreatmentDraftContent = {
 };
 
 const CONTEUDO_PREENCHIMENTO_MANDIBULA: TreatmentDraftContent = {
-  oQueE:
-    "O preenchimento de mandíbula utiliza produto injetável para acrescentar estrutura visual ao ângulo e à linha mandibular. O tratamento pode reforçar a transição entre rosto e pescoço, compensar pequenas diferenças entre os lados e melhorar a definição do terço inferior. Ele não remove gordura, não elimina excesso de pele e não produz o mesmo efeito de uma cirurgia de lifting.",
-  quandoIndicado:
-    "Pode ser considerado quando há perda leve ou moderada de definição, deficiência de volume, assimetria ou desejo de equilibrar o contorno inferior do rosto. A avaliação deve separar o que depende de estrutura óssea, volume, flacidez e gordura submentoniana. Quando o principal problema é excesso importante de pele ou tecido, acrescentar preenchedor pode não ser a escolha adequada.",
+  oQueE: {
+    paragraphs: [
+      "A mandíbula é a linha que separa o rosto do pescoço. O preenchimento com ácido hialurônico atua sobre esse contorno para defini-lo e valorizá-lo.",
+      "Pode deixar o rosto mais marcado e trazer mais equilíbrio para a região entre o queixo e o pescoço.",
+    ],
+  },
+  quandoIndicado: {
+    paragraphs: ["Pode ser uma opção para quem deseja:"],
+    bullets: [
+      "mais definição no contorno do rosto",
+      "corrigir pequenas diferenças na linha da mandíbula",
+      "melhorar a harmonia facial",
+    ],
+  },
   perguntas: [
     {
       question: "O preenchimento deixa o rosto necessariamente mais quadrado?",
@@ -332,11 +470,24 @@ const CONTEUDO_PREENCHIMENTO_MANDIBULA: TreatmentDraftContent = {
   ],
 };
 
-const CONTEUDO_PREENCHIMENTO_MACAS: TreatmentDraftContent = {
-  oQueE:
-    "O preenchimento das maçãs do rosto atua na região malar e no terço médio para acrescentar ou restaurar volume. Dependendo do plano, pode reforçar a projeção das bochechas, organizar transições do rosto e oferecer suporte visual a áreas próximas. O objetivo não é criar o mesmo formato em todas as pessoas, mas recuperar ou ajustar proporções de acordo com a anatomia.",
-  quandoIndicado:
-    "Pode ser considerado diante de perda de volume no terço médio, pouca projeção malar, assimetria ou alteração do contorno associada ao envelhecimento. A avaliação deve observar pele, compartimentos de gordura e estrutura óssea, porque nem todo aspecto de cansaço ou flacidez é resolvido apenas com volume nessa região.",
+const CONTEUDO_PREENCHIMENTO_MALAR: TreatmentDraftContent = {
+  oQueE: {
+    paragraphs: [
+      "A região malar é a das maçãs do rosto. O preenchimento devolve volume a essa área e destaca o seu contorno.",
+      "Pode deixar a face mais equilibrada e com aparência mais descansada.",
+    ],
+  },
+  quandoIndicado: {
+    paragraphs: ["Pode ser uma opção para quem percebe:"],
+    bullets: [
+      "perda de volume na região",
+      "bochechas pouco marcadas",
+      "mudanças no rosto com o passar do tempo",
+    ],
+    afterBullets: [
+      "O resultado deve ser delicado e respeitar o formato natural de cada rosto.",
+    ],
+  },
   perguntas: [
     {
       question: "Preencher as maçãs do rosto aumenta muito as bochechas?",
@@ -367,10 +518,23 @@ const CONTEUDO_PREENCHIMENTO_MACAS: TreatmentDraftContent = {
 };
 
 const CONTEUDO_PREENCHIMENTO_BIGODE_CHINES: TreatmentDraftContent = {
-  oQueE:
-    "O chamado bigode chinês é o sulco que se estende da lateral do nariz em direção ao canto da boca. O preenchimento pode suavizar essa dobra ao repor volume de forma direta ou ao fazer parte de um plano que trate também o suporte do terço médio. A meta costuma ser reduzir a profundidade sem apagar completamente uma linha que participa da expressão normal do rosto.",
-  quandoIndicado:
-    "Pode ser considerado quando o sulco nasolabial se torna mais profundo por perda de volume, características anatômicas ou envelhecimento dos tecidos. A indicação deve identificar se a principal causa está no próprio sulco, na região das bochechas ou na flacidez. Em excesso importante de pele ou quando o movimento é predominante, o preenchimento isolado pode ter alcance limitado.",
+  oQueE: {
+    paragraphs: [
+      "O bigode chinês é a linha que se forma entre o nariz e o canto da boca. O preenchimento pode suavizar essa marca, devolvendo volume e melhorando a harmonia do rosto.",
+      "O objetivo é reduzir a profundidade da linha, mantendo a naturalidade das expressões.",
+    ],
+  },
+  quandoIndicado: {
+    paragraphs: ["É indicado quando a marca está mais evidente por:"],
+    bullets: [
+      "perda de volume na região",
+      "formato do rosto",
+      "envelhecimento",
+    ],
+    afterBullets: [
+      "Em alguns casos, o melhor resultado pode ser obtido tratando outras regiões do rosto, e não apenas a linha.",
+    ],
+  },
   perguntas: [
     {
       question: "O preenchimento elimina totalmente o bigode chinês?",
@@ -400,11 +564,69 @@ const CONTEUDO_PREENCHIMENTO_BIGODE_CHINES: TreatmentDraftContent = {
   ],
 };
 
+/*
+  `oQueE` e `quandoIndicado` são texto da profissional. As `perguntas` foram
+  pesquisadas a pedido do usuário em 2026-09-01, no mesmo status de rascunho
+  das demais: pendentes de aprovação clínica.
+
+  A pergunta sobre tipos de olheira abre o bloco de propósito. Ela desdobra a
+  ressalva que a própria profissional escreveu — `Nem toda olheira precisa de
+  preenchimento` — em vez de contradizê-la.
+*/
+const CONTEUDO_PREENCHIMENTO_OLHEIRAS: TreatmentDraftContent = {
+  oQueE: {
+    paragraphs: [
+      "O preenchimento de olheiras pode repor o volume da região abaixo dos olhos.",
+      "Isso suaviza a aparência de algumas olheiras e melhora a transição entre a pálpebra e a bochecha.",
+    ],
+  },
+  quandoIndicado: {
+    paragraphs: [
+      "Pode ser indicado quando a olheira está relacionada principalmente à falta de volume e à profundidade da região.",
+      "Nem toda olheira precisa de preenchimento. Por isso, a avaliação é importante para identificar a causa e indicar o tratamento mais adequado.",
+    ],
+  },
+  perguntas: [
+    {
+      question: "Todo tipo de olheira melhora com preenchimento?",
+      answer:
+        "Não. As olheiras costumam ser descritas como vasculares, quando os vasos ficam visíveis sob uma pele fina; pigmentares, quando há acúmulo de melanina; e estruturais, quando existe perda de volume e a sombra vem da própria depressão da região. Muitas pessoas apresentam uma combinação delas. O preenchimento atua sobre o componente de volume, então a avaliação precisa identificar o que predomina antes de definir a conduta.",
+    },
+    {
+      question: "Quanto tempo costuma durar o resultado?",
+      answer:
+        "As estimativas mais citadas ficam entre seis e dezoito meses. Esse intervalo pode mudar conforme o metabolismo, o produto escolhido, a quantidade aplicada e os hábitos de cada pessoa. Uma nova aplicação deve ser decidida depois de reavaliar o que ainda permanece da anterior.",
+    },
+    {
+      question: "Quando o resultado fica estável?",
+      answer:
+        "A mudança já pode ser percebida logo após a aplicação, mas os primeiros dias incluem o inchaço esperado e a possibilidade de hematomas, comuns em uma região de pele fina. Esses sinais costumam ceder em poucos dias, e a avaliação do resultado mais estável acontece por volta de uma a duas semanas.",
+    },
+    {
+      question: "A região pode ficar com aparência azulada depois da aplicação?",
+      answer:
+        "Pode. Esse aspecto é conhecido como efeito Tyndall e acontece quando o produto fica posicionado de forma muito superficial em uma pele fina, alterando a maneira como a luz é refletida. A escolha do produto, a profundidade e a quantidade aplicada influenciam esse risco. Quando acontece, o ácido hialurônico pode ser dissolvido por uma enzima própria, sempre por indicação de profissional habilitado.",
+    },
+    {
+      question: "Há situações em que o procedimento deve ser adiado?",
+      answer:
+        "Gestação, amamentação, infecção ativa na região, alterações de coagulação, doenças autoimunes descompensadas, alergias e alguns medicamentos precisam ser informados durante a avaliação. Bolsas de gordura evidentes, excesso de pele e inchaço frequente na região também mudam a conduta, porque acrescentar produto pode acentuar esses aspectos em vez de suavizá-los.",
+    },
+  ],
+};
+
 const CONTEUDO_FIOS_PDO: TreatmentDraftContent = {
-  oQueE:
-    "Fios de PDO são suturas absorvíveis introduzidas sob a pele. Conforme o modelo utilizado, podem ter a função de apoiar ou reposicionar discretamente tecidos e provocar uma resposta local durante o período de absorção. O resultado é temporário, e a literatura ainda apresenta limitações sobre a intensidade e a duração do efeito de sustentação.",
-  quandoIndicado:
-    "Podem ser considerados em casos selecionados de flacidez leve e início de perda do contorno, quando a expectativa é de uma mudança discreta e não cirúrgica. Não são equivalentes a um lifting facial e tendem a ter alcance limitado diante de excesso de pele ou queda acentuada dos tecidos. A espessura da pele, a anatomia e a expectativa precisam ser avaliadas antes da indicação.",
+  oQueE: {
+    paragraphs: [
+      "Os fios de PDO são fios absorvíveis colocados sob a pele para dar suporte aos tecidos e melhorar o contorno facial.",
+      "O efeito é gradual e temporário, com resultado discreto e natural.",
+    ],
+  },
+  quandoIndicado: {
+    paragraphs: [
+      "Podem ser indicados para flacidez leve e para o início da perda de definição do rosto.",
+    ],
+  },
   perguntas: [
     {
       question: "Fios de PDO substituem um lifting cirúrgico?",
@@ -435,10 +657,23 @@ const CONTEUDO_FIOS_PDO: TreatmentDraftContent = {
 };
 
 const CONTEUDO_MICROAGULHAMENTO: TreatmentDraftContent = {
-  oQueE:
-    "O microagulhamento convencional utiliza um dispositivo com pequenas agulhas estéreis para produzir perfurações controladas na pele. Essa microlesão ativa processos de reparo e remodelação do tecido. Profundidade, velocidade e número de passadas variam conforme o equipamento, a região e o objetivo; microagulhamento com radiofrequência é outra tecnologia e possui riscos próprios.",
-  quandoIndicado:
-    "Pode ser considerado para melhorar a aparência de cicatrizes faciais de acne, rugas e alterações de textura em pacientes adequadamente avaliados. O procedimento não é indicado para todas as peles nem para qualquer fase de uma condição dermatológica. Infecção ativa, tendência a alterações de cicatrização, uso de determinados medicamentos e risco de mudança de pigmentação precisam ser investigados.",
+  oQueE: {
+    paragraphs: [
+      "O microagulhamento utiliza pequenas agulhas para fazer microperfurações controladas na pele, estimulando a sua renovação e a produção de colágeno.",
+      "Com o tempo, pode melhorar a textura, a aparência dos poros e algumas marcas da pele.",
+    ],
+  },
+  quandoIndicado: {
+    paragraphs: ["Pode ser indicado para:"],
+    bullets: [
+      "cicatrizes de acne",
+      "linhas finas",
+      "alterações na textura da pele",
+    ],
+    afterBullets: [
+      "A indicação é feita após avaliação, considerando as características e as necessidades de cada pele.",
+    ],
+  },
   perguntas: [
     {
       question: "Quantas sessões costumam ser necessárias?",
@@ -469,10 +704,23 @@ const CONTEUDO_MICROAGULHAMENTO: TreatmentDraftContent = {
 };
 
 const CONTEUDO_SKINBOOSTER: TreatmentDraftContent = {
-  oQueE:
-    "Skinbooster é um nome usado para protocolos de pequenas aplicações intradérmicas voltadas à qualidade da pele, frequentemente com formulações de ácido hialurônico. A proposta principal é melhorar hidratação, elasticidade, textura e linhas finas, com distribuição mais superficial e difusa do que a empregada em preenchimentos de projeção e contorno.",
-  quandoIndicado:
-    "Pode ser considerado quando a queixa predominante é ressecamento, perda de elasticidade, textura irregular, pouca luminosidade ou linhas finas. A indicação depende do produto, da área autorizada e da condição da pele. Ele não substitui preenchimento quando falta volume estrutural, nem tratamentos cirúrgicos quando existe excesso importante de pele.",
+  oQueE: {
+    paragraphs: [
+      "O skinbooster é feito com pequenas aplicações de ácido hialurônico na pele, com o objetivo de melhorar a hidratação, a textura e a elasticidade.",
+      "O resultado é uma pele com aparência mais hidratada, luminosa e bem cuidada.",
+    ],
+  },
+  quandoIndicado: {
+    paragraphs: ["Pode ser indicado para:"],
+    bullets: [
+      "pele ressecada ou sem viço",
+      "textura irregular",
+      "linhas finas",
+    ],
+    afterBullets: [
+      "É um tratamento voltado para a qualidade da pele, e não para dar volume ou mudar o contorno do rosto.",
+    ],
+  },
   perguntas: [
     {
       question: "Skinbooster dá volume ao rosto?",
@@ -521,9 +769,10 @@ const criarSubtipoPreenchedor = (
 
 /*
   A ordem define a alternância dos cards na Seção 3: índice par encosta na
-  borda direita, ímpar na esquerda. O traçado pontilhado do desktop foi
-  desenhado para esta sequência de seis; reordenar ou mudar a quantidade exige
-  refazer o `path` em `TreatmentsIntroSection`.
+  borda direita, ímpar na esquerda. O traçado pontilhado do desktop é derivado
+  da posição medida dos cards por `buildTreatmentRoute`, então reordenar ou
+  mudar a quantidade não quebra a linha — mas continua exigindo conferir a
+  seção, porque a alternância muda de lado a cada card.
 */
 export const treatments: Treatment[] = [
   {
@@ -532,9 +781,16 @@ export const treatments: Treatment[] = [
     description:
       "Planejamento de volume e definição facial com atenção às proporções de cada região.",
     subtypes: [
+      /*
+        `cardLabel` é só `Labial`: com `Preenchimento labial` o item quebrava
+        em duas linhas e desalinhava a primeira fileira da grade. O título do
+        card já diz `Preenchedores Faciais`, então repetir a palavra em cada
+        item não acrescentava nada. O nome completo continua no `title`, que é
+        o que a página interna exibe.
+      */
       criarSubtipoPreenchedor(
         "preenchimento-labial",
-        "Preenchimento labial",
+        "Labial",
         "Labial",
         "Preenchimento labial",
         CONTEUDO_PREENCHIMENTO_LABIAL,
@@ -547,11 +803,11 @@ export const treatments: Treatment[] = [
         CONTEUDO_RINOMODELACAO,
       ),
       criarSubtipoPreenchedor(
-        "preenchimento-de-queixo",
-        "Queixo",
-        "Queixo",
-        "Preenchimento de queixo",
-        CONTEUDO_PREENCHIMENTO_QUEIXO,
+        "preenchimento-de-mento",
+        "Mento",
+        "Mento",
+        "Preenchimento de mento",
+        CONTEUDO_PREENCHIMENTO_MENTO,
       ),
       criarSubtipoPreenchedor(
         "preenchimento-de-mandibula",
@@ -561,11 +817,11 @@ export const treatments: Treatment[] = [
         CONTEUDO_PREENCHIMENTO_MANDIBULA,
       ),
       criarSubtipoPreenchedor(
-        "preenchimento-das-macas-do-rosto",
-        "Maçãs do rosto",
-        "Maçãs do rosto",
-        "Preenchimento das maçãs do rosto",
-        CONTEUDO_PREENCHIMENTO_MACAS,
+        "preenchimento-de-malar",
+        "Malar",
+        "Malar",
+        "Preenchimento de malar",
+        CONTEUDO_PREENCHIMENTO_MALAR,
       ),
       criarSubtipoPreenchedor(
         "preenchimento-do-bigode-chines",
@@ -573,6 +829,13 @@ export const treatments: Treatment[] = [
         "Bigode chinês",
         "Preenchimento do bigode chinês",
         CONTEUDO_PREENCHIMENTO_BIGODE_CHINES,
+      ),
+      criarSubtipoPreenchedor(
+        "preenchimento-de-olheiras",
+        "Olheiras",
+        "Olheiras",
+        "Preenchimento de olheiras",
+        CONTEUDO_PREENCHIMENTO_OLHEIRAS,
       ),
     ],
     image: "/images/treatments/preenchimento-labial.webp",
@@ -588,7 +851,7 @@ export const treatments: Treatment[] = [
     slug: "toxina-botulinica",
     title: "Toxina Botulínica",
     description:
-      "Linhas de expressão suavizadas a partir de uma leitura individual do movimento facial.",
+      "Linhas de expressão mais suaves, preservando a naturalidade do rosto.",
     image: "/images/treatments/toxina-botulinica.webp",
     imageAlt: "Marcação da testa com lápis dermográfico antes da aplicação de toxina botulínica",
     oQueE: CONTEUDO_TOXINA_BOTULINICA.oQueE,
@@ -602,7 +865,7 @@ export const treatments: Treatment[] = [
     slug: "bioestimulador-de-colageno",
     title: "Bioestimulador de Colágeno",
     description:
-      "Cuidado gradual voltado à firmeza, à sustentação e à qualidade da pele.",
+      "Um cuidado gradual para melhorar a firmeza e a qualidade da pele.",
     image: "/images/treatments/bioestimulador-de-colageno.webp",
     imageAlt: "Perfil de pescoço e mandíbula em luz rasante, evidenciando firmeza de pele",
     oQueE: CONTEUDO_BIOESTIMULADOR.oQueE,
@@ -616,7 +879,7 @@ export const treatments: Treatment[] = [
     slug: "fios-de-pdo",
     title: "Fios de PDO",
     description:
-      "Suturas absorvíveis para suporte discreto dos tecidos, com indicação e limites cuidadosamente avaliados.",
+      "Uma opção não cirúrgica para melhorar a sustentação e o contorno do rosto.",
     image: "/images/treatments/fios-de-pdo.webp",
     imageAlt: "Leque de vetores marcados a lápis dermográfico a partir de um ponto no arco zigomático, indicando a direção de tração dos fios",
     oQueE: CONTEUDO_FIOS_PDO.oQueE,
@@ -630,7 +893,7 @@ export const treatments: Treatment[] = [
     slug: "microagulhamento",
     title: "Microagulhamento",
     description:
-      "Microperfurações controladas para estimular a renovação da pele em indicações bem definidas.",
+      "Um tratamento que estimula a renovação da pele e melhora sua aparência.",
     image: "/images/treatments/microagulhamento.webp",
     imageAlt: "Caneta de microagulhamento aplicada perpendicularmente à bochecha, cartucho em foco",
     oQueE: CONTEUDO_MICROAGULHAMENTO.oQueE,
@@ -644,7 +907,7 @@ export const treatments: Treatment[] = [
     slug: "skinbooster",
     title: "Skinbooster",
     description:
-      "Aplicações intradérmicas voltadas à hidratação, à elasticidade e à textura da pele.",
+      "Hidratação profunda para uma pele mais viçosa, uniforme e saudável.",
     image: "/images/treatments/skinbooster.webp",
     imageAlt: "Perfil com dedo em repouso na têmpora, evidenciando o brilho saudável da pele hidratada",
     oQueE: CONTEUDO_SKINBOOSTER.oQueE,

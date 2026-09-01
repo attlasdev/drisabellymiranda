@@ -21,3 +21,40 @@
   font-weight: 400;
   line-height: 1.7;
 }
+
+/*
+  Lista de tópicos. Herda o `gap` de `.block`, então não carrega margem
+  própria: o espaçamento entre a lista e os parágrafos vizinhos é o mesmo
+  que separa dois parágrafos.
+*/
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.375rem, 0.7vw, 0.625rem);
+  max-width: 64ch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  position: relative;
+  padding-left: 1.25rem;
+  color: var(--ip-ink-soft);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.item::before {
+  position: absolute;
+  top: 0.85em;
+  left: 0.3125rem;
+  width: 0.3125rem;
+  height: 0.3125rem;
+  border-radius: 50%;
+  background: currentcolor;
+  content: "";
+  opacity: 0.5;
+  transform: translateY(-50%);
+}

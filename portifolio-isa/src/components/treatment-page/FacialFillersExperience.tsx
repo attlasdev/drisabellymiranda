@@ -203,12 +203,21 @@ export function FacialFillersExperience({
               <PageProse heading="O que é" text={activeSubtype.oQueE} />
               <PageProse heading="Quando é indicado" text={activeSubtype.quandoIndicado} />
 
-              <hr className={internalStyles.divider} />
+              {/*
+                O bloco de perguntas some inteiro quando o subtipo não tem
+                conteúdo, e a divisória vai junto: sem isso o painel mostraria
+                dois traços colados ao trocar para um subtipo sem perguntas.
+              */}
+              {activeSubtype.perguntas?.length ? (
+                <>
+                  <hr className={internalStyles.divider} />
 
-              <TreatmentQuestions
-                items={activeSubtype.perguntas}
-                slug={`${treatmentSlug}-${activeSubtype.slug}`}
-              />
+                  <TreatmentQuestions
+                    items={activeSubtype.perguntas}
+                    slug={`${treatmentSlug}-${activeSubtype.slug}`}
+                  />
+                </>
+              ) : null}
 
               <hr className={internalStyles.divider} />
 

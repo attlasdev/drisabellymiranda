@@ -88,9 +88,15 @@
     pointer-events: none;
   }
 
+  /*
+    A linha subiu de 34% para 48% de opacidade a pedido do usuário. Os pontos
+    de origem e de fim acompanharam, de 46% para 58%, para continuarem lendo
+    como terminais do traçado: mantida a 46%, a linha ficaria praticamente da
+    mesma força que eles e a hierarquia do desenho se perderia.
+  */
   .routeLine {
     fill: none;
-    stroke: rgb(112 119 117 / 34%);
+    stroke: rgb(112 119 117 / 48%);
     stroke-width: 1.35;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -99,18 +105,18 @@
   }
 
   .routeOrigin {
-    fill: rgb(112 119 117 / 46%);
+    fill: rgb(112 119 117 / 58%);
   }
 
   .routeEnd {
     fill: none;
-    stroke: rgb(112 119 117 / 46%);
+    stroke: rgb(112 119 117 / 58%);
     stroke-width: 1.35;
     vector-effect: non-scaling-stroke;
   }
 
   .routeEndDot {
-    fill: rgb(112 119 117 / 46%);
+    fill: rgb(112 119 117 / 58%);
     stroke: none;
   }
 

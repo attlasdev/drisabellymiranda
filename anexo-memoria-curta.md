@@ -1,6 +1,6 @@
 # Memória curta — Portfólio Isabely
 
-Última atualização: `2026-08-23`.
+Última atualização: `2026-09-01`.
 
 Este arquivo é a retomada rápida após reset de contexto. O handoff técnico atual está em `portifolio-isa/docs/handoff/sessao-animacoes-concluida.md`.
 
@@ -53,14 +53,14 @@ Preservar o layout estático e os timings atuais. A partir daqui, o trabalho é 
 - Consulta: fotografia definitiva `DSC_9825.jpg`, servida pelo asset WebP lossless `isabelly-consulta-planejamento-9825-v2.webp`, pré-recortado exatamente em `7 / 9` e com os mesmos pixels decodificados da versão JPEG aprovada. A moldura original `560 × 720` não deve ser alterada e a imagem deve permanecer sem `scale` ou `translate`.
 - Resultados mobile: título de `40–44 px` em quatro linhas; cards abrem o modal por toda a sua área clicável.
 - FAQ e CTA final aprovados sem redesenho.
-- Footer mobile: marca e navegação lado a lado abaixo de `768 px`; Atendimentos e Social ocupam a largura completa abaixo. Altura em `390 px`: `1054 px`.
+- Footer mobile: marca e navegação lado a lado abaixo de `768 px`; Atendimentos e Social ocupam a largura completa abaixo. Altura em `390 px`: `1010 px` (era `1054 px` até o botão `Como chegar` ser ocultado em `2026-09-01`).
 - O desktop aprovado foi preservado; as adições desktop recentes são a rota pontilhada de Tratamentos, a interação dos cards de Resultados e o fundo contextual do CTA.
 
 ## Decisões de animação que não devem regredir
 
 - Hero desktop: cascata em camadas de monograma, navegação, título inteiro, descrição e CTA; fotografia visível desde o primeiro frame.
 - Hero mobile: monograma e menu entram primeiro; as cinco linhas do título entram em cascata, seguidas por descrição e CTA. A fotografia continua visível desde o primeiro frame para evitar flicker.
-- Seção 2: split por palavras com máscaras expandidas para não cortar acentos, cedilhas ou laterais das letras, incluindo a variante mobile.
+- Seção 2: split por palavras com máscaras expandidas nos **dois eixos** — vertical para acentos e cedilhas, horizontal para as laterais das letras. A folga horizontal precisa cobrir o `letter-spacing: -0.07em` antes de sobrar algo para o glifo; ver "Máscara horizontal da Seção 2".
 - Tratamentos: cabeçalho e cards usam variantes responsivas. A rota pontilhada é desenhada com scrub somente no desktop, fica atrás dos cards e é removida no mobile e em redução de movimento.
 - Resultados: cards inteiros entram por linha; ritmo desktop final `1.08 s` com stagger `0.17 s`.
 - FAQ: perguntas entram em sequência; ritmo desktop `0.7 s` com stagger `0.11 s`; acordeão abre suavemente.
@@ -72,9 +72,9 @@ Preservar o layout estático e os timings atuais. A partir daqui, o trabalho é 
 ## Pendências de conteúdo e destinos
 
 - WhatsApp: destino oficial ativo desde `2026-08-22` (`https://wa.me/5533988497305`, fonte única em `src/content/contact.ts`). Resta apenas confirmar o número com a responsável abrindo o link num aparelho real.
-- Link oficial do Google Maps; `Como chegar` continua desabilitado.
+- Link oficial do Google Maps. Em `2026-09-01` o botão `Como chegar` deixou de aparecer desabilitado e passou a ficar **oculto**, atrás de `showLocationPlaceholder: false` em `src/content/footer.ts`. Nada foi apagado: o JSX do estado desabilitado continua em `SiteFooter.tsx`. Assim que `locationHref` receber a URL do Maps, o botão real volta sozinho.
 - Copy final das sete perguntas e respostas do FAQ.
-- As `description` dos cinco tratamentos além de `toxina-botulinica` foram redigidas a partir do texto da profissional mas **ainda não têm aprovação dela** (ver comentário no topo de `src/content/treatments.ts`).
+- ~~As `description` dos cinco tratamentos além de `toxina-botulinica` foram redigidas a partir do texto da profissional.~~ **Superado em `2026-09-01`**: ver "Conteúdo dos tratamentos entregue pela profissional" abaixo. O que continua sem texto dela é `convite`, a `description` de `Preenchedores Faciais` e todas as `perguntas`.
 - Destino definitivo de `Conheça minha trajetória`.
 - Conteúdo real para as 11 posições restantes de cada uma das seis categorias do modal de Resultados (`66` posições provisórias no total).
 
@@ -204,6 +204,84 @@ Se o "sem redeploy" for desejado também para os 6, o caminho limpo é **revalid
 ### Pendência levantada e ainda não respondida
 
 Publicidade odontológica no Brasil tem restrição sobre divulgação de antes e depois, e a seção Resultados é construída sobre isso, com 66 posições reservadas. A regra vigente **não foi verificada** — precisa vir da Dra. Isabelly ou do CRO-MG. Se a resposta impedir, é melhor saber antes de alguém coletar e editar dezenas de fotos de pacientes, e antes de o bucket ser definido como público.
+
+## Conteúdo dos tratamentos entregue pela profissional (2026-09-01)
+
+A Dra. Isabelly enviou o texto dos procedimentos. Ele substituiu integralmente os rascunhos anteriores em `portifolio-isa/src/content/treatments.ts` — os que vinham das páginas de referência de outra profissional e da pesquisa em órgãos reguladores. **O texto dela é a versão de verdade a partir daqui.**
+
+O que mudou:
+
+- `oQueE` e `quandoIndicado` dos doze procedimentos passaram a ser texto dela, com a forma de dizer preservada. As únicas correções foram ortográficas (acentos ausentes em `mandibula`, `maças`, `chines`) e `Podendo melhorar` → `Pode melhorar` no bloco de labial, que era fragmento de frase.
+- As `description` dos cinco cards que não são guarda-chuva passaram a ser a linha de apresentação que ela escreveu para cada um.
+- **Renomeações pedidas por ela:** `Preenchimento de queixo` → `Preenchimento de mento`; `Preenchimento das maçãs do rosto` → `Preenchimento de malar`. O corpo do texto continua usando `queixo` e `maçãs do rosto`, porque foi assim que ela escreveu.
+- **Procedimento novo:** `Preenchimento de olheiras`, que virou o **sétimo** subtipo de `Preenchedores Faciais`. Ela o listou solto no fim do documento; foi agrupado por ser preenchimento regional. Vira um sétimo card se ela pedir, mas isso exige fotografia própria e revisão do ritmo da Seção 3.
+- O `cardLabel` de labial encolheu de `Preenchimento labial` para `Labial`: o nome longo quebrava em duas linhas e desalinhava a primeira fileira da grade do card. O nome completo continua no `title` da página interna.
+- As `perguntas` de `Preenchimento de olheiras` foram pesquisadas em `2026-09-01` a pedido do usuário, para o procedimento novo não ficar sem FAQ. Incluem o efeito Tyndall e a distinção entre olheira vascular, pigmentar e estrutural.
+
+Estrutura que mudou junto:
+
+- `oQueE` e `quandoIndicado` deixaram de ser `string` e passaram a ser `ProseSection` (`src/content/prose.ts`): parágrafos, lista de tópicos opcional e parágrafos depois da lista. Isso existe porque labial e rinomodelação vieram em tópicos, e achatar a lista perderia a leitura por varredura. `PageProse` renderiza as três partes; a forma `string` continua aceita e é o que `trajetoria.ts` usa.
+- `perguntas` virou opcional, e o bloco de FAQ só é renderizado quando há conteúdo — junto com a divisória, para a página não fechar com dois traços colados.
+
+O que **continua sem** texto dela e segue como rascunho: as `perguntas` dos onze primeiros procedimentos, todos os `convite` e a `description` de `Preenchedores Faciais` (que alimenta só a meta description, porque o card exibe a grade de subtipos).
+
+### Passada editorial (2026-09-01, mesma data)
+
+A pedido do usuário, o material foi lapidado na proporção **90% linguagem dela / 10% clareza**, sem acrescentar, remover ou alterar nenhuma afirmação clínica. O que mudou foi a forma:
+
+- A abertura passou a nomear o procedimento. Mento, mandíbula e malar usavam o mesmo molde (`Procedimento feito com ácido hialurônico para... melhorar o equilíbrio do rosto`) e, como ficam lado a lado no seletor, liam-se como o mesmo texto.
+- `Quando é indicado` virou lista onde ela escreveu enumeração corrida, unificando o formato. Antes labial tinha seis marcadores e mento uma frase solta, no mesmo cabeçalho.
+- Três frases inteiramente novas, e só três, todas definição anatômica ligando o termo técnico do título à palavra do dia a dia: `O mento é a região do queixo`, `A mandíbula é a linha que separa o rosto do pescoço`, `A região malar é a das maçãs do rosto`. **Pendentes do aval dela.**
+- `Fios de PDO` e `Preenchimento de olheiras` seguem em prosa de propósito: a indicação que ela deu é uma condição só, e listar seria encher linguiça.
+
+### Regra de escrita fixada (2026-09-01)
+
+**Não usar travessão (`—`) em texto visível.** Decisão do usuário: denuncia texto de IA, principalmente quando aparece em toda explicação. Verificado que o conteúdo dos tratamentos nunca teve nenhum. Os únicos travessões visíveis do site são as assinaturas de depoimento em Resultados (`— Nome`), que são convenção de atribuição de citação e ficaram de fora por ora.
+
+### Decisões de conteúdo tomadas em 2026-09-01
+
+- **FAQ dos procedimentos (`Perguntas que chegam antes da avaliação`): validado, não mexer.** O usuário decidiu que as perguntas atuais bastam, porque são dúvidas reais que chegam a qualquer profissional da área, e não só a ela. Não tratar mais como pendência.
+- **Tira de dados: encerrada como "não publicar".** Duração, anestesia, retorno e durabilidade não vão ao site. Motivo: número de sessões e prazo dependem da avaliação presencial, e publicá-los atrapalha esse fluxo. Verificado que `tiraDeDados` **não é lida por nenhum componente**, então já é dado morto no arquivo; não é preciso remover.
+- **Ponto em aberto ligado às duas decisões acima:** 13 das 60 respostas visíveis do FAQ trazem prazo ou número de sessões explícito (labial `seis e doze meses`, toxina `três a quatro meses`, bioestimulador `duas ou três sessões`, skinbooster `três aplicações`, olheiras `seis e dezoito meses`, entre outras). Ou seja, o número que a decisão da tira de dados quis evitar continua publicado dentro do FAQ que foi validado. O usuário foi informado e a escolha entre manter tudo, tirar só as duas de número de sessões, ou reescrever as 13 sem número **ainda não foi feita**.
+
+Verificado: `tsc`, `lint` e `build` limpos; grade de sete itens conferida em desktop e em `390 px`, sem overflow e com o conteúdo dentro do card.
+
+## Máscara horizontal da Seção 2 (2026-09-01)
+
+As máscaras do split por palavras eram expandidas **só na vertical** (`paddingTop`/`paddingBottom` de `0.24em` com margens negativas iguais). Faltava a folga horizontal, e as laterais das letras cortavam de leve.
+
+Causa: `.statement` usa `letter-spacing: -0.07em`. O espaçamento negativo também encolhe o espaço **depois da última letra**, então a caixa da palavra fica mais estreita que a tinta do glifo final e o `overflow: hidden` da máscara corta a lateral.
+
+Correção nas duas variantes de `SmoothScroll.tsx` (desktop e mobile): `paddingLeft`/`paddingRight` de `0.14em` com `marginLeft`/`marginRight` de `-0.14em`. Como a margem anula a folga, a caixa de layout mantém a medida exata da palavra e as quebras de linha e a centralização não mudam.
+
+Medido depois: folga lateral de `4,75 px` em `390 px`, dos quais `2,37 px` (`0.07em`) sobram além do que o `letter-spacing` consome — cerca de cinco vezes o transbordo típico de letras redondas. Sem overflow horizontal na página.
+
+**Não reduzir esse valor sem medir.** A folga precisa cobrir o `letter-spacing` negativo antes de sobrar qualquer coisa para o glifo.
+## Ajustes de interface (2026-09-01)
+
+**Colunas dos subtipos no card de Preenchedores.** A grade usava `1fr 1fr`, então cada coluna ocupava metade fixa da área de texto. Isso funcionava enquanto o primeiro rótulo era `Preenchimento labial` e preenchia a coluna. Depois de encurtar os rótulos, o texto mais longo da esquerda terminava em `60 px` e a coluna direita só começava em `141 px`: vão real de `81 px` contra os `15 px` que o `column-gap` pedia. Passou a `repeat(2, minmax(0, max-content))`, com gutter próprio de `clamp(1.25rem, 2vw, 2.25rem)` no desktop e `1.375rem` no mobile. Vão medido depois: `24 px` no desktop e `22 px` em `390 px`. O `minmax(0, ...)` existe para um rótulo longo voltar a caber sem estourar o card.
+
+**Opacidade do traçado da Seção 3.** A linha subiu de `34%` para `48%`. Os pontos de origem e fim acompanharam, de `46%` para `58%`, senão a linha ficaria com a mesma força dos terminais e a hierarquia do desenho se perderia.
+
+**`O que é` do Preenchimento labial virou parágrafo único.** A divisão anterior separava duas frases que diziam a mesma coisa, então a quebra não carregava ideia nova e deixava linha órfã. Nos outros procedimentos a quebra separa o que o procedimento é do que ele muda, e por isso continua.
+
+## Armadilhas de verificação neste projeto (2026-09-01)
+
+Quatro erros de medição que custaram rodadas nesta sessão. Conferir aqui antes de confiar numa verificação.
+
+**1. Medir texto dentro de uma grade devolve a largura da coluna.** Um `<li>` filho de `display: grid` estica por `justify-self: stretch`, então `li.getBoundingClientRect()` dá a largura da COLUNA, não a do texto. Isso me fez concluir que o vão entre as colunas do card era de `15 px` quando o vão real era `81 px`. Para medir a tinta:
+
+```js
+const r = document.createRange();
+r.selectNodeContents(li);
+r.getBoundingClientRect(); // agora sim, a caixa do texto
+```
+
+**2. Trocar o subtipo por `.click()` e ler no mesmo instante devolve o conteúdo antigo.** `FacialFillersExperience` faz fade-out de `0.18 s` e só chama `setActiveSlug` no `onComplete`, então a leitura precisa esperar (~1,5 s) ou ser feita por screenshot. Ler cedo três vezes seguidas me fez achar que os cliques não estavam funcionando, quando estavam.
+
+**3. Scroll programático no desktop mata as revelações.** `scrollIntoView` e `window.scrollTo` pulam os ScrollTriggers do ScrollSmoother: a seção aparece em branco porque os elementos ficam em `opacity: 0`, e parece bug de layout quando é artefato da verificação. Rolar como usuário (evento de roda) ou a conferência vira falso negativo. No mobile o `window.scrollTo` funciona, porque ali o scroll é nativo e não há ScrollSmoother.
+
+**4. `document.querySelector('footer')` não pega o rodapé do site.** Os cards de depoimento em Resultados usam `<footer>` para a assinatura do autor, então existem 7 elementos `footer` na home. O do site é o último.
 
 ## Ordem macro restante
 

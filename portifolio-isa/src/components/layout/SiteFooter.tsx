@@ -88,12 +88,18 @@ export function SiteFooter({ hrefBase = "" }: SiteFooterProps) {
                   aria-hidden="true"
                 />
               </a>
-            ) : (
+            ) : footerContent.showLocationPlaceholder ? (
+              /*
+                Estado desabilitado, hoje oculto por `showLocationPlaceholder`.
+                Mantido de propósito: sem destino do Google Maps, o botão não
+                tem o que oferecer, mas o markup volta trocando a flag em
+                `content/footer.ts`.
+              */
               <button
                 className={styles.locationButton}
                 type="button"
                 disabled
-                aria-label={`${footerContent.locationLabel} — link ainda não disponível`}
+                aria-label={`${footerContent.locationLabel}, link ainda não disponível`}
               >
                 <span>{footerContent.locationLabel}</span>
                 <ArrowUpRightIcon
@@ -102,7 +108,7 @@ export function SiteFooter({ hrefBase = "" }: SiteFooterProps) {
                   aria-hidden="true"
                 />
               </button>
-            )}
+            ) : null}
           </div>
 
           <div className={styles.social} aria-label="Rede social" data-footer-group>

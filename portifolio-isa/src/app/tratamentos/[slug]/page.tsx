@@ -74,9 +74,18 @@ export default async function TreatmentPage({ params }: TreatmentPageProps) {
                 <PageProse heading="O que é" text={treatment.oQueE} />
                 <PageProse heading="Quando é indicado" text={treatment.quandoIndicado} />
 
-                <hr className={styles.divider} />
+                {/*
+                  O bloco de perguntas some inteiro quando não há conteúdo, e a
+                  divisória vai junto: sem isso a página fecharia com dois
+                  traços colados e um vazio entre eles.
+                */}
+                {treatment.perguntas?.length ? (
+                  <>
+                    <hr className={styles.divider} />
 
-                <TreatmentQuestions items={treatment.perguntas} slug={treatment.slug} />
+                    <TreatmentQuestions items={treatment.perguntas} slug={treatment.slug} />
+                  </>
+                ) : null}
 
                 <hr className={styles.divider} />
 

@@ -192,12 +192,29 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
         let statementReveal: gsap.core.Tween | null = null;
 
         if (split && statementHeading) {
+          /*
+            Cada folga é anulada por uma margem negativa de mesmo valor, então
+            a caixa de layout continua com a medida exata da palavra: as
+            quebras de linha e a centralização não mudam.
+
+            Vertical: acentos e cedilhas ultrapassam a altura da linha.
+
+            Horizontal: `.statement` usa `letter-spacing: -0.07em`, que também
+            encolhe o espaço depois da última letra. A largura da palavra fica
+            menor que a tinta do glifo final e `overflow: hidden` corta a
+            lateral. `0.14em` cobre esse recuo e ainda sobra folga para as letras
+            redondas, que passam um pouco da origem dos dois lados.
+          */
           gsap.set(split.masks, {
             overflow: "hidden",
             paddingTop: "0.24em",
             paddingBottom: "0.24em",
             marginTop: "-0.24em",
             marginBottom: "-0.24em",
+            paddingLeft: "0.14em",
+            paddingRight: "0.14em",
+            marginLeft: "-0.14em",
+            marginRight: "-0.14em",
           });
           gsap.set(split.words, { yPercent: 150, autoAlpha: 0 });
 
@@ -277,12 +294,17 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
             : null;
 
           if (split && statementHeading) {
+            /* Mesma folga da variante desktop; a explicação está lá. */
             gsap.set(split.masks, {
               overflow: "hidden",
               paddingTop: "0.24em",
               paddingBottom: "0.24em",
               marginTop: "-0.24em",
               marginBottom: "-0.24em",
+              paddingLeft: "0.14em",
+              paddingRight: "0.14em",
+              marginLeft: "-0.14em",
+              marginRight: "-0.14em",
             });
             gsap.set(split.words, { yPercent: 150, autoAlpha: 0 });
 

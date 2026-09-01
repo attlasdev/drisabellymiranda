@@ -79,10 +79,23 @@
   letter-spacing: 0;
 }
 
+/*
+  Colunas dimensionadas pelo conteúdo, não em `1fr`.
+
+  Com `1fr` cada coluna ocupava metade fixa da área de texto. Isso funcionava
+  quando o primeiro item era `Preenchimento labial` e preenchia a coluna
+  inteira. Depois que os rótulos encurtaram (`Labial`, `Mento`, `Malar`,
+  `Olheiras`), o texto mais longo da esquerda passava a terminar em 60 px
+  enquanto a coluna direita só começava em 141 px: um vão de 81 px, contra os
+  15 px de gutter que o `column-gap` pede.
+
+  `minmax(0, max-content)` faz a coluna encolher até o conteúdo e ainda
+  permite quebra se um rótulo longo voltar, sem estourar a largura do card.
+*/
 .subtypes {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: clamp(0.75rem, 1.25vw, 1.5rem);
+  grid-template-columns: repeat(2, minmax(0, max-content));
+  column-gap: clamp(1.25rem, 2vw, 2.25rem);
   row-gap: clamp(0.25rem, 0.4167vw, 0.5rem);
   width: 100%;
   margin: clamp(0.625rem, 0.8333vw, 1rem) 0 0;
@@ -191,7 +204,8 @@
   }
 
   .subtypes {
-    column-gap: 0.75rem;
+    /* Gutter próprio: com colunas de `max-content`, 0.75rem colava as duas. */
+    column-gap: 1.375rem;
     row-gap: 0.25rem;
     max-width: 19rem;
     margin-top: 0.5rem;
